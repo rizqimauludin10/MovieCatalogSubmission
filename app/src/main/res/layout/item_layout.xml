@@ -32,5 +32,4 @@
         android:maxLines="3"
         android:text="@string/movie_desc" />
 
-
 </RelativeLayout>
