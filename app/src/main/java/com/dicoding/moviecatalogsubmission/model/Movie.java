@@ -3,12 +3,13 @@ package com.dicoding.moviecatalogsubmission.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Movie {
+public class Movie implements Parcelable {
     private String movieTittle;
     private int moviePoster;
     private String movieDate;
     private String movieDesc;
     private String movieRate;
+
 
     public String getMovieTittle() {
         return movieTittle;
@@ -49,22 +50,26 @@ public class Movie {
     public void setMovieRate(String movieRate) {
         this.movieRate = movieRate;
     }
-/*
+
+    public Movie() {
+
+    }
+    
     protected Movie(Parcel parcel){
-        movieTittle = parcel.readString();
-        movieDesc = parcel.readString();
-        moviePoster = parcel.readInt();
-        movieDate = parcel.readString();
-        movieRate = parcel.readString();
+        this.movieTittle = parcel.readString();
+        this.movieDesc = parcel.readString();
+        this.moviePoster = parcel.readInt();
+       /* movieDate = parcel.readString();
+        movieRate = parcel.readString();*/
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(movieTittle);
-        dest.writeString(movieDesc);
-        dest.writeInt(moviePoster);
-        dest.writeString(movieDate);
-        dest.writeString(movieRate);
+        dest.writeString(this.movieTittle);
+        dest.writeString(this.movieDesc);
+        dest.writeInt(this.moviePoster);
+        /*dest.writeString(movieDate);
+        dest.writeString(movieRate);*/
     }
 
     @Override
@@ -82,5 +87,5 @@ public class Movie {
         public Movie[] newArray(int size) {
             return new Movie[size];
         }
-    };*/
+    };
 }

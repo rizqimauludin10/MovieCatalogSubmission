@@ -2,16 +2,21 @@ package com.dicoding.moviecatalogsubmission;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dicoding.moviecatalogsubmission.adapter.MovieAdapter;
 import com.dicoding.moviecatalogsubmission.model.Movie;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private MovieAdapter movieAdapter;
     private String[] dataTittle;
@@ -31,7 +36,19 @@ public class MainActivity extends AppCompatActivity {
         prepare();
         addItem();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_MOVIE, movieArrayList.get(position));
+                startActivity(intent);
+                //Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
+
+
 
     private void addItem(){
         movieArrayList = new ArrayList<>();
@@ -53,4 +70,5 @@ public class MainActivity extends AppCompatActivity {
         dataPoster = getResources().obtainTypedArray(R.array.data_photo);
 
     }
+
 }
