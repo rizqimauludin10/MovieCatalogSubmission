@@ -59,8 +59,8 @@ public class Movie implements Parcelable {
         this.movieTittle = parcel.readString();
         this.movieDesc = parcel.readString();
         this.moviePoster = parcel.readInt();
-       /* movieDate = parcel.readString();
-        movieRate = parcel.readString();*/
+        this.movieDate = parcel.readString();
+        this.movieRate = parcel.readString();
     }
 
     @Override
@@ -68,8 +68,8 @@ public class Movie implements Parcelable {
         dest.writeString(this.movieTittle);
         dest.writeString(this.movieDesc);
         dest.writeInt(this.moviePoster);
-        /*dest.writeString(movieDate);
-        dest.writeString(movieRate);*/
+        dest.writeString(this.movieDate);
+        dest.writeString(this.movieRate);
     }
 
     @Override

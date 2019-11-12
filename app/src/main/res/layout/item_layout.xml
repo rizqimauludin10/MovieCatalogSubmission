@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:padding="16dp">
 
     <ImageView
@@ -10,26 +12,41 @@
         android:layout_height="150dp"
         android:scaleType="fitXY" />
 
-    <TextView
-        android:id="@+id/tv_movieTittle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_toEndOf="@id/iv_moviePoster"
-        android:text="@string/movie_tittle"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_movieDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_movieTittle"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/iv_moviePoster"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="@string/movie_desc" />
+        <TextView
+            android:id="@+id/tv_movieTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:text="@string/movie_tittle"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_movieRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/movie_rate"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_movieDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/movie_desc" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

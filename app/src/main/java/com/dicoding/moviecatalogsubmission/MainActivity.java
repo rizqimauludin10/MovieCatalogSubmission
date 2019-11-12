@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity{
 
     private MovieAdapter movieAdapter;
     private String[] dataTittle;
+    private String[] dataDate;
     private String[] dataDesc;
+    private String[] dataRate;
     private TypedArray dataPoster;
     private ArrayList<Movie> movieArrayList;
 
@@ -42,13 +44,9 @@ public class MainActivity extends AppCompatActivity{
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra(DetailActivity.EXTRA_MOVIE, movieArrayList.get(position));
                 startActivity(intent);
-                //Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
 
     private void addItem(){
         movieArrayList = new ArrayList<>();
@@ -57,17 +55,24 @@ public class MainActivity extends AppCompatActivity{
             Movie movie = new Movie();
             movie.setMoviePoster(dataPoster.getResourceId(i, -1));
             movie.setMovieTittle(dataTittle[i]);
+            movie.setMovieDate(dataDate[i]);
             movie.setMovieDesc(dataDesc[i]);
+            movie.setMovieRate(dataRate[i]);
             movieArrayList.add(movie);
         }
 
         movieAdapter.setMovies(movieArrayList);
+        //movieAdapter.notifyDataSetChanged();
+        //movieAdapter =  new MovieAdapter(this, movieArrayList);
+
     }
 
     private void prepare() {
         dataTittle = getResources().getStringArray(R.array.data_name);
         dataDesc = getResources().getStringArray(R.array.data_description);
         dataPoster = getResources().obtainTypedArray(R.array.data_photo);
+        dataRate = getResources().getStringArray(R.array.data_rate);
+        dataDate = getResources().getStringArray(R.array.data_date);
 
     }
 

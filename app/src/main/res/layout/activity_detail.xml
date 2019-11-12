@@ -10,20 +10,51 @@
     <ImageView
         android:id="@+id/iv_posterDetail"
         android:layout_width="200dp"
-        android:layout_height="250dp"
-        android:scaleType="fitXY"/>
+        android:layout_height="300dp"
+        android:src="@drawable/poster_venom"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/movie_poster" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_tittleDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_tittle"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <!--<TextView
+            android:id="@+id/tv_dateDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:text="2018"
+            android:lines="2"
+            android:layout_marginLeft="5dp"
+            android:textSize="18sp"/>-->
+
+    </LinearLayout>
+
 
     <TextView
-        android:id="@+id/tv_tittleDetail"
+        android:id="@+id/tv_rateDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/movie_tittle"
-        android:textSize="20sp"/>
+        android:text="4.7"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/tv_descDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/movie_desc"
-        android:textSize="18sp"/>
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"/>
 </LinearLayout>
