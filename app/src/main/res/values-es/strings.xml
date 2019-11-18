@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">MovieCatalogSubmission</string>
+    <string name="movie_tittle">How to Train Your Dragon: The Hidden World</string>
+    <string name="movie_rate">4.7</string>
+    <string name="movie_desc">Lorem</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="menu_language">Idioma</string>
+    <string name="language_eg">Inglesa</string>
+    <string name="language_es">España</string>
+    <string name="tab_movie">Películas</string>
+    <string name="tab_tvshows">Programa de televisión</string>
+
+    <string-array name="data_name">
+        <item>Aquaman</item>
+        <item>Avengers: Infinity War</item>
+        <item>Bohemian Rhapsody</item>
+        <item>Bumblebee</item>
+        <item>How to Train Your Dragon: The Hidden World</item>
+        <item>Robin Hood</item>
+        <item>Spider-Man: Into the Spider-Verse</item>
+        <item>The Girl in the Spiders Web</item>
+        <item>The Mule</item>
+        <item>Venom</item>
+    </string-array>
+
+    <string-array name="data_description">
+        <item>Una vez hogar de la civilización más avanzada de la Tierra, Atlantis es ahora un reino submarino gobernado por el rey Orm, hambriento de poder. Con un vasto ejército a su disposición, Orm planea conquistar a las personas oceánicas restantes y luego al mundo de la superficie. Se interpone en su camino Arthur Curry, el hermano mitad humano, mitad atlante de Orm y verdadero heredero al trono.</item>
+        <item>A medida que los Vengadores y sus aliados han continuado protegiendo al mundo de amenazas demasiado grandes para que cualquier héroe pueda manejarlas, un nuevo peligro surgió de las sombras cósmicas: Thanos. Un déspota de la infamia intergaláctica, su objetivo es recolectar las seis Piedras Infinitas, artefactos de poder inimaginable, y usarlas para infligir su retorcida voluntad en toda la realidad. Todo por lo que los Vengadores han luchado ha llevado a este momento: el destino de la Tierra y la existencia misma nunca ha sido más incierto.</item>
+        <item>El cantante Freddie Mercury, el guitarrista Brian May, el baterista Roger Taylor y el bajista John Deacon conmocionan el mundo de la música cuando forman la banda de rock and roll Queen en 1970. Las canciones exitosas se convierten en clásicos instantáneos. Cuando el estilo de vida cada vez más salvaje de Mercurio comienza a descontrolarse, Queen pronto enfrenta su mayor desafío: encontrar una manera de mantener a la banda unida en medio del éxito y el exceso.</item>
+        <item>Huyendo en el año 1987, Bumblebee encuentra refugio en un depósito de chatarra en una pequeña ciudad costera de California. Charlie, a punto de cumplir 18 años y tratar de encontrar su lugar en el mundo, descubre a Bumblebee, destrozada por la batalla y destrozada. Cuando Charlie lo revive, rápidamente se da cuenta de que este no es un insecto VW amarillo común.</item>
+        <item>Cuando Hiccup cumple su sueño de crear una utopía pacífica de dragones, el descubrimiento de Toothless de un compañero salvaje y evasivo atrae a la Furia Nocturna. Cuando el peligro aumenta en casa y se prueba el reinado de Hipo como jefe de la aldea, tanto el dragón como el jinete deben tomar decisiones imposibles para salvar a su especie.</item>
+        <item>Un cruzado endurecido por la guerra y su comandante moro montan una audaz revuelta contra la corrupta corona inglesa.</item>
+        <item>Miles Morales está haciendo malabarismos con su vida entre ser un estudiante de secundaria y ser un hombre araña. Cuando Wilson "Kingpin" Fisk usa un súper colisionador, otros del otro lado del Spider-Verse son transportados a esta dimensión.</item>
+        <item>En Estocolmo, Suecia, el pirata informático Lisbeth Salander es contratado por Frans Balder, un ingeniero informático, para recuperar un programa que cree que es demasiado peligroso para existir.</item>
+        <item>Earl Stone, un hombre de unos ochenta años, está en bancarrota, solo, y enfrenta una ejecución hipotecaria de su negocio cuando le ofrecen un trabajo que simplemente requiere que conduzca. Es bastante fácil, pero, sin que Earl lo sepa, acaba de firmar como mensajero de drogas para un cartel mexicano. Lo hace tan bien que su carga aumenta exponencialmente, y Earl golpeó el radar del agente de la DEA Colin Bates.</item>
+        <item>El periodista de investigación Eddie Brock intenta un regreso después de un escándalo, pero accidentalmente se convierte en el anfitrión de Venom, un simbionte alienígena violento y súper poderoso. Pronto, debe confiar en sus poderes recién descubiertos para proteger al mundo de una organización oscura que busca un simbionte propio.
+</item>
+    </string-array>
+
+    <array name="data_photo">
+        <item>@drawable/poster_aquaman</item>
+        <item>@drawable/poster_avengerinfinity</item>
+        <item>@drawable/poster_bohemian</item>
+        <item>@drawable/poster_bumblebee</item>
+        <item>@drawable/poster_dragon</item>
+        <item>@drawable/poster_robinhood</item>
+        <item>@drawable/poster_spiderman</item>
+        <item>@drawable/poster_thegirl</item>
+        <item>@drawable/poster_themule</item>
+        <item>@drawable/poster_venom</item>
+    </array>
+
+    <string-array name="data_rate">
+        <item>4.2</item>
+        <item>4.8</item>
+        <item>4.6</item>
+        <item>4.3</item>
+        <item>4.7</item>
+        <item>4.1</item>
+        <item>4.8</item>
+        <item>4.7</item>
+        <item>4.5</item>
+        <item>4.4</item>
+    </string-array>
+
+    <string-array name="data_date">
+        <item>(2019)</item>
+        <item>(2018)</item>
+        <item>(2019)</item>
+        <item>(2018)</item>
+        <item>(2019)</item>
+        <item>(2018)</item>
+        <item>(2018)</item>
+        <item>(2018)</item>
+        <item>(2018)</item>
+        <item>(2018)</item>
+    </string-array>
+
+</resources>

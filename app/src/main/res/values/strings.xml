@@ -4,6 +4,11 @@
     <string name="movie_rate">4.7</string>
     <string name="movie_desc">Lorem</string>
     <string name="movie_poster">Movie Poster</string>
+    <string name="menu_language">Language</string>
+    <string name="language_eg">English</string>
+    <string name="language_es">Spain</string>
+    <string name="tab_movie">Movies</string>
+    <string name="tab_tvshows">Tv Show</string>
 
     <string-array name="data_name">
         <item>Aquaman</item>
