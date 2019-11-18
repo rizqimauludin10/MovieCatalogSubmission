@@ -9,6 +9,7 @@
     <string name="language_es">España</string>
     <string name="tab_movie">Películas</string>
     <string name="tab_tvshows">Programa de televisión</string>
+    <string name="ToolbarTittle">Catálogo de películas</string>
 
     <string-array name="data_name">
         <item>Aquaman</item>

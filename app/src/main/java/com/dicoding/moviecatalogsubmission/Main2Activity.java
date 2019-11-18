@@ -7,23 +7,16 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dicoding.moviecatalogsubmission.Utils.LocaleHelper;
 import com.dicoding.moviecatalogsubmission.Utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
 import com.dicoding.moviecatalogsubmission.adapter.TabPagerAdapter;
 import com.dicoding.moviecatalogsubmission.fragment.MovieList_Fragment;
 import com.dicoding.moviecatalogsubmission.fragment.TvList_Fragment;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -51,16 +44,14 @@ public class Main2Activity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
         adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
 
-        //addFragmentHere
         adapter.AddFragment(new MovieList_Fragment(), getResources().getString(R.string.tab_movie));
         adapter.AddFragment(new TvList_Fragment(), getResources().getString(R.string.tab_tvshows));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(getResources().getString(R.string.ToolbarTittle));
     }
 
     @Override
@@ -76,7 +67,6 @@ public class Main2Activity extends AppCompatActivity {
         if (id==R.id.language) {
             Intent intent = new Intent(Main2Activity.this, LanguangeActivity.class);
             startActivity(intent);
-
         }
         return super.onOptionsItemSelected(item);
     }

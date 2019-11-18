@@ -9,6 +9,7 @@
     <string name="language_es">Spain</string>
     <string name="tab_movie">Movies</string>
     <string name="tab_tvshows">Tv Show</string>
+    <string name="ToolbarTittle">Movie Catalog</string>
 
     <string-array name="data_name">
         <item>Aquaman</item>

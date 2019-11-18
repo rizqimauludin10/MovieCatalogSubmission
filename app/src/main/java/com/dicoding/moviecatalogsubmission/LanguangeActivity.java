@@ -4,24 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.dicoding.moviecatalogsubmission.Utils.LocaleHelper;
 import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
-
-import java.util.Locale;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.widget.RadioGroup.*;
 
@@ -49,7 +39,6 @@ public class LanguangeActivity extends AppCompatActivity {
         radioGroupLg = findViewById(R.id.rg_language);
         rb_Eg = findViewById(R.id.lg_eg);
         rb_Es = findViewById(R.id.lg_es);
-        bt = findViewById(R.id.btn);
 
         if (saveLang.equals("es")){
             rb_Es.setChecked(true);
@@ -57,15 +46,6 @@ public class LanguangeActivity extends AppCompatActivity {
             rb_Eg.setChecked(true);
         }
 
-
-
-        bt.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //LocaleHelper.setLocale(LanguangeActivity.this, mLanguageCode);
-                //recreate();
-            }
-        });
 
         radioGroupLg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
