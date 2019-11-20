@@ -1,7 +1,5 @@
 package com.dicoding.moviecatalogsubmission;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +7,21 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.dicoding.moviecatalogsubmission.Utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
 
-import static android.widget.RadioGroup.*;
+import static android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class LanguangeActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
     private RadioGroup radioGroupLg;
     private RadioButton rb_Eg, rb_Es;
     private Button bt;
     private String mLanguageCode;
     private String saveLang;
+    private LocaleHelperUtils localeHelperUtils;
     Context context;
     SharedPrefManager sharedPrefManager;
 
@@ -30,11 +31,10 @@ public class LanguangeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_languange);
 
-        sharedPrefManager = new SharedPrefManager(LanguangeActivity.this.getApplicationContext());
+        sharedPrefManager = new SharedPrefManager(SettingActivity.this.getApplicationContext());
         saveLang = sharedPrefManager.getSP_Locale();
 
         Log.d("Locale Test", "Shared Preference > " + saveLang);
-
 
         radioGroupLg = findViewById(R.id.rg_language);
         rb_Eg = findViewById(R.id.lg_eg);
@@ -55,27 +55,40 @@ public class LanguangeActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.lg_eg :
                         mLanguageCode = "en";
-                        Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
-                        //sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_RadioLang, true);
-                        startActivity(new Intent(LanguangeActivity.this, Main2Activity.class)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                        finish();
+                        intentRefresh();
                         break;
                     case R.id.lg_es :
                         mLanguageCode = "es";
-                        Toast.makeText(getApplicationContext(), "Spain", Toast.LENGTH_SHORT).show();
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
-                        //sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_RadioLang, true);
-                        startActivity(new Intent(LanguangeActivity.this, Main2Activity.class)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                        finish();
+                        intentRefresh();
                         break;
-                        default:
+                    default:
 
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        startActivity(new Intent(this, Main2Activity.class));
+        overridePendingTransition(R.anim.backanimin,
+                R.anim.backanim);
+    }
+
+    public void intentRefresh() {
+        Intent i = new Intent(SettingActivity.this, SettingActivity.class);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+
+        localeHelperUtils = new LocaleHelperUtils(this);
+        localeHelperUtils.setAppLocale(mLanguageCode);
+
     }
 
 }

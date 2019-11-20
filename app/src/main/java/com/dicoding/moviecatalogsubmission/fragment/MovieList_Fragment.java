@@ -52,6 +52,7 @@ public class MovieList_Fragment extends Fragment {
         prepare();
         addItem();
 
+
         return view;
     }
 

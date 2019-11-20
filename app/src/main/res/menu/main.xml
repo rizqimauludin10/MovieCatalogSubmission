@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/language"
+        android:id="@+id/setting"
         android:orderInCategory="100"
-        android:title="@string/menu_language"
+        android:title="@string/menu_setting"
         app:showAsAction="never" />
 
 </menu>

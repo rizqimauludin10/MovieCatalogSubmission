@@ -64,8 +64,8 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id==R.id.language) {
-            Intent intent = new Intent(Main2Activity.this, LanguangeActivity.class);
+        if (id==R.id.setting) {
+            Intent intent = new Intent(Main2Activity.this, SettingActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
