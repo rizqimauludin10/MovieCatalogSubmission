@@ -25,6 +25,7 @@
             android:layout_marginStart="26dp"
             android:text="@string/movie_tittle"
             android:textSize="18sp"
+            android:textColor="@color/black2"
             android:textStyle="bold" />
 
         <TextView

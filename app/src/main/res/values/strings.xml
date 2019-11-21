@@ -4,12 +4,14 @@
     <string name="movie_rate">4.7</string>
     <string name="movie_desc">Lorem</string>
     <string name="movie_poster">Movie Poster</string>
-    <string name="menu_setting">Setting</string>
+    <string name="menu_setting">Settings</string>
     <string name="language_eg">English</string>
     <string name="language_es">Spain</string>
     <string name="tab_movie">Movies</string>
     <string name="tab_tvshows">Tv Show</string>
-    <string name="ToolbarTittle">Movie Catalog</string>
+    <string name="toolbar_tittle">Movie Catalogs</string>
+    <string name="SettingToolbar">Setting</string>
+    <string name="Setting_lang">Language</string>
 
     <string-array name="data_name">
         <item>Aquaman</item>

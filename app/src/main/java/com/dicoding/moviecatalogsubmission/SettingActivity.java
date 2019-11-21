@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.dicoding.moviecatalogsubmission.Utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
@@ -29,10 +30,14 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_languange);
+        setContentView(R.layout.activity_setting);
 
         sharedPrefManager = new SharedPrefManager(SettingActivity.this.getApplicationContext());
         saveLang = sharedPrefManager.getSP_Locale();
+
+        Toolbar toolbar = findViewById(R.id.setting_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
         Log.d("Locale Test", "Shared Preference > " + saveLang);
 
@@ -45,7 +50,6 @@ public class SettingActivity extends AppCompatActivity {
         } else if (saveLang.equals("en")) {
             rb_Eg.setChecked(true);
         }
-
 
         radioGroupLg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -69,6 +73,8 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     @Override

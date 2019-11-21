@@ -3,10 +3,12 @@ package com.dicoding.moviecatalogsubmission;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ public class Main2Activity extends AppCompatActivity {
     private String mLanguageCode;
     private LocaleHelperUtils localeHelperUtils;
     private SharedPrefManager sharedPrefManager;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,11 @@ public class Main2Activity extends AppCompatActivity {
         localeHelperUtils = new LocaleHelperUtils(this);
         localeHelperUtils.setAppLocale(mLanguageCode);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getResources().getString(R.string.toolbar_tittle));
+        toolbar.setTitleTextColor((ContextCompat.getColor(this, R.color.black2)));
+
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
         adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
@@ -49,9 +57,6 @@ public class Main2Activity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getResources().getString(R.string.ToolbarTittle));
     }
 
     @Override

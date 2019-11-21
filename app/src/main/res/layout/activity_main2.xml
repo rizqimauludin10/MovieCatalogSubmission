@@ -9,7 +9,7 @@
     tools:context=".Main2Activity">
 
     <include
-        layout="@layout/app_toolbar"
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
