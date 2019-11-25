@@ -5,8 +5,10 @@
     <string name="movie_desc">Lorem</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="menu_setting">Settings</string>
+    <string name="menu_detail">Detail</string>
     <string name="language_eg">English</string>
     <string name="language_es">Spain</string>
+    <string name="language_in">Bahasa Indonesia</string>
     <string name="tab_movie">Movies</string>
     <string name="tab_tvshows">Tv Show</string>
     <string name="toolbar_tittle">Movie Catalogs</string>
@@ -52,17 +54,30 @@
         <item>@drawable/poster_venom</item>
     </array>
 
-    <string-array name="data_rate">
-        <item>4.2</item>
-        <item>4.8</item>
-        <item>4.6</item>
-        <item>4.3</item>
-        <item>4.7</item>
-        <item>4.1</item>
-        <item>4.8</item>
-        <item>4.7</item>
+    <array name="data_rate">
+        <item>3.2</item>
         <item>4.5</item>
-        <item>4.4</item>
+        <item>5</item>
+        <item>4.5</item>
+        <item>4.7</item>
+        <item>2.6</item>
+        <item>3.5</item>
+        <item>4.1</item>
+        <item>4.9</item>
+        <item>2</item>
+    </array>
+
+    <string-array name="data_rate2">
+        <item>3.2</item>
+        <item>4.5</item>
+        <item>5</item>
+        <item>4.5</item>
+        <item>4.7</item>
+        <item>2.6</item>
+        <item>3.5</item>
+        <item>4.1</item>
+        <item>4.9</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="data_date">
@@ -77,5 +92,84 @@
         <item>(2018)</item>
         <item>(2018)</item>
     </string-array>
+
+    <array name="tvdata_photo">
+        <item>@drawable/poster_arrow</item>
+        <item>@drawable/poster_doom_patrol</item>
+        <item>@drawable/poster_dragon_ball</item>
+        <item>@drawable/poster_gotham</item>
+        <item>@drawable/poster_hanna</item>
+        <item>@drawable/poster_the_umbrella</item>
+        <item>@drawable/poster_iron_fist</item>
+        <item>@drawable/poster_naruto_shipudden</item>
+        <item>@drawable/poster_the_simpson</item>
+        <item>@drawable/poster_family_guy</item>
+    </array>
+
+    <string-array name="tvdata_name">
+        <item>Arrow</item>
+        <item>Doom Patrol</item>
+        <item>Dragon Ball</item>
+        <item>Gotham</item>
+        <item>Hanna</item>
+        <item>The Umbrella Academy</item>
+        <item>Marvels Iron Fist</item>
+        <item>Naruto Shipudden</item>
+        <item>The Simpsons</item>
+        <item>Family Guy</item>
+    </string-array>
+
+    <string-array name="tvdata_date">
+        <item>(2012)</item>
+        <item>(2019)</item>
+        <item>(1986)</item>
+        <item>(2014)</item>
+        <item>(2019)</item>
+        <item>(2019)</item>
+        <item>(2017)</item>
+        <item>(2007)</item>
+        <item>(1989)</item>
+        <item>(1999)</item>
+    </string-array>
+
+    <string-array name="tvdata_description">
+        <item>Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.</item>
+        <item>The Doom Patrols members each suffered horrible accidents that gave them superhuman abilities but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.</item>
+        <item>Long ago in the mountains, a fighting master known as Gohan discovered a strange boy whom he named Goku. Gohan raised him and trained Goku in martial arts until he died. The young and very strong boy was on his own, but easily managed. Then one day, Goku met a teenage girl named Bulma, whose search for the mystical Dragon Balls brought her to Gokus home. Together, they set off to find all seven and to grant her wish.</item>
+        <item>Everyone knows the name Commissioner Gordon. He is one of the crime worlds greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordons story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the worlds most iconic villains? And what circumstances created them the larger than life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker?</item>
+        <item>This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright film.</item>
+        <item>A dysfunctional family of superheroes comes together to solve the mystery of their fathers death, the threat of the apocalypse and more.</item>
+        <item>Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.</item>
+        <item>Naruto Shippuuden is the continuation of the original animated TV series Naruto.The story revolves around an older and slightly more matured Uzumaki Naruto and his quest to save his friend Uchiha Sasuke from the grips of the snake-like Shinobi, Orochimaru. After 2 and a half years Naruto finally returns to his village of Konoha, and sets about putting his ambitions to work, though it will not be easy, as He has amassed a few (more dangerous) enemies, in the likes of the shinobi organization, Akatsuki.</item>
+        <item>Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family, Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.</item>
+        <item>Sick, twisted, politically incorrect and Freakin Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.</item>
+    </string-array>
+
+    <array name="tvdata_rate">
+        <item>3.2</item>
+        <item>4.5</item>
+        <item>5</item>
+        <item>4.5</item>
+        <item>4.7</item>
+        <item>2.6</item>
+        <item>3.5</item>
+        <item>4.1</item>
+        <item>4.9</item>
+        <item>2</item>
+    </array>
+
+    <string-array name="tvdata_rate2">
+        <item>3.2</item>
+        <item>4.5</item>
+        <item>5</item>
+        <item>4.5</item>
+        <item>4.7</item>
+        <item>2.6</item>
+        <item>3.5</item>
+        <item>4.1</item>
+        <item>4.9</item>
+        <item>2</item>
+    </string-array>
+
 
 </resources>

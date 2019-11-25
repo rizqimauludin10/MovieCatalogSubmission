@@ -33,7 +33,8 @@ public class MovieList_Fragment extends Fragment {
     private String[] dataTittle;
     private String[] dataDate;
     private String[] dataDesc;
-    private String[] dataRate;
+    private String[] dataRate2;
+    private TypedArray dataRate;
     private TypedArray dataPoster;
 
     @Nullable
@@ -52,7 +53,6 @@ public class MovieList_Fragment extends Fragment {
         prepare();
         addItem();
 
-
         return view;
     }
 
@@ -65,7 +65,9 @@ public class MovieList_Fragment extends Fragment {
             movie.setMovieTittle(dataTittle[i]);
             movie.setMovieDate(dataDate[i]);
             movie.setMovieDesc(dataDesc[i]);
-            movie.setMovieRate(dataRate[i]);
+            movie.setMovieRate2(dataRate2[i]);
+            movie.setMovieRate(dataRate.getFloat(i, -1));
+            Log.d("A", String.valueOf(dataRate2[i]));
             movieArrayList.add(movie);
         }
         rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
@@ -74,9 +76,10 @@ public class MovieList_Fragment extends Fragment {
     private void prepare() {
         dataPoster = getResources().obtainTypedArray(R.array.data_photo);
         dataTittle = getResources().getStringArray(R.array.data_name);
-        dataDesc = getResources().getStringArray(R.array.data_description);
-        dataRate = getResources().getStringArray(R.array.data_rate);
         dataDate = getResources().getStringArray(R.array.data_date);
+        dataDesc = getResources().getStringArray(R.array.data_description);
+        dataRate = getResources().obtainTypedArray(R.array.data_rate);
+        dataRate2 = getResources().getStringArray(R.array.data_rate2);
 
     }
 

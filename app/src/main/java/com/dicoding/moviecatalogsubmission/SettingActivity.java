@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -14,12 +16,14 @@ import androidx.appcompat.widget.Toolbar;
 import com.dicoding.moviecatalogsubmission.Utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
 
+import static android.view.View.*;
 import static android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class SettingActivity extends AppCompatActivity {
     private RadioGroup radioGroupLg;
-    private RadioButton rb_Eg, rb_Es;
+    private RadioButton rb_Eg, rb_Es, rb_In;
     private Button bt;
+    private ImageView back;
     private String mLanguageCode;
     private String saveLang;
     private LocaleHelperUtils localeHelperUtils;
@@ -36,6 +40,7 @@ public class SettingActivity extends AppCompatActivity {
         saveLang = sharedPrefManager.getSP_Locale();
 
         Toolbar toolbar = findViewById(R.id.setting_toolbar);
+        back = findViewById(R.id.back_setting);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
@@ -44,12 +49,23 @@ public class SettingActivity extends AppCompatActivity {
         radioGroupLg = findViewById(R.id.rg_language);
         rb_Eg = findViewById(R.id.lg_eg);
         rb_Es = findViewById(R.id.lg_es);
+        rb_In = findViewById(R.id.lg_in);
 
         if (saveLang.equals("es")){
             rb_Es.setChecked(true);
         } else if (saveLang.equals("en")) {
             rb_Eg.setChecked(true);
+        } else if (saveLang.equals("in")) {
+            rb_In.setChecked(true);
         }
+
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SettingActivity.this, Main2Activity.class);
+                startActivity(i);
+            }
+        });
 
         radioGroupLg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -68,6 +84,10 @@ public class SettingActivity extends AppCompatActivity {
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
                         intentRefresh();
                         break;
+                    case R.id.lg_in :
+                        mLanguageCode = "in";
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale,mLanguageCode);
+                        intentRefresh();
                     default:
 
                 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/itemClick"
+    android:id="@+id/itemClick2"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,10 +8,10 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/iv_moviePoster"
+        android:id="@+id/iv_tvPoster"
         android:layout_width="100dp"
         android:layout_height="150dp"
-        android:src="@drawable/poster_venom"
+        android:src="@drawable/poster_iron_fist"
         android:scaleType="fitXY" />
 
     <LinearLayout
@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_movieTittle"
+            android:id="@+id/tv_tvTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
@@ -36,7 +36,7 @@
             android:layout_marginTop="10dp">
 
             <RatingBar
-                android:id="@+id/ratingBar2"
+                android:id="@+id/ratingBar3"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:rating="4.7" />
 
             <TextView
-                android:id="@+id/tv_movieRate"
+                android:id="@+id/tv_tvRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movie_rate"
@@ -60,7 +60,7 @@
 
 
         <TextView
-            android:id="@+id/tv_movieDesc"
+            android:id="@+id/tv_tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
@@ -71,7 +71,5 @@
             android:text="@string/movie_desc" />
 
     </LinearLayout>
-
-
 
 </LinearLayout>

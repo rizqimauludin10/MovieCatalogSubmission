@@ -8,8 +8,16 @@ public class Movie implements Parcelable {
     private int moviePoster;
     private String movieDate;
     private String movieDesc;
-    private String movieRate;
+    private String movieRate2;
+    private float movieRate;
 
+    public String getMovieRate2() {
+        return movieRate2;
+    }
+
+    public void setMovieRate2(String movieRate2) {
+        this.movieRate2 = movieRate2;
+    }
 
     public String getMovieTittle() {
         return movieTittle;
@@ -43,11 +51,11 @@ public class Movie implements Parcelable {
         this.movieDesc = movieDesc;
     }
 
-    public String getMovieRate() {
+    public float getMovieRate() {
         return movieRate;
     }
 
-    public void setMovieRate(String movieRate) {
+    public void setMovieRate(float movieRate) {
         this.movieRate = movieRate;
     }
 
@@ -60,7 +68,8 @@ public class Movie implements Parcelable {
         this.movieDesc = parcel.readString();
         this.moviePoster = parcel.readInt();
         this.movieDate = parcel.readString();
-        this.movieRate = parcel.readString();
+        this.movieRate2 = parcel.readString();
+        this.movieRate = parcel.readFloat();
     }
 
     @Override
@@ -69,7 +78,8 @@ public class Movie implements Parcelable {
         dest.writeString(this.movieDesc);
         dest.writeInt(this.moviePoster);
         dest.writeString(this.movieDate);
-        dest.writeString(this.movieRate);
+        dest.writeString(this.movieRate2);
+        dest.writeFloat(this.movieRate);
     }
 
     @Override

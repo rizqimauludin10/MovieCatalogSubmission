@@ -19,7 +19,6 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
     CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +33,9 @@ public class DetailActivity extends AppCompatActivity {
             ImageView ivPosterExtra = findViewById(R.id.iv_posterDetail);
             Glide.with(this)
                     .load(movie.getMoviePoster())
-                    .transform(new BlurTransformation(5,3))
+                    .transform(new BlurTransformation(3,3))
                     .into(ivPosterExtra);
+            //ivPosterExtra.setAlpha(0.5f);
 
             ImageView ivPosterExtra2 = findViewById(R.id.iv_posterDetail2);
             Glide.with(this)
@@ -50,8 +50,8 @@ public class DetailActivity extends AppCompatActivity {
             /*TextView tvDateExtra = findViewById(R.id.tv_dateDetail);
             tvDateExtra.setText(movie.getMovieDate());*/
 
-            TextView tvRateExtra = findViewById(R.id.tv_rateDetail);
-            tvRateExtra.setText(movie.getMovieRate());
+            /*TextView tvRateExtra = findViewById(R.id.tv_rateDetail);
+            tvRateExtra.setText(movie.getMovieRate());*/
 
             TextView tvDescExtra = findViewById(R.id.tv_descDetail);
             tvDescExtra.setText(movie.getMovieDesc());

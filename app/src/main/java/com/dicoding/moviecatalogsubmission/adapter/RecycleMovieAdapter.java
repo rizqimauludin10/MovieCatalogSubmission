@@ -2,25 +2,26 @@ package com.dicoding.moviecatalogsubmission.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dicoding.moviecatalogsubmission.DetailActivity;
-import com.dicoding.moviecatalogsubmission.MainActivity;
+import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.Movie;
 
 import java.util.List;
 
-import static android.view.View.*;
+import static android.view.View.OnClickListener;
 
 public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapter.MovieHolder> {
 
@@ -46,12 +47,13 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         Glide.with(context).load(movie.getMoviePoster()).into(holder.ivPoster);
         holder.tvTittle.setText(movie.getMovieTittle());
         holder.tvDesc.setText(movie.getMovieDesc());
-        holder.tvRate.setText(movie.getMovieRate());
+        holder.tvRate.setText(movie.getMovieRate2());
+        holder.ratingBar.setRating(movie.getMovieRate());
         holder.itemClick.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_MOVIE, movieList.get(position));
+                Intent intent = new Intent(context, Detail2Activity.class);
+                intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
                 context.startActivity(intent);
 
             }
@@ -69,6 +71,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         private TextView tvTittle;
         private TextView tvDesc;
         private TextView tvRate;
+        private RatingBar ratingBar;
         private LinearLayout itemClick;
 
         public MovieHolder(@NonNull View itemView) {
@@ -77,6 +80,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
             tvTittle = itemView.findViewById(R.id.tv_movieTittle);
             tvDesc = itemView.findViewById(R.id.tv_movieDesc);
             tvRate = itemView.findViewById(R.id.tv_movieRate);
+            ratingBar = itemView.findViewById(R.id.ratingBar2);
             itemClick = itemView.findViewById(R.id.itemClick);
         }
     }
