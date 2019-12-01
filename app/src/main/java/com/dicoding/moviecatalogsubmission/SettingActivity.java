@@ -13,8 +13,8 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.dicoding.moviecatalogsubmission.Utils.LocaleHelperUtils;
-import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
+import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
+import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 
 import static android.view.View.*;
 import static android.widget.RadioGroup.OnCheckedChangeListener;

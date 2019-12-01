@@ -1,13 +1,12 @@
 package com.dicoding.moviecatalogsubmission.fragment;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,24 +17,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
+import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
+import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
 import com.dicoding.moviecatalogsubmission.model.Movie;
+import com.dicoding.moviecatalogsubmission.model.ResultMovies;
+import com.dicoding.moviecatalogsubmission.model.ValueMovies;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MovieList_Fragment extends Fragment {
     View view;
     RecyclerView rvMovie;
     Context context;
     private RecyclerView.Adapter moviesAdapter;
-    private List<Movie> movieArrayList = new ArrayList<>();
-
-    private String[] dataTittle;
-    private String[] dataDate;
-    private String[] dataDesc;
-    private String[] dataRate2;
-    private TypedArray dataRate;
-    private TypedArray dataPoster;
+    private List<ResultMovies> movieArrayList = new ArrayList<>();
+    private BaseAPIService baseApiService;
+    private String api_key = "54d3f8cecc84d7140e160061e4602e45";
 
     @Nullable
     @Override
@@ -43,45 +48,77 @@ public class MovieList_Fragment extends Fragment {
         view = inflater.inflate(R.layout.movielist_fragment, container, false);
 
         rvMovie = (RecyclerView) view.findViewById(R.id.rvMovies);
+
+        baseApiService = UtilsAPI.getApiService();
+
         context = getActivity();
+
 
         moviesAdapter = new RecycleMovieAdapter(context, movieArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvMovie.setLayoutManager(layoutManager);
         rvMovie.setItemAnimator(new DefaultItemAnimator());
 
-        prepare();
-        addItem();
+
+        getResultMovies();
+        //getDetail();
+
 
         return view;
     }
 
-    private void addItem() {
-        movieArrayList = new ArrayList<>();
-
-        for (int i = 0; i < dataTittle.length; i++) {
-            Movie movie = new Movie();
-            movie.setMoviePoster(dataPoster.getResourceId(i, -1));
-            movie.setMovieTittle(dataTittle[i]);
-            movie.setMovieDate(dataDate[i]);
-            movie.setMovieDesc(dataDesc[i]);
-            movie.setMovieRate2(dataRate2[i]);
-            movie.setMovieRate(dataRate.getFloat(i, -1));
-            Log.d("A", String.valueOf(dataRate2[i]));
-            movieArrayList.add(movie);
-        }
-        rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
-    }
-
-    private void prepare() {
-        dataPoster = getResources().obtainTypedArray(R.array.data_photo);
-        dataTittle = getResources().getStringArray(R.array.data_name);
-        dataDate = getResources().getStringArray(R.array.data_date);
-        dataDesc = getResources().getStringArray(R.array.data_description);
-        dataRate = getResources().obtainTypedArray(R.array.data_rate);
-        dataRate2 = getResources().getStringArray(R.array.data_rate2);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
     }
+
+    private void getResultMovies() {
+        baseApiService.getValueMovies(
+                api_key
+        ).enqueue(new Callback<ValueMovies>() {
+            @Override
+            public void onResponse(@NotNull Call<ValueMovies> call, Response<ValueMovies> response) {
+                Log.v("Masuk", "Number of movie with  = "+response.body().getmTotalResults());
+                Toast.makeText(getActivity(), "Masuk Bos", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ValueMovies> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(getActivity(), "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                    t.getCause();
+                }
+                else {
+                    Toast.makeText(getActivity(), "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    //
+                }
+            }
+        });
+    }
+
+  /*  private void getDetail() {
+        baseApiService.getDetailMovies().enqueue(new Callback<DetailMovies>() {
+            @Override
+            public void onResponse(Call<DetailMovies> call, Response<DetailMovies> response) {
+                Toast.makeText(getActivity(), "Masuk Bos", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<DetailMovies> call, Throwable t) {
+if (t instanceof IOException) {
+                    Toast.makeText(getActivity(), "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                    t.getCause();
+                }
+                else {
+                    Toast.makeText(getActivity(), "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    //
+                }
+            }
+        });
+    }*/
 
 
 }

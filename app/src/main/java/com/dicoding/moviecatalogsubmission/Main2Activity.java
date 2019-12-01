@@ -8,13 +8,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.dicoding.moviecatalogsubmission.Utils.LocaleHelperUtils;
-import com.dicoding.moviecatalogsubmission.Utils.SharedPrefManager;
+import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
+import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 import com.dicoding.moviecatalogsubmission.adapter.TabPagerAdapter;
 import com.dicoding.moviecatalogsubmission.fragment.MovieList_Fragment;
 import com.dicoding.moviecatalogsubmission.fragment.TvList_Fragment;

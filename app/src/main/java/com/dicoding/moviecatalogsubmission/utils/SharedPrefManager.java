@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogsubmission.Utils;
+package com.dicoding.moviecatalogsubmission.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

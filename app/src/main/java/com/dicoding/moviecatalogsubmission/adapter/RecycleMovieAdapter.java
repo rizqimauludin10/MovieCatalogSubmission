@@ -2,7 +2,6 @@ package com.dicoding.moviecatalogsubmission.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.model.Movie;
+import com.dicoding.moviecatalogsubmission.model.ResultMovies;
 
 import java.util.List;
 
@@ -25,17 +24,18 @@ import static android.view.View.OnClickListener;
 
 public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapter.MovieHolder> {
 
-    List<Movie> movieList;
+    List<ResultMovies> movieList;
     Context context;
+    String imagePath = "https://image.tmdb.org/t/p/w500";
 
-    public RecycleMovieAdapter(Context context, List<Movie> movieList1){
+    public RecycleMovieAdapter(Context context, List<ResultMovies> movieList) {
         this.context = context;
-        this.movieList = movieList1;
+        this.movieList = movieList;
     }
 
     @NonNull
     @Override
-    public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecycleMovieAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
         final MovieHolder movieHolder = new MovieHolder(view);
         return movieHolder;
@@ -43,17 +43,17 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MovieHolder holder, final int position) {
-        final Movie movie = movieList.get(position);
-        Glide.with(context).load(movie.getMoviePoster()).into(holder.ivPoster);
-        holder.tvTittle.setText(movie.getMovieTittle());
-        holder.tvDesc.setText(movie.getMovieDesc());
-        holder.tvRate.setText(movie.getMovieRate2());
-        holder.ratingBar.setRating(movie.getMovieRate());
+        final ResultMovies movie = movieList.get(position);
+        Glide.with(context).load(imagePath + movie.getPosterPath()).into(holder.ivPoster);
+        holder.tvTittle.setText(movie.getTitle());
+        holder.tvDesc.setText(movie.getOverview());
+        holder.tvRate.setText(movie.getVoteAverage());
+        holder.ratingBar.setRating(movie.getVoteAverage());
         holder.itemClick.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Detail2Activity.class);
-                intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
+                //intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
                 context.startActivity(intent);
 
             }
