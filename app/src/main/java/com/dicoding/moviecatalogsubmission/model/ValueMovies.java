@@ -5,47 +5,73 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class ValueMovies {
 
     @SerializedName("page")
-    private Long mPage;
-    @SerializedName("results")
-    private List<ResultMovies> mMovieResults;
-    @SerializedName("total_pages")
-    private Long mTotalPages;
+    @Expose
+    private Integer page;
     @SerializedName("total_results")
-    private Long mTotalResults;
+    @Expose
+    private Integer totalResults;
+    @SerializedName("total_pages")
+    @Expose
+    private Integer totalPages;
+    @SerializedName("results")
+    @Expose
+    private List<ResultMovies> results = null;
 
-    public Long getmPage() {
-        return mPage;
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public ValueMovies() {
     }
 
-    public void setmPage(Long mPage) {
-        this.mPage = mPage;
+    /**
+     *
+     * @param totalResults
+     * @param totalPages
+     * @param page
+     * @param results
+     */
+    public ValueMovies(Integer page, Integer totalResults, Integer totalPages, List<ResultMovies> results) {
+        super();
+        this.page = page;
+        this.totalResults = totalResults;
+        this.totalPages = totalPages;
+        this.results = results;
     }
 
-    public List<ResultMovies> getmMovieResults() {
-        return mMovieResults;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setmMovieResults(List<ResultMovies> mMovieResults) {
-        this.mMovieResults = mMovieResults;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Long getmTotalPages() {
-        return mTotalPages;
+    public Integer getTotalResults() {
+        return totalResults;
     }
 
-    public void setmTotalPages(Long mTotalPages) {
-        this.mTotalPages = mTotalPages;
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
 
-    public Long getmTotalResults() {
-        return mTotalResults;
+    public Integer getTotalPages() {
+        return totalPages;
     }
 
-    public void setmTotalResults(Long mTotalResults) {
-        this.mTotalResults = mTotalResults;
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
+
+    public List<ResultMovies> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ResultMovies> results) {
+        this.results = results;
+    }
+
 }

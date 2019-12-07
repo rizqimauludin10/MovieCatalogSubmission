@@ -1,39 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/itemClick2"
-    android:padding="10dp">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:background="@color/white"
+    android:id="@+id/itemClick4"
+    android:padding="10dp"
+    android:orientation="vertical">
 
 
-        <androidx.cardview.widget.CardView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/black"
-            app:cardUseCompatPadding="false">
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false"
+                app:cardPreventCornerOverlap="true"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_tvPoster"
+                    android:layout_width="110dp"
+                    android:layout_height="160dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/poster_bohemian" />
+
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:paddingStart="150dp">
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_tvTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/movie_tittle"
-                    android:textColor="@color/black2"
+                    android:textColor="#3E3E3E"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -69,24 +82,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:paddingEnd="5dp"
                     android:ellipsize="end"
-                    android:maxLines="4"
+                    android:maxLines="2"
                     android:text="@string/movie_desc"
-                    android:textColor="@color/black2" />
+                    android:textSize="12dp"
+                    android:textColor="#A5A5A5" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <ImageView
-            android:id="@+id/iv_tvPoster"
-            android:layout_width="130dp"
-            android:layout_height="180dp"
-            android:layout_marginStart="10dp"
-            android:translationZ="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/poster_iron_fist" />
 
 
-    </FrameLayout>
+        </LinearLayout>
 
 
 </LinearLayout>

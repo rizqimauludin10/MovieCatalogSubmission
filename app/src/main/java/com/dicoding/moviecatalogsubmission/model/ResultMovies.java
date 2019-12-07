@@ -11,7 +11,7 @@ public class ResultMovies {
     private Double popularity;
     @SerializedName("vote_count")
     @Expose
-    private Integer voteCount;
+    private Long voteCount;
     @SerializedName("video")
     @Expose
     private Boolean video;
@@ -20,7 +20,7 @@ public class ResultMovies {
     private String posterPath;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private Long id;
     @SerializedName("adult")
     @Expose
     private Boolean adult;
@@ -35,19 +35,62 @@ public class ResultMovies {
     private String originalTitle;
     @SerializedName("genre_ids")
     @Expose
-    private List<Integer> genreIds = null;
+    private List<Long> genreIds = null;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("vote_average")
     @Expose
-    private Integer voteAverage;
+    private Double voteAverage;
     @SerializedName("overview")
     @Expose
     private String overview;
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+
+    /**
+     * No args constructor for use in serialization
+     */
+    public ResultMovies() {
+    }
+
+    /**
+     * @param overview
+     * @param voteAverage
+     * @param releaseDate
+     * @param video
+     * @param originalLanguage
+     * @param genreIds
+     * @param title
+     * @param originalTitle
+     * @param popularity
+     * @param voteCount
+     * @param id
+     * @param backdropPath
+     * @param adult
+     * @param posterPath
+     */
+    public ResultMovies(Double popularity, Long voteCount, Boolean video, String posterPath,
+                        Long id, Boolean adult, String backdropPath, String originalLanguage,
+                        String originalTitle, List<Long> genreIds, String title, Double voteAverage,
+                        String overview, String releaseDate) {
+        super();
+        this.popularity = popularity;
+        this.voteCount = voteCount;
+        this.video = video;
+        this.posterPath = posterPath;
+        this.id = id;
+        this.adult = adult;
+        this.backdropPath = backdropPath;
+        this.originalLanguage = originalLanguage;
+        this.originalTitle = originalTitle;
+        this.genreIds = genreIds;
+        this.title = title;
+        this.voteAverage = voteAverage;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+    }
 
     public Double getPopularity() {
         return popularity;
@@ -57,11 +100,11 @@ public class ResultMovies {
         this.popularity = popularity;
     }
 
-    public Integer getVoteCount() {
+    public Long getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(Integer voteCount) {
+    public void setVoteCount(Long voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -81,11 +124,11 @@ public class ResultMovies {
         this.posterPath = posterPath;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -121,11 +164,11 @@ public class ResultMovies {
         this.originalTitle = originalTitle;
     }
 
-    public List<Integer> getGenreIds() {
+    public List<Long> getGenreIds() {
         return genreIds;
     }
 
-    public void setGenreIds(List<Integer> genreIds) {
+    public void setGenreIds(List<Long> genreIds) {
         this.genreIds = genreIds;
     }
 
@@ -137,11 +180,11 @@ public class ResultMovies {
         this.title = title;
     }
 
-    public Integer getVoteAverage() {
+    public Double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Integer voteAverage) {
+    public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -160,4 +203,5 @@ public class ResultMovies {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
 }

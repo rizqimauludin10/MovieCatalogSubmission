@@ -79,20 +79,23 @@ public class MovieList_Fragment extends Fragment {
         ).enqueue(new Callback<ValueMovies>() {
             @Override
             public void onResponse(@NotNull Call<ValueMovies> call, Response<ValueMovies> response) {
-                Log.v("Masuk", "Number of movie with  = "+response.body().getmTotalResults());
-                Toast.makeText(getActivity(), "Masuk Bos", Toast.LENGTH_SHORT).show();
+                Log.e("Masuk", "Number of movie with  = "+response.body().getTotalResults());
+                //Toast.makeText(getActivity(), "Masuk Bos", Toast.LENGTH_SHORT).show();
+
+                movieArrayList = response.body().getResults();
+                rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
+                moviesAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(@NotNull Call<ValueMovies> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(getActivity(), "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
-                    t.getCause();
                 }
                 else {
                     Toast.makeText(getActivity(), "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    //
+                    String a = t.getMessage();
+                    Log.e("Apa hayo?", a);
                 }
             }
         });

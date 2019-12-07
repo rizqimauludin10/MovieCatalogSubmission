@@ -47,8 +47,8 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         Glide.with(context).load(imagePath + movie.getPosterPath()).into(holder.ivPoster);
         holder.tvTittle.setText(movie.getTitle());
         holder.tvDesc.setText(movie.getOverview());
-        holder.tvRate.setText(movie.getVoteAverage());
-        holder.ratingBar.setRating(movie.getVoteAverage());
+        //holder.tvRate.setText(movie.getVoteAverage());
+        //holder.ratingBar.setRating(movie.getVoteAverage());
         holder.itemClick.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

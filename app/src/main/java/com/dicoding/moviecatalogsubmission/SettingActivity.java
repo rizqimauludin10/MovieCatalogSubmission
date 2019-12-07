@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 import static android.view.View.*;
 import static android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -115,6 +117,11 @@ public class SettingActivity extends AppCompatActivity {
         localeHelperUtils = new LocaleHelperUtils(this);
         localeHelperUtils.setAppLocale(mLanguageCode);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }

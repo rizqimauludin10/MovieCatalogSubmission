@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
     @NonNull
     @Override
     public TvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout2, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout4, parent, false);
         final TvHolder tvHolder= new TvHolder(view);
         return tvHolder;
     }
@@ -82,7 +83,7 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
             tvDesc = itemView.findViewById(R.id.tv_tvDesc);
             tvRate = itemView.findViewById(R.id.tv_tvRate);
             ratingBar = itemView.findViewById(R.id.ratingBar3);
-            itemClick2 = itemView.findViewById(R.id.itemClick2);
+            itemClick2 = itemView.findViewById(R.id.itemClick4);
         }
     }
 }
