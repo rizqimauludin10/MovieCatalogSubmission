@@ -1,97 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemClick4"
+    android:background="@drawable/ripple_rv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:id="@+id/itemClick4"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
 
+        <ImageView
+            android:id="@+id/iv_tvPoster"
+            android:layout_width="110dp"
+            android:layout_height="165dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/poster_bohemian" />
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_tvTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="@string/movie_tittle"
+            android:textColor="#3E3E3E"
+            android:textSize="18sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                app:cardUseCompatPadding="false"
-                app:cardPreventCornerOverlap="true"
-                >
+                android:numStars="5"
+                android:rating="4.7"
+                android:stepSize="1.0"
+                android:theme="@style/RatingBar" />
 
-                <ImageView
-                    android:id="@+id/iv_tvPoster"
-                    android:layout_width="110dp"
-                    android:layout_height="160dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/poster_bohemian" />
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_tvRate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_tvTittle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/movie_tittle"
-                    android:textColor="#3E3E3E"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <RatingBar
-                        android:id="@+id/ratingBar3"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:rating="4.7"
-                        android:stepSize="1.0"
-                        android:theme="@style/RatingBar" />
-
-                    <TextView
-                        android:id="@+id/tv_tvRate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:text="@string/movie_rate"
-                        android:textColor="@color/black2"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_tvDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingEnd="5dp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="@string/movie_desc"
-                    android:textSize="12dp"
-                    android:textColor="#A5A5A5" />
-            </LinearLayout>
-
-
+                android:layout_marginStart="6dp"
+                android:text="@string/movie_rate"
+                android:textColor="@color/black2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingEnd="5dp"
+            android:text="@string/movie_desc"
+            android:textColor="#A5A5A5"
+            android:textSize="12dp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.dicoding.moviecatalogsubmission.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,12 +77,18 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
 
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
+            Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");
+            Typeface latoRegular = Typeface.createFromAsset(context.getAssets(), "font/latoregular.ttf");
+
             ivPoster = itemView.findViewById(R.id.iv_moviePoster);
             tvTittle = itemView.findViewById(R.id.tv_movieTittle);
             tvDesc = itemView.findViewById(R.id.tv_movieDesc);
             tvRate = itemView.findViewById(R.id.tv_movieRate);
             ratingBar = itemView.findViewById(R.id.ratingBar2);
             itemClick = itemView.findViewById(R.id.itemClick);
+
+            tvTittle.setTypeface(latoBlack);
+            tvDesc.setTypeface(latoRegular);
         }
     }
 }

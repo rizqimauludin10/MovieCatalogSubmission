@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemClick"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/ripple_rv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/iv_moviePoster"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:src="@drawable/poster_venom"
-        android:scaleType="fitXY" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:id="@+id/iv_moviePoster"
+            android:layout_width="110dp"
+            android:layout_height="165dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/poster_venom" />
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_movieTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:maxLines="2"
             android:text="@string/movie_tittle"
-            android:textSize="18sp"
-            android:textColor="@color/black2"
-            android:textStyle="bold" />
+            android:textColor="#3E3E3E"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <RatingBar
                 android:id="@+id/ratingBar2"
@@ -41,37 +51,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
+                android:rating="4.7"
                 android:stepSize="1.0"
-                android:theme="@style/RatingBar"
-                android:layout_marginStart="26dp"
-                android:rating="4.7" />
+                android:theme="@style/RatingBar" />
 
             <TextView
                 android:id="@+id/tv_movieRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/movie_rate"
-                android:textStyle="bold"
                 android:layout_marginStart="6dp"
+                android:text="@string/movie_rate"
                 android:textColor="@color/black2"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
-
-
 
         <TextView
             android:id="@+id/tv_movieDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
             android:layout_marginTop="10dp"
             android:ellipsize="end"
-            android:textColor="@color/black2"
-            android:maxLines="3"
-            android:text="@string/movie_desc" />
-
+            android:maxLines="2"
+            android:paddingEnd="5dp"
+            android:text="@string/movie_desc"
+            android:textColor="#A5A5A5"
+            android:textSize="12dp" />
     </LinearLayout>
-
-
 
 </LinearLayout>

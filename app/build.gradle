@@ -18,6 +18,10 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -40,6 +44,9 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
     //Font
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    //viewmodel and livedata
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
