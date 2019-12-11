@@ -15,9 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.ResultMovies;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 
 import java.util.List;
 
@@ -26,6 +30,7 @@ import static android.view.View.OnClickListener;
 public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapter.MovieHolder> {
 
     List<ResultMovies> movieList;
+    List<GenresItem> genresItemList;
     Context context;
     String imagePath = "https://image.tmdb.org/t/p/w500";
 
@@ -45,11 +50,17 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
     @Override
     public void onBindViewHolder(@NonNull MovieHolder holder, final int position) {
         final ResultMovies movie = movieList.get(position);
-        Glide.with(context).load(imagePath + movie.getPosterPath()).into(holder.ivPoster);
+        float voteAverage = ((movie.getVoteAverage()*5) / 10);
+        Glide.with(context)
+                .load(imagePath + movie.getPosterPath())
+                .error(R.drawable.poster_bohemian)
+                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .into(holder.ivPoster);
         holder.tvTittle.setText(movie.getTitle());
         holder.tvDesc.setText(movie.getOverview());
-        //holder.tvRate.setText(movie.getVoteAverage());
-        //holder.ratingBar.setRating(movie.getVoteAverage());
+        holder.tvDate.setText(movie.getReleaseDate());
+        holder.tvRate.setText(String.valueOf(movie.getVoteAverage()));
+        holder.ratingBar.setRating(voteAverage);
         holder.itemClick.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,24 +82,28 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         private ImageView ivPoster;
         private TextView tvTittle;
         private TextView tvDesc;
-        private TextView tvRate;
+        private TextView tvRate, tvDate;
         private RatingBar ratingBar;
         private LinearLayout itemClick;
 
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
             Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");
+            Typeface latoBold = Typeface.createFromAsset(context.getAssets(), "font/latobold.ttf");
             Typeface latoRegular = Typeface.createFromAsset(context.getAssets(), "font/latoregular.ttf");
 
             ivPoster = itemView.findViewById(R.id.iv_moviePoster);
             tvTittle = itemView.findViewById(R.id.tv_movieTittle);
             tvDesc = itemView.findViewById(R.id.tv_movieDesc);
+            tvDate = itemView.findViewById(R.id.tv_movieDate);
             tvRate = itemView.findViewById(R.id.tv_movieRate);
             ratingBar = itemView.findViewById(R.id.ratingBar2);
             itemClick = itemView.findViewById(R.id.itemClick);
 
             tvTittle.setTypeface(latoBlack);
             tvDesc.setTypeface(latoRegular);
+            tvDate.setTypeface(latoRegular);
+            tvRate.setTypeface(latoBold);
         }
     }
 }

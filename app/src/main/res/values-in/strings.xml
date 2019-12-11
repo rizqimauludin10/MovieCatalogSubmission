@@ -3,10 +3,12 @@
     <string name="app_name">MovieCatalogSubmission</string>
     <string name="movie_tittle">How to Train Your Dragon: The Hidden World</string>
     <string name="movie_rate">4.7</string>
+    <string name="movie_ratediv">/ 10</string>
     <string name="movie_desc">Lorem</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="menu_setting">Pengaturan</string>
     <string name="menu_detail">Detail</string>
+    <string name="date">2019</string>
     <string name="language_eg">English</string>
     <string name="language_es">Spain</string>
     <string name="language_in">Bahasa Indonesia</string>

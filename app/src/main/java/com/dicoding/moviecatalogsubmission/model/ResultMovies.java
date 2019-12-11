@@ -41,7 +41,7 @@ public class ResultMovies {
     private String title;
     @SerializedName("vote_average")
     @Expose
-    private Double voteAverage;
+    private Float voteAverage;
     @SerializedName("overview")
     @Expose
     private String overview;
@@ -73,7 +73,7 @@ public class ResultMovies {
      */
     public ResultMovies(Double popularity, Long voteCount, Boolean video, String posterPath,
                         Long id, Boolean adult, String backdropPath, String originalLanguage,
-                        String originalTitle, List<Long> genreIds, String title, Double voteAverage,
+                        String originalTitle, List<Long> genreIds, String title, Float voteAverage,
                         String overview, String releaseDate) {
         super();
         this.popularity = popularity;
@@ -180,11 +180,11 @@ public class ResultMovies {
         this.title = title;
     }
 
-    public Double getVoteAverage() {
+    public Float getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(Float voteAverage) {
         this.voteAverage = voteAverage;
     }
 

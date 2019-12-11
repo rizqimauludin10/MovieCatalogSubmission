@@ -3,6 +3,7 @@ package com.dicoding.moviecatalogsubmission.apihelper;
 import com.dicoding.moviecatalogsubmission.model.Movie;
 import com.dicoding.moviecatalogsubmission.model.ResultMovies;
 import com.dicoding.moviecatalogsubmission.model.ValueMovies;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,11 @@ public interface BaseAPIService {
     @GET("discover/movie")
     Call<ValueMovies> getValueMovies(
             @Query("api_key") String api_key
+    );
 
+    @GET("genre/movie/list")
+    Call<GenreResponse> getGenresResponse(
+            @Query("api_key") String api_key
     );
 
    /* @GET("movie/474350?api_key="+api_key)
