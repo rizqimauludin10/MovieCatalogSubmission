@@ -1,16 +1,14 @@
 package com.dicoding.moviecatalogsubmission.MoviesRepoClass;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
-import com.dicoding.moviecatalogsubmission.model.ValueMovies;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 
 import java.io.IOException;
 
@@ -35,12 +33,12 @@ public class MoviesRepository {
         baseApiService = UtilsAPI.getApiService();
     }
 
-    public MutableLiveData<ValueMovies> getMovies(String key) {
-        final MutableLiveData<ValueMovies> resultMoviesMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<MovieResponse> getMovies(String key) {
+        final MutableLiveData<MovieResponse> resultMoviesMutableLiveData = new MutableLiveData<>();
         baseApiService.getValueMovies(key)
-                .enqueue(new Callback<ValueMovies>() {
+                .enqueue(new Callback<MovieResponse>() {
                     @Override
-                    public void onResponse(Call<ValueMovies> call, Response<ValueMovies> response) {
+                    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             resultMoviesMutableLiveData.setValue(response.body());
                         } else {
@@ -49,7 +47,7 @@ public class MoviesRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<ValueMovies> call, Throwable t) {
+                    public void onFailure(Call<MovieResponse> call, Throwable t) {
                         resultMoviesMutableLiveData.setValue(null);
 
                         if (t instanceof IOException) {
@@ -63,6 +61,33 @@ public class MoviesRepository {
                     }
                 });
         return resultMoviesMutableLiveData;
+    }
+
+    public MutableLiveData<TVShowResponse> getTVShows(String key) {
+        final MutableLiveData<TVShowResponse> tvShowResponseMutableLiveData = new MutableLiveData<>();
+        baseApiService.getTVResponse(key)
+                .enqueue(new Callback<TVShowResponse>() {
+                    @Override
+                    public void onResponse(Call<TVShowResponse> call, Response<TVShowResponse> response) {
+                        if (response.isSuccessful()) {
+                            tvShowResponseMutableLiveData.setValue(response.body());
+                        } else {
+                            tvShowResponseMutableLiveData.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TVShowResponse> call, Throwable t) {
+                        if (t instanceof IOException) {
+                            String b = t.getMessage();
+                            Log.e("Error Message => ", b);
+                        } else {
+                            String a = t.getMessage();
+                            Log.e("Error Message => ", a);
+                        }
+                    }
+                });
+        return tvShowResponseMutableLiveData;
     }
 
     public MutableLiveData<GenreResponse> getGenre(String key) {

@@ -1,12 +1,8 @@
 package com.dicoding.moviecatalogsubmission.apihelper;
 
-import com.dicoding.moviecatalogsubmission.model.Movie;
-import com.dicoding.moviecatalogsubmission.model.ResultMovies;
-import com.dicoding.moviecatalogsubmission.model.ValueMovies;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,12 +11,17 @@ import retrofit2.http.Query;
 public interface BaseAPIService {
 
     @GET("discover/movie")
-    Call<ValueMovies> getValueMovies(
+    Call<MovieResponse> getValueMovies(
             @Query("api_key") String api_key
     );
 
     @GET("genre/movie/list")
     Call<GenreResponse> getGenresResponse(
+            @Query("api_key") String api_key
+    );
+
+    @GET("tv/popular")
+    Call<TVShowResponse> getTVResponse(
             @Query("api_key") String api_key
     );
 

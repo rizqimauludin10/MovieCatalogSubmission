@@ -16,11 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.model.ResultMovies;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 
 import java.util.List;
@@ -29,12 +27,12 @@ import static android.view.View.OnClickListener;
 
 public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapter.MovieHolder> {
 
-    List<ResultMovies> movieList;
+    List<MoviesItem> movieList;
     List<GenresItem> genresItemList;
     Context context;
     String imagePath = "https://image.tmdb.org/t/p/w500";
 
-    public RecycleMovieAdapter(Context context, List<ResultMovies> movieList) {
+    public RecycleMovieAdapter(Context context, List<MoviesItem> movieList) {
         this.context = context;
         this.movieList = movieList;
     }
@@ -49,7 +47,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MovieHolder holder, final int position) {
-        final ResultMovies movie = movieList.get(position);
+        final MoviesItem movie = movieList.get(position);
         float voteAverage = ((movie.getVoteAverage()*5) / 10);
         Glide.with(context)
                 .load(imagePath + movie.getPosterPath())

@@ -16,11 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dicoding.moviecatalogsubmission.Detail2Activity;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.Detail3Activity;
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.model.Movie;
-import com.dicoding.moviecatalogsubmission.model.TVShow;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
 import java.util.List;
 
@@ -28,10 +27,11 @@ import static android.view.View.*;
 
 public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdapter.TvHolder> {
 
-    List<TVShow> tvShowList;
+    List<TVShowsItem> tvShowList;
     Context context;
+    String imagePath = "https://image.tmdb.org/t/p/w500";
 
-    public RecycleViewTvAdapter(Context context, List<TVShow> tvShowList) {
+    public RecycleViewTvAdapter(Context context, List<TVShowsItem> tvShowList) {
         this.context = context;
         this.tvShowList = tvShowList;
     }
@@ -46,17 +46,22 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
 
     @Override
     public void onBindViewHolder(@NonNull TvHolder holder, final int position) {
-        final TVShow tvShow = tvShowList.get(position);
-        Glide.with(context).load(tvShow.getTvPoster()).into(holder.ivPoster);
-        holder.tvTittle.setText(tvShow.getTvTittle());
-        holder.tvDesc.setText(tvShow.getTvDesc());
-        holder.tvRate.setText(tvShow.getTvRate2());
-        holder.ratingBar.setRating(tvShow.getTvRate());
+        final TVShowsItem tvShow = tvShowList.get(position);
+        float voteAverage = ((tvShow.getVoteAverage()*5) / 10);
+        Glide.with(context)
+                .load(imagePath + tvShow.getPosterPath())
+                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .into(holder.ivPoster);
+        holder.tvTittle.setText(tvShow.getName());
+        holder.tvDesc.setText(tvShow.getOverview());
+        holder.tvDate.setText(tvShow.getFirstAirDate());
+        holder.tvRate.setText(String.valueOf(tvShow.getVoteAverage()));
+        holder.ratingBar.setRating(voteAverage);
         holder.itemClick2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Detail3Activity.class);
-                intent.putExtra(Detail3Activity.EXTRA_MOVIE3, tvShowList.get(position));
+                //intent.putExtra(Detail3Activity.EXTRA_MOVIE3, tvShowList.get(position));
                 context.startActivity(intent);
             }
         });
@@ -72,7 +77,7 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
 
         private ImageView ivPoster;
         private TextView tvTittle;
-        private TextView tvDesc;
+        private TextView tvDesc, tvDate;
         private TextView tvRate;
         private RatingBar ratingBar;
         private LinearLayout itemClick2;
@@ -80,17 +85,21 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
         public TvHolder(@NonNull View itemView) {
             super(itemView);
             Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");
+            Typeface latoBold = Typeface.createFromAsset(context.getAssets(), "font/latobold.ttf");
             Typeface latoRegular = Typeface.createFromAsset(context.getAssets(), "font/latoregular.ttf");
 
             ivPoster = itemView.findViewById(R.id.iv_tvPoster);
             tvTittle = itemView.findViewById(R.id.tv_tvTittle);
             tvDesc = itemView.findViewById(R.id.tv_tvDesc);
+            tvDate = itemView.findViewById(R.id.tv_tvDate);
             tvRate = itemView.findViewById(R.id.tv_tvRate);
             ratingBar = itemView.findViewById(R.id.ratingBar3);
             itemClick2 = itemView.findViewById(R.id.itemClick4);
 
             tvTittle.setTypeface(latoBlack);
+            tvDate.setTypeface(latoRegular);
             tvDesc.setTypeface(latoRegular);
+            tvRate.setTypeface(latoBold);
         }
     }
 }

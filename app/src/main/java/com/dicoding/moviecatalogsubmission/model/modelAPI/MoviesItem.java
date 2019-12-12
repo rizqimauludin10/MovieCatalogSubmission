@@ -1,11 +1,11 @@
-package com.dicoding.moviecatalogsubmission.model;
+package com.dicoding.moviecatalogsubmission.model.modelAPI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResultMovies {
+public class MoviesItem {
     @SerializedName("popularity")
     @Expose
     private Double popularity;
@@ -52,7 +52,7 @@ public class ResultMovies {
     /**
      * No args constructor for use in serialization
      */
-    public ResultMovies() {
+    public MoviesItem() {
     }
 
     /**
@@ -71,10 +71,10 @@ public class ResultMovies {
      * @param adult
      * @param posterPath
      */
-    public ResultMovies(Double popularity, Long voteCount, Boolean video, String posterPath,
-                        Long id, Boolean adult, String backdropPath, String originalLanguage,
-                        String originalTitle, List<Long> genreIds, String title, Float voteAverage,
-                        String overview, String releaseDate) {
+    public MoviesItem(Double popularity, Long voteCount, Boolean video, String posterPath,
+                      Long id, Boolean adult, String backdropPath, String originalLanguage,
+                      String originalTitle, List<Long> genreIds, String title, Float voteAverage,
+                      String overview, String releaseDate) {
         super();
         this.popularity = popularity;
         this.voteCount = voteCount;

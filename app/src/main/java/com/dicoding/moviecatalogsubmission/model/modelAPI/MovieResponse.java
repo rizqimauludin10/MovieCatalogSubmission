@@ -1,11 +1,11 @@
-package com.dicoding.moviecatalogsubmission.model;
+package com.dicoding.moviecatalogsubmission.model.modelAPI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ValueMovies {
+public class MovieResponse {
 
     @SerializedName("page")
     @Expose
@@ -18,13 +18,13 @@ public class ValueMovies {
     private Integer totalPages;
     @SerializedName("results")
     @Expose
-    private List<ResultMovies> results = null;
+    private List<MoviesItem> results = null;
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public ValueMovies() {
+    public MovieResponse() {
     }
 
     /**
@@ -34,7 +34,7 @@ public class ValueMovies {
      * @param page
      * @param results
      */
-    public ValueMovies(Integer page, Integer totalResults, Integer totalPages, List<ResultMovies> results) {
+    public MovieResponse(Integer page, Integer totalResults, Integer totalPages, List<MoviesItem> results) {
         super();
         this.page = page;
         this.totalResults = totalResults;
@@ -66,11 +66,11 @@ public class ValueMovies {
         this.totalPages = totalPages;
     }
 
-    public List<ResultMovies> getResults() {
+    public List<MoviesItem> getResults() {
         return results;
     }
 
-    public void setResults(List<ResultMovies> results) {
+    public void setResults(List<MoviesItem> results) {
         this.results = results;
     }
 
