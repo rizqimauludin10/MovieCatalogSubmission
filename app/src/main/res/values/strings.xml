@@ -3,7 +3,7 @@
     <string name="movie_tittle">How to Train Your Dragon: The Hidden World</string>
     <string name="movie_rate">4.7</string>
     <string name="movie_ratediv">/ 10</string>
-    <string name="movie_desc">Lorem</string>
+    <string name="movie_desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="menu_setting">Settings</string>
     <string name="menu_detail">Detail</string>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
+import com.dicoding.moviecatalogsubmission.DetailActivity4;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;

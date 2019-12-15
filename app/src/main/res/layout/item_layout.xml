@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemClick"
-    android:background="@drawable/ripple_rv"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:focusable="true">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"

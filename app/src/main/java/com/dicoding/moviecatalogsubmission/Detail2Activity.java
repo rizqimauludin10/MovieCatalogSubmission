@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -23,7 +25,10 @@ public class Detail2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail2);
 
+        Window window =  getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+/*
         ImageView ivPosterExtra2 = findViewById(R.id.imageView2);
         TextView tvTittleExtra = findViewById(R.id.textView);
         RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -52,7 +57,7 @@ public class Detail2Activity extends AppCompatActivity {
                 Intent i = new Intent(Detail2Activity.this, Main2Activity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
     }

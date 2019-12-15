@@ -7,6 +7,11 @@
     <color name="text">#979797</color>
     <color name="black">#262626</color>
     <color name="black2">#4D4D4D</color>
+    <color name="tittle">#3E3E3E</color>
+    <color name="genre">#B8B8B8</color>
+    <color name="runtime">#757575</color>
+    <color name="overview">#5D5D5D</color>
+    <color name="desc">#A5A5A5</color>
     <color name="white">#FFFFFF</color>
     <color name="ratingBar">#FFB71A</color>
     <color name="placeholder_bg">#DDDDDD</color>
