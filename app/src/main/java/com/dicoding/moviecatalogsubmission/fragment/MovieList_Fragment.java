@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
+import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.ViewModel;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -35,9 +33,7 @@ public class MovieList_Fragment extends Fragment {
     private RecyclerView.Adapter moviesAdapter;
     private List<MoviesItem> movieArrayList = new ArrayList<>();
     private List<GenresItem> genreResponseArrayList = new ArrayList<>();
-    private ViewModel movieViewModel;
-
-
+    private ViewModelMovie movieViewModelMovie;
     private ShimmerFrameLayout mShimmerViewContainer;
     int resId;
 
@@ -68,8 +64,8 @@ public class MovieList_Fragment extends Fragment {
             moviesAdapter = new RecycleMovieAdapter(context, movieArrayList);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             rvMovie.setLayoutManager(layoutManager);
-            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resId);
-            rvMovie.setLayoutAnimation(animation);
+            /*LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resId);
+            rvMovie.setLayoutAnimation(animation);*/
 
             rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
             rvMovie.setItemAnimator(new DefaultItemAnimator());
@@ -80,9 +76,9 @@ public class MovieList_Fragment extends Fragment {
     }
 
     private void getResultMoviesViewModel() {
-        movieViewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        movieViewModel.init();
-        movieViewModel.getMoviesRepository().observe(this, movieResponse -> {
+        movieViewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
+        movieViewModelMovie.init();
+        movieViewModelMovie.getMoviesRepository().observe(this, movieResponse -> {
             if (movieResponse != null) {
                 Log.e("Masuk", "Number of movie with  = " + movieResponse.getTotalResults());
                 List<MoviesItem> moviesItemList = movieResponse.getResults();
@@ -97,45 +93,10 @@ public class MovieList_Fragment extends Fragment {
         });
     }
 
- /*   private void getResultMovies() {
-        baseApiService.getValueMovies(
-                api_key
-        ).enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<MovieResponse> call, Response<MovieResponse> response) {
-                Log.e("Masuk", "Number of movie with  = " + response.body().getTotalResults());
-                if (response.isSuccessful()) {
-
-                    movieArrayList = response.body().getResults();
-                    rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
-                    moviesAdapter.notifyDataSetChanged();
-
-                    mShimmerViewContainer.stopShimmer();
-                    mShimmerViewContainer.setVisibility(View.GONE);
-                } else {
-                    mShimmerViewContainer.stopShimmer();
-                    Toast.makeText(getActivity(), "Failed get data", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<MovieResponse> call, Throwable t) {
-                if (t instanceof IOException) {
-                    Toast.makeText(getActivity(), "Not Internet Connection", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    String a = t.getMessage();
-                }
-            }
-        });
-    }*/
-
   /*   private void getResultGenre() {
-        movieViewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        movieViewModel.init();
-        movieViewModel.getGenreRepository().observe(this, genreResponse -> {
+        movieViewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
+        movieViewModelMovie.init();
+        movieViewModelMovie.getGenreRepository().observe(this, genreResponse -> {
             List<GenresItem> genresItemList = genreResponse.getGenres();
             genreResponseArrayList.addAll(genresItemList);
 

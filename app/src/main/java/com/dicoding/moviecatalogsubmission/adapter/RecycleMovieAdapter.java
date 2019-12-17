@@ -3,6 +3,7 @@ package com.dicoding.moviecatalogsubmission.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.dicoding.moviecatalogsubmission.DetailActivity4;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
+import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
     List<GenresItem> genresItemList;
     Context context;
     String imagePath = "https://image.tmdb.org/t/p/w500";
+    Integer id;
 
     public RecycleMovieAdapter(Context context, List<MoviesItem> movieList) {
         this.context = context;
@@ -49,6 +52,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
     @Override
     public void onBindViewHolder(@NonNull MovieHolder holder, final int position) {
         final MoviesItem movie = movieList.get(position);
+
         float voteAverage = ((movie.getVoteAverage()*5) / 10);
         Glide.with(context)
                 .load(imagePath + movie.getPosterPath())
@@ -60,13 +64,18 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         holder.tvDate.setText(movie.getReleaseDate());
         holder.tvRate.setText(String.valueOf(movie.getVoteAverage()));
         holder.ratingBar.setRating(voteAverage);
+
+
         holder.itemClick.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                id = movie.getId();
                 Intent intent = new Intent(context, Detail2Activity.class);
                 //intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
-                context.startActivity(intent);
 
+                //Log.e("Detail Movie", "Movie Detail Id= " + id);
+                intent.putExtra("idMovies", id);
+                context.startActivity(intent);
             }
         });
 

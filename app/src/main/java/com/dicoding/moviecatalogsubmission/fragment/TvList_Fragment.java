@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleViewTvAdapter;
-import com.dicoding.moviecatalogsubmission.model.ViewModel;
+import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -32,7 +32,7 @@ public class TvList_Fragment extends Fragment {
     Context context;
     private RecyclerView.Adapter tvAdapter;
     private List<TVShowsItem> tvShowArrayList = new ArrayList<>();
-    private ViewModel viewModel;
+    private ViewModelMovie viewModelMovie;
     private ShimmerFrameLayout mShimmerViewContainer;
 
     @Nullable
@@ -86,9 +86,9 @@ public class TvList_Fragment extends Fragment {
     }
 
     private void getResultTVShowViewModel() {
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        viewModel.init();
-        viewModel.getTVShowRepository().observe(this, tvShowResponse -> {
+        viewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
+        viewModelMovie.init();
+        viewModelMovie.getTVShowRepository().observe(this, tvShowResponse -> {
             if (tvShowResponse != null) {
                 Log.e("Masuk", "Number of TV with  = " + tvShowResponse.getTotalResults());
                 List<TVShowsItem> tvShowsItems = tvShowResponse.getResults();

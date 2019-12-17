@@ -20,7 +20,7 @@ public class MoviesItem {
     private String posterPath;
     @SerializedName("id")
     @Expose
-    private Long id;
+    private Integer id;
     @SerializedName("adult")
     @Expose
     private Boolean adult;
@@ -72,7 +72,7 @@ public class MoviesItem {
      * @param posterPath
      */
     public MoviesItem(Double popularity, Long voteCount, Boolean video, String posterPath,
-                      Long id, Boolean adult, String backdropPath, String originalLanguage,
+                      Integer id, Boolean adult, String backdropPath, String originalLanguage,
                       String originalTitle, List<Long> genreIds, String title, Float voteAverage,
                       String overview, String releaseDate) {
         super();
@@ -124,11 +124,11 @@ public class MoviesItem {
         this.posterPath = posterPath;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

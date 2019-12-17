@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
@@ -23,6 +24,7 @@ public class MoviesRepository {
         if (moviesRepository == null) {
             moviesRepository = new MoviesRepository();
         }
+
         return moviesRepository;
     }
 
@@ -90,6 +92,39 @@ public class MoviesRepository {
         return tvShowResponseMutableLiveData;
     }
 
+
+/*
+    public MutableLiveData<DetailMovieResponse> getDetailMovieResponse(Integer id, String key) {
+        final MutableLiveData<DetailMovieResponse> detailMovieResponseMutableLiveData = new MutableLiveData<>();
+        baseApiService.getDetailResponse(id, key)
+                .enqueue(new Callback<DetailMovieResponse>() {
+                    @Override
+                    public void onResponse(Call<DetailMovieResponse> call, Response<DetailMovieResponse> response) {
+                        if (response.isSuccessful()) {
+                            detailMovieResponseMutableLiveData.setValue(response.body());
+                        } else {
+                            detailMovieResponseMutableLiveData.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DetailMovieResponse> call, Throwable t) {
+                        if (t instanceof IOException) {
+                            String b = t.getMessage();
+                            Log.e("Error Message => ", b);
+                        } else {
+                            String a = t.getMessage();
+                            Log.e("Error Message => ", a);
+                        }
+                    }
+                });
+
+        return detailMovieResponseMutableLiveData;
+    }
+*/
+
+
+
     public MutableLiveData<GenreResponse> getGenre(String key) {
         final MutableLiveData<GenreResponse> genreResponseMutableLiveData = new MutableLiveData<>();
         baseApiService.getGenresResponse(key)
@@ -98,8 +133,6 @@ public class MoviesRepository {
                     public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
                         if (response.isSuccessful()) {
                             genreResponseMutableLiveData.setValue(response.body());
-                        } else {
-
                         }
                     }
 

@@ -21,7 +21,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="320dp"
                 android:src="@drawable/backdrop"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
@@ -29,7 +29,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
                 android:background="@drawable/gradient">
 
             </ImageView>
@@ -57,25 +57,22 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_overlapTop="50dp"
+        app:behavior_overlapTop="80dp"
         android:background="@null"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/desciptionScroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
 
             <ImageView
                 android:id="@+id/tv_mvPosterDetail"
-                android:layout_width="120dp"
+                android:layout_width="115dp"
                 android:layout_height="170dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -84,13 +81,13 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/poster_hanna" />
+                app:srcCompat="@drawable/poster_venom" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:maxLines="2"
@@ -105,11 +102,12 @@
 
             <TextView
                 android:id="@+id/tv_mvGenreDetail"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Action | Fantasy | Drama"
+                android:layout_marginEnd="8dp"
+                android:text="Action | Fantasy | Drama | Adventure | Sc-fi | Animation"
                 android:textColor="@color/genre"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,16 +119,16 @@
                 android:id="@+id/tv_mvDateDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="12 May 2019"
-                android:textSize="14sp"
                 android:textColor="@color/genre"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tv_mvGenreDetail"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar_mvDetail"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -149,15 +147,16 @@
                 android:id="@+id/tv_mvRuntimeDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="2h 43min"
                 android:textColor="@color/runtime"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.011"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvCountryDetail"
-                app:layout_constraintTop_toTopOf="@+id/tv_mvCountryDetail" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mvDateDetail" />
 
             <TextView
                 android:id="@+id/tv_mvOverviewDetail"
@@ -184,13 +183,44 @@
                 android:paddingEnd="16dp"
                 android:text="@string/movie_desc"
                 android:textColor="@color/desc"
-                android:textSize="70sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_mvOverviewDetail"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <RatingBar
+                android:id="@+id/ratingBar_mvDetail"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4.7"
+                android:stepSize="0.1"
+                android:theme="@style/RatingBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mvGenreDetail" />
+
+            <TextView
+                android:id="@+id/tv_mvRatingScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/movie_rate"
+                android:textColor="@color/ratingBar"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/ratingBar_mvDetail"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar_mvDetail" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

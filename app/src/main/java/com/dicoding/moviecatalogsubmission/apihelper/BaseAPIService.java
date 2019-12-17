@@ -1,11 +1,13 @@
 package com.dicoding.moviecatalogsubmission.apihelper;
 
+import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface BaseAPIService {
@@ -25,6 +27,12 @@ public interface BaseAPIService {
             @Query("api_key") String api_key
     );
 
-   /* @GET("movie/474350?api_key="+api_key)
-    Call<DetailMovies> getDetailMovies();*/
+/*
+    @GET("movie/{id}")
+    Call<DetailMovieResponse> getDetailResponse(
+            @Path("id") Integer MovieId,
+            @Query("api_key") String api_key
+    );
+*/
+
 }
