@@ -1,20 +1,15 @@
 package com.dicoding.moviecatalogsubmission;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
-import com.dicoding.moviecatalogsubmission.model.DetailMoviesViewModel;
 
 public class Detail2Activity extends AppCompatActivity {
     public static final String EXTRA_MOVIE2 = "extra_movie2";
     private ImageView back;
-    private DetailMoviesViewModel movieViewModelMovie;
     private Integer idMovieExtras = 512200;
 
 
@@ -38,18 +33,6 @@ public class Detail2Activity extends AppCompatActivity {
         //getDetailMovies();
     }
 
-/*
-    public void getDetailMovies() {
-        movieViewModelMovie = ViewModelProviders.of(this).get(DetailMoviesViewModel.class);
-        movieViewModelMovie.init();
-        movieViewModelMovie.getDetailMovieRepository(
-                idMovieExtras)
-                .observe(this, detailMovieResponse -> {
-                    if (detailMovieResponse != null) {
-                        Log.e("Detail Movie", "Movie Tittle  = " + detailMovieResponse.getTitle());
-                    }
-                });
-    }
-*/
+
 
 }

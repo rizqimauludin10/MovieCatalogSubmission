@@ -24,10 +24,8 @@ public class MoviesRepository {
         if (moviesRepository == null) {
             moviesRepository = new MoviesRepository();
         }
-
         return moviesRepository;
     }
-
 
     private BaseAPIService baseApiService;
 
@@ -91,38 +89,6 @@ public class MoviesRepository {
                 });
         return tvShowResponseMutableLiveData;
     }
-
-
-/*
-    public MutableLiveData<DetailMovieResponse> getDetailMovieResponse(Integer id, String key) {
-        final MutableLiveData<DetailMovieResponse> detailMovieResponseMutableLiveData = new MutableLiveData<>();
-        baseApiService.getDetailResponse(id, key)
-                .enqueue(new Callback<DetailMovieResponse>() {
-                    @Override
-                    public void onResponse(Call<DetailMovieResponse> call, Response<DetailMovieResponse> response) {
-                        if (response.isSuccessful()) {
-                            detailMovieResponseMutableLiveData.setValue(response.body());
-                        } else {
-                            detailMovieResponseMutableLiveData.setValue(null);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<DetailMovieResponse> call, Throwable t) {
-                        if (t instanceof IOException) {
-                            String b = t.getMessage();
-                            Log.e("Error Message => ", b);
-                        } else {
-                            String a = t.getMessage();
-                            Log.e("Error Message => ", a);
-                        }
-                    }
-                });
-
-        return detailMovieResponseMutableLiveData;
-    }
-*/
-
 
 
     public MutableLiveData<GenreResponse> getGenre(String key) {
