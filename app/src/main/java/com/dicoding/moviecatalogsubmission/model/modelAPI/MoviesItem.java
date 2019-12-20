@@ -1,11 +1,14 @@
 package com.dicoding.moviecatalogsubmission.model.modelAPI;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MoviesItem {
+public class MoviesItem implements Parcelable {
     @SerializedName("popularity")
     @Expose
     private Double popularity;
@@ -49,28 +52,9 @@ public class MoviesItem {
     @Expose
     private String releaseDate;
 
-    /**
-     * No args constructor for use in serialization
-     */
     public MoviesItem() {
     }
 
-    /**
-     * @param overview
-     * @param voteAverage
-     * @param releaseDate
-     * @param video
-     * @param originalLanguage
-     * @param genreIds
-     * @param title
-     * @param originalTitle
-     * @param popularity
-     * @param voteCount
-     * @param id
-     * @param backdropPath
-     * @param adult
-     * @param posterPath
-     */
     public MoviesItem(Double popularity, Long voteCount, Boolean video, String posterPath,
                       Integer id, Boolean adult, String backdropPath, String originalLanguage,
                       String originalTitle, List<Long> genreIds, String title, Float voteAverage,
@@ -204,4 +188,43 @@ public class MoviesItem {
         this.releaseDate = releaseDate;
     }
 
+
+    protected MoviesItem(Parcel parcel) {
+
+        this.title = parcel.readString();
+        this.posterPath = parcel.readString();
+        this.backdropPath = parcel.readString();
+        this.overview = parcel.readString();
+        this.releaseDate = parcel.readString();
+        this.voteAverage = parcel.readFloat();
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(this.title);
+        dest.writeString(this.posterPath);
+        dest.writeString(this.backdropPath);
+        dest.writeString(this.overview);
+        dest.writeString(this.releaseDate);
+        dest.writeFloat(this.voteAverage);
+    }
+
+    public static final Creator<MoviesItem> CREATOR = new Creator<MoviesItem>() {
+        @Override
+        public MoviesItem createFromParcel(Parcel source) {
+            return new MoviesItem(source);
+        }
+
+        @Override
+        public MoviesItem[] newArray(int size) {
+            return new MoviesItem[size];
+        }
+    };
 }

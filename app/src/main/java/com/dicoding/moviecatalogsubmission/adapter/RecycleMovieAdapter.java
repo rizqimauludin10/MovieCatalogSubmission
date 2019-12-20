@@ -18,11 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
-import com.dicoding.moviecatalogsubmission.DetailActivity4;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
-import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 
 import java.util.List;
 
@@ -44,7 +42,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
     @NonNull
     @Override
     public RecycleMovieAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout_movie, parent, false);
         final MovieHolder movieHolder = new MovieHolder(view);
         return movieHolder;
     }
@@ -71,9 +69,8 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
             public void onClick(View v) {
                 id = movie.getId();
                 Intent intent = new Intent(context, Detail2Activity.class);
-                //intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
-
-                //Log.e("Detail Movie", "Movie Detail Id= " + id);
+                intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
+                Log.e("Detail Movie", "Movie Detail Id= " + id);
                 intent.putExtra("idMovies", id);
                 context.startActivity(intent);
             }

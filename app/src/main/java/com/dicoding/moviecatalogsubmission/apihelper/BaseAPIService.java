@@ -27,4 +27,9 @@ public interface BaseAPIService {
             @Query("api_key") String api_key
     );
 
+    @GET("movie/{id}")
+    Call<DetailMovieResponse> getDetailMovie(
+            @Path("id") Integer id,
+            @Query("api_key") String api_key
+    );
 }

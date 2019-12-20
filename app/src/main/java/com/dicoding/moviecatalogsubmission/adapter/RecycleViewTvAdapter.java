@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.dicoding.moviecatalogsubmission.Detail3Activity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
@@ -39,7 +37,7 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
     @NonNull
     @Override
     public TvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout4, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout_tv, parent, false);
         final TvHolder tvHolder= new TvHolder(view);
         return tvHolder;
     }
@@ -60,9 +58,9 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
         holder.itemClick2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Detail3Activity.class);
-                //intent.putExtra(Detail3Activity.EXTRA_MOVIE3, tvShowList.get(position));
-                context.startActivity(intent);
+               /* Intent intent = new Intent(context, Detail3Activity.class);
+                intent.putExtra(Detail3Activity.EXTRA_MOVIE3, tvShowList.get(position));
+                context.startActivity(intent);*/
             }
         });
 

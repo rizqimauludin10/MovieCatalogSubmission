@@ -23,6 +23,8 @@
             android:text="@string/Setting_lang"
             android:textSize="18sp"
             android:textColor="@color/black2"
+            fontPath="font/latobold.ttf"
+            tools:ignore="MissingPrefix"
             android:layout_marginBottom="10dp"/>
 
         <RadioGroup

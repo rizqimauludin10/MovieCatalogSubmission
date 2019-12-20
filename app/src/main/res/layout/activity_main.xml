@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".Main2Activity">
+    tools:context=".MainActivity">
 
     <include
         layout="@layout/toolbar_main"

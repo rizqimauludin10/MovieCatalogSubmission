@@ -64,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SettingActivity.this, Main2Activity.class);
+                Intent i = new Intent(SettingActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -102,14 +102,14 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        startActivity(new Intent(this, Main2Activity.class));
+        startActivity(new Intent(this, MainActivity.class));
         overridePendingTransition(R.anim.backanimin,
                 R.anim.backanim);
     }
 
     public void intentRefresh() {
         Intent i = new Intent(SettingActivity.this, SettingActivity.class);
-        finish();
+        //finish();
         overridePendingTransition(0, 0);
         startActivity(i);
         overridePendingTransition(0, 0);

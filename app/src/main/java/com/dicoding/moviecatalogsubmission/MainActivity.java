@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
@@ -25,7 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Main2Activity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -38,9 +40,9 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
 
-        sharedPrefManager = new SharedPrefManager(Main2Activity.this.getApplicationContext());
+        sharedPrefManager = new SharedPrefManager(MainActivity.this.getApplicationContext());
 
         mLanguageCode = sharedPrefManager.getSP_Locale();
         localeHelperUtils = new LocaleHelperUtils(this);
@@ -75,7 +77,7 @@ public class Main2Activity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id==R.id.setting) {
-            Intent intent = new Intent(Main2Activity.this, SettingActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

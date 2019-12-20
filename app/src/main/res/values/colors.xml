@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#13476A</color>
+    <color name="colorPrimaryDark">#13476A</color>
     <color name="colorAccent">#13476A</color>
     <color name="iconApps">#13476A</color>
     <color name="text">#979797</color>
     <color name="black">#262626</color>
     <color name="black2">#4D4D4D</color>
     <color name="tittle">#3E3E3E</color>
+    <color name="tittledarkmode">#F0F0F0</color>
     <color name="genre">#B8B8B8</color>
     <color name="runtime">#757575</color>
     <color name="overview">#5D5D5D</color>

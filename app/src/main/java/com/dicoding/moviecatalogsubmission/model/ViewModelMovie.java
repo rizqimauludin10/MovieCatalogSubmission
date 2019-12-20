@@ -12,7 +12,6 @@ import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
-import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 
 public class ViewModelMovie extends ViewModel {
     private MutableLiveData<MovieResponse> valueMoviesMutableLiveData;
@@ -35,8 +34,6 @@ public class ViewModelMovie extends ViewModel {
         valueMoviesMutableLiveData = moviesRepository.getMovies(api_key);
         genreResponseMutableLiveData = moviesRepository.getGenre(api_key);
         tvShowResponseMutableLiveData = moviesRepository.getTVShows(api_key);
-
-        Log.e("AAAAA", "AAAAAA");
 
     }
 
