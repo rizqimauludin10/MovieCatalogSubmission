@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.dicoding.moviecatalogsubmission.DetailActivity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
@@ -58,9 +59,9 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
         holder.itemClick2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent intent = new Intent(context, Detail3Activity.class);
-                intent.putExtra(Detail3Activity.EXTRA_MOVIE3, tvShowList.get(position));
-                context.startActivity(intent);*/
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_MOVIE, tvShowList.get(position));
+                context.startActivity(intent);
             }
         });
 

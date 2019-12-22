@@ -3,6 +3,7 @@ package com.dicoding.moviecatalogsubmission.apihelper;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 
 import retrofit2.Call;
@@ -12,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface BaseAPIService {
 
-    @GET("discover/movie")
+    @GET("movie/popular")
     Call<MovieResponse> getValueMovies(
             @Query("api_key") String api_key
     );
@@ -32,4 +33,12 @@ public interface BaseAPIService {
             @Path("id") Integer id,
             @Query("api_key") String api_key
     );
+
+    @GET("tv/{id}")
+    Call<TVDetailResponse> getDetailTv(
+            @Path("id") Integer id,
+            @Query("api_key") String api_key
+    );
+
+
 }

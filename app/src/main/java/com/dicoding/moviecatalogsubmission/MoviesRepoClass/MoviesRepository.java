@@ -89,30 +89,4 @@ public class MoviesRepository {
                 });
         return tvShowResponseMutableLiveData;
     }
-
-
-    public MutableLiveData<GenreResponse> getGenre(String key) {
-        final MutableLiveData<GenreResponse> genreResponseMutableLiveData = new MutableLiveData<>();
-        baseApiService.getGenresResponse(key)
-                .enqueue(new Callback<GenreResponse>() {
-                    @Override
-                    public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
-                        if (response.isSuccessful()) {
-                            genreResponseMutableLiveData.setValue(response.body());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GenreResponse> call, Throwable t) {
-                        if (t instanceof IOException) {
-                            String b = t.getMessage();
-                            Log.e("Error Message => ", b);
-                        } else {
-                            String a = t.getMessage();
-                            Log.e("Error Message => ", a);
-                        }
-                    }
-                });
-        return genreResponseMutableLiveData;
-    }
 }

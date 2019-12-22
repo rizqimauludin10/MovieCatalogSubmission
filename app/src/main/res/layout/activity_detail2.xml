@@ -71,7 +71,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/tv_mvPosterDetail"
+                android:id="@+id/tv_tvPosterDetail"
                 android:layout_width="115dp"
                 android:layout_height="170dp"
                 android:layout_marginStart="16dp"
@@ -84,7 +84,7 @@
                 app:srcCompat="@drawable/poster_venom"/>
 
             <TextView
-                android:id="@+id/tv_movieTittleDetail"
+                android:id="@+id/tv_tvTittleDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -98,28 +98,30 @@
                 tools:ignore="MissingPrefix"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.053"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
+                app:layout_constraintStart_toEndOf="@+id/tv_tvPosterDetail"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_mvGenreDetail"
+                android:id="@+id/tv_tvGenreDetail"
+                fontPath="font/latoregular.ttf"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Action | Fantasy | Drama | Adventure | Sc-fi | Animation"
+                android:layout_weight="1"
+                android:maxLines="3"
+                android:text=""
                 android:textColor="@color/genre"
                 android:textSize="14sp"
-                fontPath="font/latoregular.ttf"
-                tools:ignore="MissingPrefix"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tv_movieTittleDetail" />
+                app:layout_constraintStart_toEndOf="@+id/tv_tvPosterDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tvTittleDetail"
+                tools:ignore="MissingPrefix" />
 
             <TextView
-                android:id="@+id/tv_mvDateDetail"
+                android:id="@+id/tv_tvDateDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -132,12 +134,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar_mvDetail"
+                app:layout_constraintStart_toEndOf="@+id/tv_tvPosterDetail"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar_tvDetail"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/tv_mvCountryDetail"
+                android:id="@+id/tv_tvCountryDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(USA)"
@@ -147,11 +149,11 @@
                 tools:ignore="MissingPrefix"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvDateDetail"
-                app:layout_constraintTop_toTopOf="@+id/tv_mvDateDetail" />
+                app:layout_constraintStart_toEndOf="@+id/tv_tvDateDetail"
+                app:layout_constraintTop_toTopOf="@+id/tv_tvDateDetail" />
 
             <TextView
-                android:id="@+id/tv_mvRuntimeDetail"
+                android:id="@+id/tv_tvRuntimeDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -163,11 +165,11 @@
                 tools:ignore="MissingPrefix"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tv_mvDateDetail" />
+                app:layout_constraintStart_toEndOf="@+id/tv_tvPosterDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tvDateDetail" />
 
             <TextView
-                android:id="@+id/tv_mvOverviewDetail"
+                android:id="@+id/tv_tvOverviewDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -180,10 +182,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_mvPosterDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_tvPosterDetail" />
 
             <TextView
-                android:id="@+id/tv_mvOverviewDecDetail"
+                android:id="@+id/tv_tvOverviewDecDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -199,11 +201,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_mvOverviewDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tvOverviewDetail"
                 app:layout_constraintVertical_bias="0.0" />
 
             <RatingBar
-                android:id="@+id/ratingBar_mvDetail"
+                android:id="@+id/ratingBar_tvDetail"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -216,11 +218,11 @@
                 android:theme="@style/RatingBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_mvPosterDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tv_mvGenreDetail" />
+                app:layout_constraintStart_toEndOf="@+id/tv_tvPosterDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tvGenreDetail" />
 
             <TextView
-                android:id="@+id/tv_mvRatingScore"
+                android:id="@+id/tv_tvRatingScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -231,8 +233,8 @@
                 tools:ignore="MissingPrefix"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/ratingBar_mvDetail"
-                app:layout_constraintTop_toTopOf="@+id/ratingBar_mvDetail" />
+                app:layout_constraintStart_toEndOf="@+id/ratingBar_tvDetail"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar_tvDetail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -1,60 +1,114 @@
 package com.dicoding.moviecatalogsubmission;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import androidx.appcompat.app.AppCompatActivity;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
+import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    AppBarLayout appBarLayout;
+    private BaseAPIService baseAPIService;
+    Integer idTvDetail;
+    ImageView ivPoster, ivBackdrop;
+    TextView tvTittle, tvDate, tvGenre, tvRuntime, tvRate, tvOverview;
+    RatingBar tvRatingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        collapsingToolbarLayout = findViewById(R.id.collapse);
-        appBarLayout = findViewById(R.id.appbar);
 
-        Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        baseAPIService = UtilsAPI.getApiService();
 
-        if (movie!=null) {
-            ImageView ivPosterExtra = findViewById(R.id.iv_posterDetail);
-            Glide.with(this)
-                    .load(movie.getMoviePoster())
-                    .transform(new BlurTransformation(3,3))
-                    .into(ivPosterExtra);
-            //ivPosterExtra.setAlpha(0.5f);
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            ImageView ivPosterExtra2 = findViewById(R.id.iv_posterDetail2);
-            Glide.with(this)
-                    .load(movie.getMoviePoster())
-                    .into(ivPosterExtra2);
+        ivPoster = findViewById(R.id.tv_tvPosterDetail);
+        ivBackdrop = findViewById(R.id.iv_tvBackdrop);
+        tvTittle = findViewById(R.id.tv_tvTittleDetail);
+        tvDate = findViewById(R.id.tv_tvDateDetail);
+        tvGenre = findViewById(R.id.tv_tvGenreDetail);
+        tvRuntime = findViewById(R.id.tv_tvRuntimeDetail);
+        tvRatingBar = findViewById(R.id.ratingBar_tvDetail);
+        tvRate = findViewById(R.id.tv_tvRatingScore);
+        tvOverview = findViewById(R.id.tv_tvOverviewDecDetail);
 
-            String text = movie.getMovieTittle() + " " + movie.getMovieDate();
+        TVShowsItem tvShowsItem = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
-            TextView tvTittleExtra = findViewById(R.id.tv_tittleDetail);
-            tvTittleExtra.setText(text);
+        String imagePath = "https://image.tmdb.org/t/p/w780";
+        assert tvShowsItem != null;
 
-            /*TextView tvDateExtra = findViewById(R.id.tv_dateDetail);
-            tvDateExtra.setText(movie.getMovieDate());*/
+        idTvDetail = tvShowsItem.getId();
+        Glide.with(this)
+                .load(imagePath + tvShowsItem.getBackdropPath())
+                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .into(ivBackdrop);
 
-            /*TextView tvRateExtra = findViewById(R.id.tv_rateDetail);
-            tvRateExtra.setText(movie.getMovieRate());*/
+        Glide.with(this)
+                .load(imagePath + tvShowsItem.getPosterPath())
+                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .into(ivPoster);
 
-            TextView tvDescExtra = findViewById(R.id.tv_descDetail);
-            tvDescExtra.setText(movie.getMovieDesc());
-        }
+        tvTittle.setText(tvShowsItem.getName());
+        tvDate.setText(tvShowsItem.getFirstAirDate());
+        float voteAverage = ((tvShowsItem.getVoteAverage() * 5) / 10);
+        tvRatingBar.setRating(voteAverage);
+        tvRate.setText(String.valueOf(tvShowsItem.getVoteAverage()));
+        tvOverview.setText(tvShowsItem.getOverview());
 
+        getTvDetail();
+    }
+
+    public void getTvDetail() {
+        String api_key = "54d3f8cecc84d7140e160061e4602e45";
+        baseAPIService.getDetailTv(
+                idTvDetail,
+                api_key)
+                .enqueue(new Callback<TVDetailResponse>() {
+                    @Override
+                    public void onResponse(Call<TVDetailResponse> call, Response<TVDetailResponse> response) {
+                        if (response.isSuccessful()) {
+                            assert response.body() != null;
+
+                            TVDetailResponse tvDetailResponse = response.body();
+
+                            List<Integer> runtime = response.body().getEpisodeRunTime();
+                            //tvRuntime.setText((CharSequence) runtime);
+
+                            List<GenresItem> genresItemList = response.body().getGenres();
+
+                            for (int i=0; i< genresItemList.size(); i++) {
+                                String getGenres = tvDetailResponse.getGenres().get(i).getName();
+                                tvGenre.append(getGenres + " | ");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TVDetailResponse> call, Throwable t) {
+
+                    }
+                });
 
     }
 }

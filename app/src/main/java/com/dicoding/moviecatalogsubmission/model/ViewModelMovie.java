@@ -15,16 +15,13 @@ import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 
 public class ViewModelMovie extends ViewModel {
     private MutableLiveData<MovieResponse> valueMoviesMutableLiveData;
-    private MutableLiveData<GenreResponse> genreResponseMutableLiveData;
     private MutableLiveData<TVShowResponse> tvShowResponseMutableLiveData;
-    private MutableLiveData<DetailMovieResponse> detailMovieResponseMutableLiveData;
     private MoviesRepository moviesRepository;
     private String api_key = "54d3f8cecc84d7140e160061e4602e45";
 
 
     public void init() {
         if ((valueMoviesMutableLiveData != null) &&
-                (genreResponseMutableLiveData != null) &&
                 (tvShowResponseMutableLiveData != null)) {
 
             return;
@@ -32,7 +29,6 @@ public class ViewModelMovie extends ViewModel {
 
         moviesRepository = MoviesRepository.getInstance();
         valueMoviesMutableLiveData = moviesRepository.getMovies(api_key);
-        genreResponseMutableLiveData = moviesRepository.getGenre(api_key);
         tvShowResponseMutableLiveData = moviesRepository.getTVShows(api_key);
 
     }
@@ -44,10 +40,6 @@ public class ViewModelMovie extends ViewModel {
 
     public LiveData<TVShowResponse> getTVShowRepository() {
         return tvShowResponseMutableLiveData;
-    }
-
-    public LiveData<GenreResponse> getGenreRepository() {
-        return genreResponseMutableLiveData;
     }
 
  /*   public LiveData<DetailMovieResponse> getDetailMovieRepository(Integer idMovieExtras) {

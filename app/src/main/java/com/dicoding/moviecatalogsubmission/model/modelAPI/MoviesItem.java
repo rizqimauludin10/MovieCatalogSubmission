@@ -189,15 +189,14 @@ public class MoviesItem implements Parcelable {
     }
 
 
-    protected MoviesItem(Parcel parcel) {
-
+    private MoviesItem(Parcel parcel) {
+        this.id = parcel.readInt();
         this.title = parcel.readString();
         this.posterPath = parcel.readString();
         this.backdropPath = parcel.readString();
         this.overview = parcel.readString();
         this.releaseDate = parcel.readString();
         this.voteAverage = parcel.readFloat();
-
     }
 
     @Override
@@ -207,7 +206,7 @@ public class MoviesItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.posterPath);
         dest.writeString(this.backdropPath);

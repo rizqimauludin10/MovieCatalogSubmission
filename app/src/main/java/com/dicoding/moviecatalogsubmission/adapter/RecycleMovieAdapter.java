@@ -71,7 +71,6 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
                 Intent intent = new Intent(context, Detail2Activity.class);
                 intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
                 Log.e("Detail Movie", "Movie Detail Id= " + id);
-                intent.putExtra("idMovies", id);
                 context.startActivity(intent);
             }
         });
