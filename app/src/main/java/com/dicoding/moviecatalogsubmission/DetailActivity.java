@@ -1,7 +1,7 @@
 package com.dicoding.moviecatalogsubmission;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -17,6 +17,9 @@ import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.utils.DateFormated;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -29,15 +32,17 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
     private BaseAPIService baseAPIService;
     Integer idTvDetail;
-    ImageView ivPoster, ivBackdrop;
-    TextView tvTittle, tvDate, tvGenre, tvRuntime, tvRate, tvOverview;
+    ImageView ivPoster, ivBackdrop, ivBack;
+    TextView tvTittle, tvDate, tvGenre, tvRate, tvOverview;
     RatingBar tvRatingBar;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        DateFormated dateFormated = new DateFormated(this);
         baseAPIService = UtilsAPI.getApiService();
 
         Window window = getWindow();
@@ -48,14 +53,14 @@ public class DetailActivity extends AppCompatActivity {
         tvTittle = findViewById(R.id.tv_tvTittleDetail);
         tvDate = findViewById(R.id.tv_tvDateDetail);
         tvGenre = findViewById(R.id.tv_tvGenreDetail);
-        tvRuntime = findViewById(R.id.tv_tvRuntimeDetail);
         tvRatingBar = findViewById(R.id.ratingBar_tvDetail);
         tvRate = findViewById(R.id.tv_tvRatingScore);
         tvOverview = findViewById(R.id.tv_tvOverviewDecDetail);
+        ivBack = findViewById(R.id.backHomeTv);
 
         TVShowsItem tvShowsItem = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
-        String imagePath = "https://image.tmdb.org/t/p/w780";
+        String imagePath = BuildConfig.IMAGE_PATH_API;
         assert tvShowsItem != null;
 
         idTvDetail = tvShowsItem.getId();
@@ -70,34 +75,38 @@ public class DetailActivity extends AppCompatActivity {
                 .into(ivPoster);
 
         tvTittle.setText(tvShowsItem.getName());
-        tvDate.setText(tvShowsItem.getFirstAirDate());
+        date = tvShowsItem.getFirstAirDate();
+        tvDate.setText(dateFormated.setDateFormat(date));
         float voteAverage = ((tvShowsItem.getVoteAverage() * 5) / 10);
         tvRatingBar.setRating(voteAverage);
         tvRate.setText(String.valueOf(tvShowsItem.getVoteAverage()));
         tvOverview.setText(tvShowsItem.getOverview());
 
         getTvDetail();
+
+        ivBack.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     public void getTvDetail() {
-        String api_key = "54d3f8cecc84d7140e160061e4602e45";
+        String api_key = BuildConfig.TMDB_API_KEY;
         baseAPIService.getDetailTv(
                 idTvDetail,
                 api_key)
                 .enqueue(new Callback<TVDetailResponse>() {
                     @Override
-                    public void onResponse(Call<TVDetailResponse> call, Response<TVDetailResponse> response) {
+                    public void onResponse(@NotNull Call<TVDetailResponse> call, @NotNull Response<TVDetailResponse> response) {
                         if (response.isSuccessful()) {
                             assert response.body() != null;
 
                             TVDetailResponse tvDetailResponse = response.body();
 
-                            List<Integer> runtime = response.body().getEpisodeRunTime();
-                            //tvRuntime.setText((CharSequence) runtime);
-
                             List<GenresItem> genresItemList = response.body().getGenres();
 
-                            for (int i=0; i< genresItemList.size(); i++) {
+                            for (int i = 0; i < genresItemList.size(); i++) {
                                 String getGenres = tvDetailResponse.getGenres().get(i).getName();
                                 tvGenre.append(getGenres + " | ");
                             }
@@ -105,7 +114,7 @@ public class DetailActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<TVDetailResponse> call, Throwable t) {
+                    public void onFailure(@NotNull Call<TVDetailResponse> call, @NotNull Throwable t) {
 
                     }
                 });

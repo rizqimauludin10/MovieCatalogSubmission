@@ -14,51 +14,45 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 import com.dicoding.moviecatalogsubmission.adapter.TabPagerAdapter;
-import com.dicoding.moviecatalogsubmission.fragment.MovieList_Fragment;
-import com.dicoding.moviecatalogsubmission.fragment.TvList_Fragment;
+import com.dicoding.moviecatalogsubmission.fragment.MovieListFragment;
+import com.dicoding.moviecatalogsubmission.fragment.TvListFragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private TabPagerAdapter adapter;
-    private String mLanguageCode;
-    private LocaleHelperUtils localeHelperUtils;
-    private SharedPrefManager sharedPrefManager;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPrefManager = new SharedPrefManager(MainActivity.this.getApplicationContext());
+        SharedPrefManager sharedPrefManager = new SharedPrefManager(MainActivity.this.getApplicationContext());
 
-        mLanguageCode = sharedPrefManager.getSP_Locale();
-        localeHelperUtils = new LocaleHelperUtils(this);
+        String mLanguageCode = sharedPrefManager.getSP_Locale();
+        LocaleHelperUtils localeHelperUtils = new LocaleHelperUtils(this);
         localeHelperUtils.setAppLocale(mLanguageCode);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getResources().getString(R.string.toolbar_tittle));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.toolbar_tittle));
         toolbar.setTitleTextColor((ContextCompat.getColor(this, R.color.black2)));
 
-        tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
-        viewPager = (ViewPager) findViewById(R.id.viewpager_id);
-        adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
+        tabLayout = findViewById(R.id.tablayout_id);
+        ViewPager viewPager = findViewById(R.id.viewpager_id);
+        TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
 
-        adapter.AddFragment(new MovieList_Fragment(), getResources().getString(R.string.tab_movie));
-        adapter.AddFragment(new TvList_Fragment(), getResources().getString(R.string.tab_tvshows));
+        adapter.AddFragment(new MovieListFragment(), getResources().getString(R.string.tab_movie));
+        adapter.AddFragment(new TvListFragment(), getResources().getString(R.string.tab_tvshows));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

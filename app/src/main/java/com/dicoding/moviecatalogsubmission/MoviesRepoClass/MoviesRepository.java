@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -29,7 +29,7 @@ public class MoviesRepository {
 
     private BaseAPIService baseApiService;
 
-    public MoviesRepository() {
+    private MoviesRepository() {
         baseApiService = UtilsAPI.getApiService();
     }
 
@@ -38,7 +38,7 @@ public class MoviesRepository {
         baseApiService.getValueMovies(key)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
-                    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                    public void onResponse(@NotNull Call<MovieResponse> call, @NotNull Response<MovieResponse> response) {
                         if (response.isSuccessful()) {
                             resultMoviesMutableLiveData.setValue(response.body());
                         } else {
@@ -47,14 +47,16 @@ public class MoviesRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<MovieResponse> call, Throwable t) {
+                    public void onFailure(@NotNull Call<MovieResponse> call, @NotNull Throwable t) {
                         resultMoviesMutableLiveData.setValue(null);
 
                         if (t instanceof IOException) {
                             String b = t.getMessage();
+                            assert b != null;
                             Log.e("Error Message => ", b);
                         } else {
                             String a = t.getMessage();
+                            assert a != null;
                             Log.e("Error Message => ", a);
                         }
 
@@ -68,7 +70,7 @@ public class MoviesRepository {
         baseApiService.getTVResponse(key)
                 .enqueue(new Callback<TVShowResponse>() {
                     @Override
-                    public void onResponse(Call<TVShowResponse> call, Response<TVShowResponse> response) {
+                    public void onResponse(@NotNull Call<TVShowResponse> call, @NotNull Response<TVShowResponse> response) {
                         if (response.isSuccessful()) {
                             tvShowResponseMutableLiveData.setValue(response.body());
                         } else {
@@ -77,12 +79,14 @@ public class MoviesRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<TVShowResponse> call, Throwable t) {
+                    public void onFailure(@NotNull Call<TVShowResponse> call, @NotNull Throwable t) {
                         if (t instanceof IOException) {
                             String b = t.getMessage();
+                            assert b != null;
                             Log.e("Error Message => ", b);
                         } else {
                             String a = t.getMessage();
+                            assert a != null;
                             Log.e("Error Message => ", a);
                         }
                     }

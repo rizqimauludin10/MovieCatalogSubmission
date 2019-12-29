@@ -17,22 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 
 import java.util.List;
 
-import static android.view.View.OnClickListener;
-
 public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapter.MovieHolder> {
 
-    List<MoviesItem> movieList;
-    List<GenresItem> genresItemList;
-    Context context;
-    String imagePath = "https://image.tmdb.org/t/p/w500";
-    Integer id;
+    private List<MoviesItem> movieList;
+    private Context context;
+    private Integer id;
 
     public RecycleMovieAdapter(Context context, List<MoviesItem> movieList) {
         this.context = context;
@@ -43,8 +39,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
     @Override
     public RecycleMovieAdapter.MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout_movie, parent, false);
-        final MovieHolder movieHolder = new MovieHolder(view);
-        return movieHolder;
+        return new MovieHolder(view);
     }
 
     @Override
@@ -52,9 +47,9 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         final MoviesItem movie = movieList.get(position);
 
         float voteAverage = ((movie.getVoteAverage()*5) / 10);
+        String imagePath = BuildConfig.IMAGE_PATH_API_500;
         Glide.with(context)
                 .load(imagePath + movie.getPosterPath())
-                .error(R.drawable.poster_bohemian)
                 .transition(DrawableTransitionOptions.withCrossFade(800))
                 .into(holder.ivPoster);
         holder.tvTittle.setText(movie.getTitle());
@@ -64,15 +59,12 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         holder.ratingBar.setRating(voteAverage);
 
 
-        holder.itemClick.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                id = movie.getId();
-                Intent intent = new Intent(context, Detail2Activity.class);
-                intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
-                Log.e("Detail Movie", "Movie Detail Id= " + id);
-                context.startActivity(intent);
-            }
+        holder.itemClick.setOnClickListener(v -> {
+            id = movie.getId();
+            Intent intent = new Intent(context, Detail2Activity.class);
+            intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
+            Log.e("Detail Movie", "Movie Detail Id= " + id);
+            context.startActivity(intent);
         });
 
     }
@@ -82,7 +74,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         return movieList.size();
     }
 
-    public class MovieHolder extends RecyclerView.ViewHolder {
+    class MovieHolder extends RecyclerView.ViewHolder {
         private ImageView ivPoster;
         private TextView tvTittle;
         private TextView tvDesc;
@@ -90,7 +82,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         private RatingBar ratingBar;
         private LinearLayout itemClick;
 
-        public MovieHolder(@NonNull View itemView) {
+        MovieHolder(@NonNull View itemView) {
             super(itemView);
             Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");
             Typeface latoBold = Typeface.createFromAsset(context.getAssets(), "font/latobold.ttf");

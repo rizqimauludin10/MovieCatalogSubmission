@@ -21,7 +21,7 @@
             android:layout_width="110dp"
             android:layout_height="165dp"
             android:scaleType="fitXY"
-            android:src="@drawable/poster_bohemian"
+            android:src="@drawable/poster_venom"
             android:contentDescription="@string/movie_tittle"/>
 
     </androidx.cardview.widget.CardView>

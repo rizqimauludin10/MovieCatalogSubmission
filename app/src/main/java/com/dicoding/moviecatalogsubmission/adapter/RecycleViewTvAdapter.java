@@ -16,19 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.DetailActivity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
 import java.util.List;
 
-import static android.view.View.*;
-
 public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdapter.TvHolder> {
 
-    List<TVShowsItem> tvShowList;
-    Context context;
-    String imagePath = "https://image.tmdb.org/t/p/w500";
+    private List<TVShowsItem> tvShowList;
+    private Context context;
 
     public RecycleViewTvAdapter(Context context, List<TVShowsItem> tvShowList) {
         this.context = context;
@@ -39,14 +37,14 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
     @Override
     public TvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout_tv, parent, false);
-        final TvHolder tvHolder= new TvHolder(view);
-        return tvHolder;
+        return new TvHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TvHolder holder, final int position) {
         final TVShowsItem tvShow = tvShowList.get(position);
         float voteAverage = ((tvShow.getVoteAverage()*5) / 10);
+        String imagePath = BuildConfig.IMAGE_PATH_API_500;
         Glide.with(context)
                 .load(imagePath + tvShow.getPosterPath())
                 .transition(DrawableTransitionOptions.withCrossFade(800))
@@ -56,15 +54,11 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
         holder.tvDate.setText(tvShow.getFirstAirDate());
         holder.tvRate.setText(String.valueOf(tvShow.getVoteAverage()));
         holder.ratingBar.setRating(voteAverage);
-        holder.itemClick2.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_MOVIE, tvShowList.get(position));
-                context.startActivity(intent);
-            }
+        holder.itemClick2.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_MOVIE, tvShowList.get(position));
+            context.startActivity(intent);
         });
-
     }
 
     @Override
@@ -72,7 +66,7 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
         return tvShowList.size();
     }
 
-    public class TvHolder extends RecyclerView.ViewHolder {
+    class TvHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivPoster;
         private TextView tvTittle;
@@ -81,7 +75,7 @@ public class RecycleViewTvAdapter extends RecyclerView.Adapter<RecycleViewTvAdap
         private RatingBar ratingBar;
         private LinearLayout itemClick2;
 
-        public TvHolder(@NonNull View itemView) {
+        TvHolder(@NonNull View itemView) {
             super(itemView);
             Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");
             Typeface latoBold = Typeface.createFromAsset(context.getAssets(), "font/latobold.ttf");

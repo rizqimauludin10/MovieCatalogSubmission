@@ -25,21 +25,18 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TvList_Fragment extends Fragment {
+public class TvListFragment extends Fragment {
 
-    View view;
-    RecyclerView rvTv;
-    Context context;
+    private RecyclerView rvTv;
+    private Context context;
     private RecyclerView.Adapter tvAdapter;
     private List<TVShowsItem> tvShowArrayList = new ArrayList<>();
-    private ViewModelMovie viewModelMovie;
     private ShimmerFrameLayout mShimmerViewContainer;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tvlist_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.tvlist_fragment, container, false);
     }
 
     @Override
@@ -66,27 +63,11 @@ public class TvList_Fragment extends Fragment {
             rvTv.setNestedScrollingEnabled(true);
         } else {
             tvAdapter.notifyDataSetChanged();
-
         }
-
-       /* if (moviesAdapter == null) {
-            moviesAdapter = new RecycleMovieAdapter(context, movieArrayList);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            rvMovie.setLayoutManager(layoutManager);
-
-            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resId);
-            rvMovie.setLayoutAnimation(animation);
-
-            rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
-            rvMovie.setItemAnimator(new DefaultItemAnimator());
-            rvMovie.setNestedScrollingEnabled(true);
-        } else {
-            moviesAdapter.notifyDataSetChanged();
-        }*/
     }
 
     private void getResultTVShowViewModel() {
-        viewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
+        ViewModelMovie viewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
         viewModelMovie.init();
         viewModelMovie.getTVShowRepository().observe(this, tvShowResponse -> {
             if (tvShowResponse != null) {

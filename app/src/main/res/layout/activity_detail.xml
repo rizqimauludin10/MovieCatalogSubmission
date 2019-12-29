@@ -138,35 +138,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar_tvDetail"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/tv_tvCountryDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(USA)"
-                android:textColor="@color/genre"
-                android:textSize="14sp"
-                fontPath="font/latoregular.ttf"
-                tools:ignore="MissingPrefix"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tvDateDetail"
-                app:layout_constraintTop_toTopOf="@+id/tv_tvDateDetail" />
-
-            <TextView
-                android:id="@+id/tv_tvRuntimeDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="2h 43min"
-                android:textColor="@color/runtime"
-                android:textSize="14sp"
-                fontPath="font/latobold.ttf"
-                tools:ignore="MissingPrefix"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tvPosterDetail"
-                app:layout_constraintTop_toBottomOf="@+id/tv_tvDateDetail" />
 
             <TextView
                 android:id="@+id/tv_tvOverviewDetail"

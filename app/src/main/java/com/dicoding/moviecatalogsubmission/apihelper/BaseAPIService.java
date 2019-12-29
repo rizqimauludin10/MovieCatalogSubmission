@@ -2,7 +2,6 @@ package com.dicoding.moviecatalogsubmission.apihelper;
 
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenreResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 
@@ -15,11 +14,6 @@ public interface BaseAPIService {
 
     @GET("movie/popular")
     Call<MovieResponse> getValueMovies(
-            @Query("api_key") String api_key
-    );
-
-    @GET("genre/movie/list")
-    Call<GenreResponse> getGenresResponse(
             @Query("api_key") String api_key
     );
 

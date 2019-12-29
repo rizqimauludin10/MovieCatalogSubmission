@@ -20,28 +20,23 @@ import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
 import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieList_Fragment extends Fragment {
-    View view;
-    RecyclerView rvMovie;
-    Context context;
+public class MovieListFragment extends Fragment {
+    private RecyclerView rvMovie;
+    private Context context;
     private RecyclerView.Adapter moviesAdapter;
     private List<MoviesItem> movieArrayList = new ArrayList<>();
-    private List<GenresItem> genreResponseArrayList = new ArrayList<>();
-    private ViewModelMovie movieViewModelMovie;
     private ShimmerFrameLayout mShimmerViewContainer;
-    int resId;
+    private int resId;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.movielist_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.movielist_fragment, container, false);
     }
 
     @Override
@@ -76,7 +71,7 @@ public class MovieList_Fragment extends Fragment {
     }
 
     private void getResultMoviesViewModel() {
-        movieViewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
+        ViewModelMovie movieViewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
         movieViewModelMovie.init();
         movieViewModelMovie.getMoviesRepository().observe(this, movieResponse -> {
             if (movieResponse != null) {
@@ -92,17 +87,5 @@ public class MovieList_Fragment extends Fragment {
 
         });
     }
-
-  /*   private void getResultGenre() {
-        movieViewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
-        movieViewModelMovie.init();
-        movieViewModelMovie.getGenreRepository().observe(this, genreResponse -> {
-            List<GenresItem> genresItemList = genreResponse.getGenres();
-            genreResponseArrayList.addAll(genresItemList);
-
-            Log.d("Genre =>", String.valueOf(genresItemList));
-        });
-    }*/
-
 
 }

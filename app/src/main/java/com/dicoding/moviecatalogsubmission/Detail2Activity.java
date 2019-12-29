@@ -1,6 +1,7 @@
 package com.dicoding.moviecatalogsubmission;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -18,8 +19,10 @@ import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
+import com.dicoding.moviecatalogsubmission.utils.DateFormated;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,12 +32,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Detail2Activity extends AppCompatActivity {
     public static final String EXTRA_MOVIE2 = "extra_movie2";
-    private ImageView back;
     private BaseAPIService baseAPIService;
-    private ImageView ivPosterDetail, ivBacdropDetail;
-    private TextView tvMovieTittle, tvOverview, tvDateDetail, tvRatingBarDetail, tvRuntime, tvGenres;
-    private RatingBar ratingBar;
-    Integer idDetail;
+    private TextView tvRuntime;
+    private TextView tvGenres;
+    private Integer idDetail;
 
 
     @Override
@@ -42,17 +43,20 @@ public class Detail2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail2);
 
+        DateFormated dateFormated = new DateFormated(this);
+
         baseAPIService = UtilsAPI.getApiService();
 
-        ivPosterDetail = findViewById(R.id.tv_tvPosterDetail);
-        ivBacdropDetail = findViewById(R.id.iv_movieBackdrop);
-        tvMovieTittle = findViewById(R.id.tv_tvTittleDetail);
-        tvOverview = findViewById(R.id.tv_tvOverviewDecDetail);
-        tvDateDetail = findViewById(R.id.tv_tvDateDetail);
-        tvRatingBarDetail = findViewById(R.id.tv_tvRatingScore);
-        ratingBar = findViewById(R.id.ratingBar_tvDetail);
-        tvRuntime = findViewById(R.id.tv_tvRuntimeDetail);
-        tvGenres = findViewById(R.id.tv_tvGenreDetail);
+        ImageView ivPosterDetail = findViewById(R.id.tv_mvPosterDetail);
+        ImageView ivBacdropDetail = findViewById(R.id.iv_movieBackdrop);
+        TextView tvMovieTittle = findViewById(R.id.tv_mvTittleDetail);
+        TextView tvOverview = findViewById(R.id.tv_mvOverviewDecDetail);
+        TextView tvDateDetail = findViewById(R.id.tv_mvDateDetail);
+        TextView tvRatingBarDetail = findViewById(R.id.tv_mvRatingScore);
+        RatingBar ratingBar = findViewById(R.id.ratingBar_mvDetail);
+        tvRuntime = findViewById(R.id.tv_mvRuntimeDetail);
+        tvGenres = findViewById(R.id.tv_mvGenreDetail);
+        ImageView ivBackHome = findViewById(R.id.backmv);
 
 
         Window window = getWindow();
@@ -63,7 +67,7 @@ public class Detail2Activity extends AppCompatActivity {
         assert moviesItem != null;
         idDetail = moviesItem.getId();
 
-        String imagePath = "https://image.tmdb.org/t/p/w780";
+        String imagePath = BuildConfig.IMAGE_PATH_API;
         Glide.with(this)
                 .load(imagePath + moviesItem.getBackdropPath())
                 .transition(DrawableTransitionOptions.withCrossFade(800))
@@ -76,47 +80,54 @@ public class Detail2Activity extends AppCompatActivity {
 
         tvMovieTittle.setText(moviesItem.getTitle());
         tvOverview.setText(moviesItem.getOverview());
-        tvDateDetail.setText(moviesItem.getReleaseDate());
+        String date = moviesItem.getReleaseDate();
+        tvDateDetail.setText(dateFormated.setDateFormat(date));
         tvRatingBarDetail.setText(String.valueOf(moviesItem.getVoteAverage()));
-        float voteAverage = ((moviesItem.getVoteAverage()*5) / 10);
+        float voteAverage = ((moviesItem.getVoteAverage() * 5) / 10);
         ratingBar.setRating(voteAverage);
 
         getDetailMovies();
+
+
+        ivBackHome.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void getDetailMovies() {
-        String api_key = "54d3f8cecc84d7140e160061e4602e45";
+        String api_key = BuildConfig.TMDB_API_KEY;
         baseAPIService.getDetailMovie(
                 idDetail,
                 api_key)
                 .enqueue(new Callback<DetailMovieResponse>() {
                     @Override
-                    public void onResponse(Call<DetailMovieResponse> call, Response<DetailMovieResponse> response) {
+                    public void onResponse(@NotNull Call<DetailMovieResponse> call, @NotNull Response<DetailMovieResponse> response) {
                         if (response.isSuccessful()) {
                             assert response.body() != null;
                             int runtime = response.body().getRuntime();
-                            tvRuntime.setText(String.valueOf(runtime));
 
+                            int hours = runtime / 60;
+                            int minutes = runtime % 60;
+
+                            tvRuntime.setText((hours + "h" + " " + minutes + "min"));
 
                             DetailMovieResponse m = response.body();
                             List<GenresItem> genresItemList = response.body().getGenres();
 
 
-                            for (int i=0; i< genresItemList.size(); i++) {
+                            for (int i = 0; i < genresItemList.size(); i++) {
                                 String getGenres = m.getGenres().get(i).getName();
                                 tvGenres.append(getGenres + " | ");
-                                //tvGenres.setBackgroundResource(R.drawable.genres);
                                 Log.e("Genres", "Movie Genres =>  " + m.getGenres().get(i).getName());
 
                             }
-
-
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<DetailMovieResponse> call, Throwable t) {
+                    public void onFailure(@NotNull Call<DetailMovieResponse> call, @NotNull Throwable t) {
 
                     }
                 });
