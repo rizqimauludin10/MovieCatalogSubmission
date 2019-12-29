@@ -66,12 +66,12 @@ public class DetailActivity extends AppCompatActivity {
         idTvDetail = tvShowsItem.getId();
         Glide.with(this)
                 .load(imagePath + tvShowsItem.getBackdropPath())
-                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .transition(DrawableTransitionOptions.withCrossFade(400))
                 .into(ivBackdrop);
 
         Glide.with(this)
                 .load(imagePath + tvShowsItem.getPosterPath())
-                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .transition(DrawableTransitionOptions.withCrossFade(400))
                 .into(ivPoster);
 
         tvTittle.setText(tvShowsItem.getName());

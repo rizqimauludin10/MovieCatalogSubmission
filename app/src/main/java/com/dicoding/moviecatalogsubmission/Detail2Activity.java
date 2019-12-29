@@ -70,12 +70,12 @@ public class Detail2Activity extends AppCompatActivity {
         String imagePath = BuildConfig.IMAGE_PATH_API;
         Glide.with(this)
                 .load(imagePath + moviesItem.getBackdropPath())
-                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .transition(DrawableTransitionOptions.withCrossFade(400))
                 .into(ivBacdropDetail);
 
         Glide.with(this)
                 .load(imagePath + moviesItem.getPosterPath())
-                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .transition(DrawableTransitionOptions.withCrossFade(400))
                 .into(ivPosterDetail);
 
         tvMovieTittle.setText(moviesItem.getTitle());
