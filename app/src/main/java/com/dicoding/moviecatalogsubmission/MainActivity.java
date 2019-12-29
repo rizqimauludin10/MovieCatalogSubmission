@@ -1,11 +1,5 @@
 package com.dicoding.moviecatalogsubmission;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -16,20 +10,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
-import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
-import com.dicoding.moviecatalogsubmission.adapter.TabPagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.dicoding.moviecatalogsubmission.fragment.FavoriteFragment;
 import com.dicoding.moviecatalogsubmission.fragment.MovieListFragment;
 import com.dicoding.moviecatalogsubmission.fragment.TvListFragment;
+import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
+import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private TabLayout tabLayout;
+    private Fragment fragment1;
+    final Fragment fragment2 = new TvListFragment();
+    final Fragment fragment3 = new FavoriteFragment();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = fragment1;
+
+    //private final String SIMPLE_FRAGMENT_TAG = "myfragmenttag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +57,40 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.toolbar_tittle));
         toolbar.setTitleTextColor((ContextCompat.getColor(this, R.color.black2)));
 
-        tabLayout = findViewById(R.id.tablayout_id);
-        ViewPager viewPager = findViewById(R.id.viewpager_id);
-        TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
+        //tabLayout = findViewById(R.id.tablayout_id);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.btmNav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        //ViewPager viewPager = findViewById(R.id.viewpager_id);
+        //TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
 
-        adapter.AddFragment(new MovieListFragment(), getResources().getString(R.string.tab_movie));
-        adapter.AddFragment(new TvListFragment(), getResources().getString(R.string.tab_tvshows));
-
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        setCustomFont();
+    if (savedInstanceState == null) {
+        bottomNavigationView.setSelectedItemId(R.id.home_menu);
+        //loadFragment(new MovieListFragment());
     }
+
+       /*fm.beginTransaction().add(R.id.mainacv,fragment1, "1").commit();
+        fm.beginTransaction().add(R.id.mainacv, fragment3, "3").hide(fragment3).commit();
+        fm.beginTransaction().add(R.id.mainacv, fragment2, "2").hide(fragment2).commit();*/
+
+        //adapter.AddFragment(new MovieListFragment(), getResources().getString(R.string.tab_movie));
+        //adapter.AddFragment(new TvListFragment(), getResources().getString(R.string.tab_tvshows));
+
+        //viewPager.setAdapter(adapter);
+        //tabLayout.setupWithViewPager(viewPager);
+
+
+
+        //setCustomFont();
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainacv, fragment);
+        transaction.commit();
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+
     }
 
     public void setCustomFont() {
@@ -95,10 +128,74 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment;
+        //Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainacv);
+        //FragmentManager mFragmentManager = getFragmentManager();
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.home_menu:
+                //loadFragment(new MovieListFragment());
+                fragment = new MovieListFragment();
+                //loadFragment(fragment);
+
+
+                if (fm != null) {
+                    fm
+                            .beginTransaction()
+                            .replace(R.id.mainacv, fragment, MovieListFragment.class.getSimpleName())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                /*fm.beginTransaction().hide(active).show(fragment1).commit();
+                active = fragment1;*/
+                return true;
+               /* fragment = new MovieListFragment();
+                break;*/
+            case R.id.tv_menu:
+                //loadFragment(new TvListFragment());
+                fragment = new TvListFragment();
+
+                if (fm != null) {
+                    fm
+                            .beginTransaction()
+                            .replace(R.id.mainacv, fragment, TvListFragment.class.getSimpleName())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                //loadFragment(fragment);
+                /*fm.beginTransaction().hide(active).show(fragment2).commit();
+                active = fragment2;*/
+                return true;
+                /*fragment = new TvListFragment();
+                break;*/
+            case R.id.favorite_menu:
+                //loadFragment(new FavoriteFragment());
+                fragment = new FavoriteFragment();
+                if (fm != null) {
+                    fm
+                            .beginTransaction()
+                            .replace(R.id.mainacv, fragment, FavoriteFragment.class.getSimpleName())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                //loadFragment(fragment);
+                /*getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.mainacv, fragment, fragment.getClass().getSimpleName())
+                        .commit();*/
+               /* fm.beginTransaction().hide(active).show(fragment3).commit();
+                active = fragment3;*/
+                return true;
+                /*fragment= new FavoriteFragment();
+                break;*/
+        }
+        return false;
+    }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
 }

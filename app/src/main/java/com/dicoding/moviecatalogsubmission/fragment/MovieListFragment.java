@@ -32,11 +32,24 @@ public class MovieListFragment extends Fragment {
     private List<MoviesItem> movieArrayList = new ArrayList<>();
     private ShimmerFrameLayout mShimmerViewContainer;
     private int resId;
+    private int someStateValue;
+    private final String SOME_VALUE_KEY = "someValueToSave";
+
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        //outState.putInt(SOME_VALUE_KEY, someStateValue);
+        super.onSaveInstanceState(outState);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.movielist_fragment, container, false);
+        View view = inflater.inflate(R.layout.movielist_fragment, container, false);
+       /* if (savedInstanceState != null) {
+            someStateValue = savedInstanceState.getInt(SOME_VALUE_KEY);
+        }*/
+        return view;
     }
 
     @Override
