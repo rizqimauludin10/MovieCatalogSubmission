@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -35,7 +36,8 @@ public class FavoriteFragment extends Fragment {
         ViewPager viewPager = view.findViewById(R.id.viewpager_id);
         TabPagerAdapter adapter = new TabPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), 0);
 
-        //adapter.AddFragment(new MovieListFragment(), getResources().getString(R.string.tab_movie));
+
+        adapter.AddFragment(new FavMovieFragment(), getResources().getString(R.string.tab_movie));
         //adapter.AddFragment(new TvListFragment(), getResources().getString(R.string.tab_tvshows));
 
         viewPager.setAdapter(adapter);
@@ -44,7 +46,13 @@ public class FavoriteFragment extends Fragment {
         setCustomFont();
     }
 
-    public void setCustomFont() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        //((MainActivity)getActivity()).setActionBarTitle("SSSSS");
+    }
+
+    private void setCustomFont() {
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
         int tabsCount = vg.getChildCount();
 
@@ -56,7 +64,7 @@ public class FavoriteFragment extends Fragment {
             for (int i = 0; i < tabChildsCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/latoblack.ttf"));
+                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), "font/latoblack.ttf"));
                 }
             }
         }

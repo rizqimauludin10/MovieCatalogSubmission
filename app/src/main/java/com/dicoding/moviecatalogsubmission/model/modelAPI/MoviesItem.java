@@ -1,8 +1,10 @@
 package com.dicoding.moviecatalogsubmission.model.modelAPI;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.dicoding.moviecatalogsubmission.database.DatabaseContract;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -44,7 +46,7 @@ public class MoviesItem implements Parcelable {
     private String title;
     @SerializedName("vote_average")
     @Expose
-    private Float voteAverage;
+    private Double voteAverage;
     @SerializedName("overview")
     @Expose
     private String overview;
@@ -57,7 +59,7 @@ public class MoviesItem implements Parcelable {
 
     public MoviesItem(Double popularity, Long voteCount, Boolean video, String posterPath,
                       Integer id, Boolean adult, String backdropPath, String originalLanguage,
-                      String originalTitle, List<Long> genreIds, String title, Float voteAverage,
+                      String originalTitle, List<Long> genreIds, String title, Double voteAverage,
                       String overview, String releaseDate) {
         super();
         this.popularity = popularity;
@@ -164,11 +166,11 @@ public class MoviesItem implements Parcelable {
         this.title = title;
     }
 
-    public Float getVoteAverage() {
+    public Double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Float voteAverage) {
+    public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -189,6 +191,17 @@ public class MoviesItem implements Parcelable {
     }
 
 
+    public MoviesItem(Cursor cursor) {
+
+        this.id = DatabaseContract.getColumnInt(cursor, DatabaseContract.MovieColumns.MOVIE_ID);
+        this.title = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.TITTLE);
+        this.posterPath = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.POSTER_PATH);
+        this.overview = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.OVERVIEW);
+        this.releaseDate = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.RELEASE_DATE);
+        this.voteAverage= DatabaseContract.getColumnDouble(cursor, DatabaseContract.MovieColumns.VOTE_AVERAGE);
+    }
+
+
     private MoviesItem(Parcel parcel) {
         this.id = parcel.readInt();
         this.title = parcel.readString();
@@ -196,7 +209,7 @@ public class MoviesItem implements Parcelable {
         this.backdropPath = parcel.readString();
         this.overview = parcel.readString();
         this.releaseDate = parcel.readString();
-        this.voteAverage = parcel.readFloat();
+        this.voteAverage = parcel.readDouble();
     }
 
     @Override
@@ -212,7 +225,7 @@ public class MoviesItem implements Parcelable {
         dest.writeString(this.backdropPath);
         dest.writeString(this.overview);
         dest.writeString(this.releaseDate);
-        dest.writeFloat(this.voteAverage);
+        dest.writeDouble(this.voteAverage);
     }
 
     public static final Creator<MoviesItem> CREATOR = new Creator<MoviesItem>() {

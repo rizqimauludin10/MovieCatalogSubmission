@@ -46,7 +46,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
     public void onBindViewHolder(@NonNull MovieHolder holder, final int position) {
         final MoviesItem movie = movieList.get(position);
 
-        float voteAverage = ((movie.getVoteAverage()*5) / 10);
+        double voteAverage = ((movie.getVoteAverage()*5) / 10);
         String imagePath = BuildConfig.IMAGE_PATH_API_500;
         Glide.with(context)
                 .load(imagePath + movie.getPosterPath())
@@ -56,7 +56,7 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         holder.tvDesc.setText(movie.getOverview());
         holder.tvDate.setText(movie.getReleaseDate());
         holder.tvRate.setText(String.valueOf(movie.getVoteAverage()));
-        holder.ratingBar.setRating(voteAverage);
+        holder.ratingBar.setRating((float) voteAverage);
 
 
         holder.itemClick.setOnClickListener(v -> {

@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.dicoding.moviecatalogsubmission.fragment.FavoriteFragment;
 import com.dicoding.moviecatalogsubmission.fragment.MovieListFragment;
@@ -52,16 +51,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView bottomNavigationView = findViewById(R.id.btmNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-
-    if (savedInstanceState == null) {
-        fm.beginTransaction().add(R.id.mainacv, fragment3, "3").hide(fragment3).commit();
-        fm.beginTransaction().add(R.id.mainacv, fragment2, "2").hide(fragment2).commit();
-        fm.beginTransaction().add(R.id.mainacv, fragment1, "1").commit();
+        if (savedInstanceState == null) {
+            fm.beginTransaction().add(R.id.mainacv, fragment3, "3").hide(fragment3).commit();
+            fm.beginTransaction().add(R.id.mainacv, fragment2, "2").hide(fragment2).commit();
+            fm.beginTransaction().add(R.id.mainacv, fragment1, "1").commit();
+        }
     }
-
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id==R.id.setting) {
+        if (id == R.id.setting) {
             Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
         }
@@ -98,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 active = fragment3;
                 return true;
         }
-
-
         return false;
     }
 

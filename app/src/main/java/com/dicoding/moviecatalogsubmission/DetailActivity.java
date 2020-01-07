@@ -1,5 +1,6 @@
 package com.dicoding.moviecatalogsubmission;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
@@ -26,6 +27,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -66,12 +68,12 @@ public class DetailActivity extends AppCompatActivity {
         idTvDetail = tvShowsItem.getId();
         Glide.with(this)
                 .load(imagePath + tvShowsItem.getBackdropPath())
-                .transition(DrawableTransitionOptions.withCrossFade(400))
+                .transition(DrawableTransitionOptions.withCrossFade(200))
                 .into(ivBackdrop);
 
         Glide.with(this)
                 .load(imagePath + tvShowsItem.getPosterPath())
-                .transition(DrawableTransitionOptions.withCrossFade(400))
+                .transition(DrawableTransitionOptions.withCrossFade(200))
                 .into(ivPoster);
 
         tvTittle.setText(tvShowsItem.getName());
@@ -118,6 +120,10 @@ public class DetailActivity extends AppCompatActivity {
 
                     }
                 });
+    }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
