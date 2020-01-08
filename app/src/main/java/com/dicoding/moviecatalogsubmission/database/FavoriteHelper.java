@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 
 import java.util.ArrayList;
 
@@ -33,10 +32,9 @@ public class FavoriteHelper {
         return INSTANCE;
     }
 
-    public FavoriteHelper open() throws SQLException {
+    public void open() throws SQLException {
         databaseHelper = new DatabaseHelper(context);
         database = databaseHelper.getWritableDatabase();
-        return this;
     }
 
     public void close() {
@@ -61,7 +59,10 @@ public class FavoriteHelper {
     }
 
     public ArrayList<DetailMovieResponse> queryAll() {
-        ArrayList<DetailMovieResponse> arrayList = new ArrayList<DetailMovieResponse>();
+        ArrayList<DetailMovieResponse> arrayList = new ArrayList<>();
+
+        String MOVIE_DETAIL_QUERY = "SELECT * FROM " + DATABASE_TABLE;
+
         Cursor cursor = database.query(
                 DATABASE_TABLE,
                 null,

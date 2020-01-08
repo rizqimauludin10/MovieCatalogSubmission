@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogsubmission.MoviesRepoClass;
+package com.dicoding.moviecatalogsubmission.Repository;
 
 import android.util.Log;
 

@@ -1,5 +1,6 @@
 package com.dicoding.moviecatalogsubmission.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -12,34 +13,37 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.FavMovieAdapater;
-import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
 import com.dicoding.moviecatalogsubmission.database.FavoriteHelper;
+import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import static com.dicoding.moviecatalogsubmission.database.DatabaseContract.CONTENT_URI;
 
 public class FavMovieFragment extends Fragment {
 
     private FavMovieAdapater favMovieAdapater;
     private RecyclerView rvFavMovie;
-    FavoriteHelper favoriteHelper;
-    ArrayList<DetailMovieResponse> detailMovieResponse = new ArrayList<>();
+    private FavoriteHelper favoriteHelper;
+    private ArrayList<DetailMovieResponse> detailMovieResponse = new ArrayList<>();
 
-    private Cursor cursor;
+    private Cursor cursor = null;
     private Context context;
 
-     @Nullable
+    FavMovieViewModel favMovieViewModel;
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.movie_fav_fragment, container, false);
@@ -50,46 +54,87 @@ public class FavMovieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rvFavMovie = view.findViewById(R.id.rvFavMovies);
-        favoriteHelper = FavoriteHelper.getInstance(context);
-        //favoriteHelper.open();
+        favMovieAdapater = new FavMovieAdapater(context);
+        /*favoriteHelper = FavoriteHelper.getInstance(getContext());
+        favoriteHelper.open();*/
+        //setupRecycleView();
+        rvFavMovie.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvFavMovie.setAdapter(favMovieAdapater);
+        rvFavMovie.setHasFixedSize(true);
+        favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
+        favMovieViewModel.getListLiveData().observe(this, new Observer<List<MoviesItem>>() {
+                    @Override
+                    public void onChanged(List<MoviesItem> moviesItems) {
+                        favMovieAdapater.setListMovies(moviesItems);
+                        //Log.d("FavFav", String.valueOf(moviesItems));
+                    }
+                });
 
-        setupRecycleView();
+
+
+
+
+
         //cursor = favoriteHelper.queryAll();
-        detailMovieResponse = favoriteHelper.queryAll();
+        //detailMovieResponse = favoriteHelper.queryAll();
 
-        Log.d("FavFav", detailMovieResponse.toString());
+
         //new LoadFavoriteAsync().execute();
     }
 
-    private void setupRecycleView() {
+/*    private void setupRecycleView() {
         if (favMovieAdapater == null) {
             Log.e("Masuk Fav", "Movies Recycle View");
-            favMovieAdapater = new FavMovieAdapater(cursor, context);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+            favMovieAdapater = new FavMovieAdapater();
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             rvFavMovie.setLayoutManager(layoutManager);
 
-            rvFavMovie.setAdapter(new FavMovieAdapater(cursor, context));
+            rvFavMovie.setAdapter(favMovieAdapater);
             rvFavMovie.setItemAnimator(new DefaultItemAnimator());
             rvFavMovie.setNestedScrollingEnabled(true);
         } else {
             favMovieAdapater.notifyDataSetChanged();
         }
-    }
+    }*/
 
     @Override
     public void onResume() {
         super.onResume();
         //new LoadFavoriteAsync().execute();
+        //new LoadFav().execute();
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        favoriteHelper.close();
+        //favoriteHelper.close();
     }
-/*
 
+   /* private class LoadFav extends AsyncTask<Void, Void, ArrayList> {
+
+        @Override
+        protected ArrayList doInBackground(Void... voids) {
+            detailMovieResponse = favoriteHelper.queryAll();
+            //Log.d("FavFav", String.valueOf(detailMovieResponse = favoriteHelper.queryAll()));
+            return detailMovieResponse;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList arrayList) {
+            super.onPostExecute(arrayList);
+
+            //cursor =  arrayList;
+            favMovieAdapater.setListMovies(cursor);
+            favMovieAdapater.notifyDataSetChanged();
+
+            *//*if (cursor.getCount() == 0) {
+                showSnackbarMessage();
+            }*//*
+        }
+    }*/
+
+   /* @SuppressLint("StaticFieldLeak")
     private class LoadFavoriteAsync extends AsyncTask<Void, Void, Cursor> {
 
         @Override
@@ -99,10 +144,11 @@ public class FavMovieFragment extends Fragment {
 
         @Override
         protected Cursor doInBackground(Void... voids) {
-            List<DetailMovieResponse> detailMovieResponses = favoriteHelper.queryAll();
+            //favoriteHelper.queryAll();
 
-           return (Cursor) detailMovieResponses;
+            //cursor = favoriteHelper.queryAll();
 
+            return null;
         }
 
         @Override
@@ -117,8 +163,7 @@ public class FavMovieFragment extends Fragment {
             }
 
         }
-    }
-*/
+    }*/
 
     private void showSnackbarMessage() {
         Snackbar.make(rvFavMovie, "Data Kosong", Snackbar.LENGTH_SHORT).show();

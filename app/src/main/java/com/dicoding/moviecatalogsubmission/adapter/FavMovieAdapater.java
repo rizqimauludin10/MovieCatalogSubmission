@@ -26,16 +26,16 @@ import com.dicoding.moviecatalogsubmission.utils.CustomOnItemClickListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class FavMovieAdapater extends RecyclerView.Adapter<FavMovieAdapater.FavMovieHolder> {
 
-    private Cursor movieList;
+    private List<MoviesItem> movieList = new ArrayList<>();
     private Context context;
 
-    public FavMovieAdapater(Cursor movieList, Context context) {
-        setListMovies(movieList);
+    public FavMovieAdapater(Context context) {
         this.context = context;
     }
 
@@ -48,18 +48,18 @@ public class FavMovieAdapater extends RecyclerView.Adapter<FavMovieAdapater.FavM
 
     @Override
     public void onBindViewHolder(@NonNull FavMovieHolder holder, int position) {
-       final DetailMovieResponse detailMovieResponse =  getItem(position);
+       final MoviesItem moviesItem = movieList.get(position);
 
         String imagePath = BuildConfig.IMAGE_PATH_API_500;
-        Glide.with(context)
-                .load(imagePath + detailMovieResponse.getPosterPath())
+        /*Glide.with(context)
+                .load(imagePath + moviesItem.getPosterPath())
                 .transition(DrawableTransitionOptions.withCrossFade(400))
-                .into(holder.poster);
+                .into(holder.poster);*/
 
-        holder.tittle.setText(detailMovieResponse.getTitle());
-        holder.date.setText(detailMovieResponse.getReleaseDate());
+        holder.tittle.setText(moviesItem.getTitle());
+        holder.date.setText(moviesItem.getReleaseDate());
         holder.itemClick.setOnClickListener(new CustomOnItemClickListener(position, (view, position1) -> {
-            int id = detailMovieResponse.getId();
+            int id = moviesItem.getId();
             /*Intent intent = new Intent(context, Detail2Activity.class);
             intent.putExtra(Detail2Activity.EXTRA_MOVIE2, position1);
             Log.e("Detail Movie Fav", "Movie Detail Id= " + id);
@@ -71,23 +71,25 @@ public class FavMovieAdapater extends RecyclerView.Adapter<FavMovieAdapater.FavM
 
     @Override
     public int getItemCount() {
-       if (movieList == null){
+      /* if (movieList == null){
            return 0;
-       }
-       return movieList.getCount();
+       }*/
+       return movieList.size();
     }
 
-    public void setListMovies(Cursor mListMovies){
+    public void setListMovies(List<MoviesItem> mListMovies){
         this.movieList = mListMovies;
         notifyDataSetChanged();
     }
 
+/*
     private DetailMovieResponse getItem(int position){
         if (!movieList.moveToPosition(position)){
             throw new IllegalStateException("Position invalid");
         }
         return new DetailMovieResponse(movieList);
     }
+*/
 
     class FavMovieHolder extends RecyclerView.ViewHolder {
         private ImageView poster;

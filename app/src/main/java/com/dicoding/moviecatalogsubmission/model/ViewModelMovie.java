@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.dicoding.moviecatalogsubmission.BuildConfig;
-import com.dicoding.moviecatalogsubmission.MoviesRepoClass.MoviesRepository;
+import com.dicoding.moviecatalogsubmission.Repository.MoviesRepository;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
 

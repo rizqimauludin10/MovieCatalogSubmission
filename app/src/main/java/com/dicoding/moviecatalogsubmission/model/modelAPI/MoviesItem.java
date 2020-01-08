@@ -1,16 +1,38 @@
 package com.dicoding.moviecatalogsubmission.model.modelAPI;
 
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.dicoding.moviecatalogsubmission.database.DatabaseContract;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "favmovie")
 public class MoviesItem implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+
+    @ColumnInfo(name = "title_column")
+    @SerializedName("title")
+    private String title;
+
+    @ColumnInfo(name = "poster_path")
+    @SerializedName("poster_path")
+    private String posterPath;
+
+
+    @ColumnInfo(name = "release_date")
+    @SerializedName("release_date")
+    private String releaseDate;
+
     @SerializedName("popularity")
     @Expose
     private Double popularity;
@@ -20,12 +42,7 @@ public class MoviesItem implements Parcelable {
     @SerializedName("video")
     @Expose
     private Boolean video;
-    @SerializedName("poster_path")
-    @Expose
-    private String posterPath;
-    @SerializedName("id")
-    @Expose
-    private Integer id;
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
@@ -38,21 +55,13 @@ public class MoviesItem implements Parcelable {
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Long> genreIds = null;
-    @SerializedName("title")
-    @Expose
-    private String title;
+
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
     @SerializedName("overview")
     @Expose
     private String overview;
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
 
     public MoviesItem() {
     }
@@ -71,7 +80,6 @@ public class MoviesItem implements Parcelable {
         this.backdropPath = backdropPath;
         this.originalLanguage = originalLanguage;
         this.originalTitle = originalTitle;
-        this.genreIds = genreIds;
         this.title = title;
         this.voteAverage = voteAverage;
         this.overview = overview;
@@ -150,13 +158,6 @@ public class MoviesItem implements Parcelable {
         this.originalTitle = originalTitle;
     }
 
-    public List<Long> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Long> genreIds) {
-        this.genreIds = genreIds;
-    }
 
     public String getTitle() {
         return title;
@@ -191,6 +192,7 @@ public class MoviesItem implements Parcelable {
     }
 
 
+/*
     public MoviesItem(Cursor cursor) {
 
         this.id = DatabaseContract.getColumnInt(cursor, DatabaseContract.MovieColumns.MOVIE_ID);
@@ -200,6 +202,7 @@ public class MoviesItem implements Parcelable {
         this.releaseDate = DatabaseContract.getColumnString(cursor, DatabaseContract.MovieColumns.RELEASE_DATE);
         this.voteAverage= DatabaseContract.getColumnDouble(cursor, DatabaseContract.MovieColumns.VOTE_AVERAGE);
     }
+*/
 
 
     private MoviesItem(Parcel parcel) {

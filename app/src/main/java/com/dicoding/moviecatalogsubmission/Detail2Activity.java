@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -22,6 +23,7 @@ import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
 import com.dicoding.moviecatalogsubmission.database.DatabaseContract;
 import com.dicoding.moviecatalogsubmission.database.FavoriteHelper;
+import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
@@ -51,6 +53,7 @@ public class Detail2Activity extends AppCompatActivity {
     private boolean favorite;
     private DetailMovieResponse detailMovieResponse;
     DateFormated dateFormated;
+    FavMovieViewModel favMovieViewModel;
     Context context;
 
 
@@ -79,14 +82,34 @@ public class Detail2Activity extends AppCompatActivity {
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        favoriteHelper = FavoriteHelper.getInstance(this);
-        favoriteHelper.open();
+        favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
+        /*favoriteHelper = FavoriteHelper.getInstance(this);
+        favoriteHelper.open();*/
 
 
         MoviesItem moviesItem = getIntent().getParcelableExtra(EXTRA_MOVIE2);
 
         assert moviesItem != null;
         idDetail = moviesItem.getId();
+
+        String imagePath = BuildConfig.IMAGE_PATH_API;
+        Glide.with(getApplicationContext())
+                .load(imagePath + moviesItem.getBackdropPath())
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivBacdropDetail);
+
+        Glide.with(getApplicationContext())
+                .load(imagePath + moviesItem.getPosterPath())
+                .transition(DrawableTransitionOptions.withCrossFade(200))
+                .into(ivPosterDetail);
+
+        tvMovieTittle.setText(moviesItem.getTitle());
+        tvOverview.setText(moviesItem.getOverview());
+        String date = moviesItem.getReleaseDate();
+        tvDateDetail.setText(dateFormated.setDateFormat(date));
+        tvRatingBarDetail.setText(String.valueOf(moviesItem.getVoteAverage()));
+        double voteAverage = ((moviesItem.getVoteAverage() * 5) / 10);
+        ratingBar.setRating((float) voteAverage);
 
 
         getDetailMovies();
@@ -99,7 +122,10 @@ public class Detail2Activity extends AppCompatActivity {
 
         btFav.setOnClickListener(v -> {
             favorite = true;
-            ContentValues contentValues = new ContentValues();
+            favMovieViewModel.insert(moviesItem);
+
+
+           /* ContentValues contentValues = new ContentValues();
             contentValues.put(DatabaseContract.MovieColumns.MOVIE_ID, detailMovieResponse.getId());
             contentValues.put(DatabaseContract.MovieColumns.TITTLE, detailMovieResponse.getTitle());
             contentValues.put(DatabaseContract.MovieColumns.POSTER_PATH, detailMovieResponse.getPosterPath());
@@ -107,7 +133,7 @@ public class Detail2Activity extends AppCompatActivity {
             contentValues.put(DatabaseContract.MovieColumns.VOTE_AVERAGE, detailMovieResponse.getVoteAverage());
             contentValues.put(DatabaseContract.MovieColumns.RELEASE_DATE, detailMovieResponse.getReleaseDate());
 
-            favoriteHelper.insert(detailMovieResponse);
+            favoriteHelper.insert(detailMovieResponse);*/
 
             Toast.makeText(this, "Masuk Ke Database", Toast.LENGTH_SHORT).show();
         });
@@ -125,8 +151,8 @@ public class Detail2Activity extends AppCompatActivity {
                             assert response.body() != null;
                             detailMovieResponse = response.body();
 
-                            int runtime = detailMovieResponse.getRuntime();
                             idDetail = detailMovieResponse.getId();
+                            int runtime = detailMovieResponse.getRuntime();
 
 
                             int hours = runtime / 60;
@@ -144,9 +170,7 @@ public class Detail2Activity extends AppCompatActivity {
 
                             }
 
-                            idDetail = response.body().getId();
-
-                            String imagePath = BuildConfig.IMAGE_PATH_API;
+                            /*String imagePath = BuildConfig.IMAGE_PATH_API;
                             Glide.with(getApplicationContext())
                                     .load(imagePath + detailMovieResponse.getBackdropPath())
                                     .transition(DrawableTransitionOptions.withCrossFade(200))
@@ -163,7 +187,7 @@ public class Detail2Activity extends AppCompatActivity {
                             tvDateDetail.setText(dateFormated.setDateFormat(date));
                             tvRatingBarDetail.setText(String.valueOf(detailMovieResponse.getVoteAverage()));
                             double voteAverage = ((detailMovieResponse.getVoteAverage() * 5) / 10);
-                            ratingBar.setRating((float) voteAverage);
+                            ratingBar.setRating((float) voteAverage);*/
                         }
 
                     }
@@ -178,7 +202,12 @@ public class Detail2Activity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        favoriteHelper.close();
+        //favoriteHelper.close();
+    }
+
+    public void check(){
+        //favMovieViewModel.selectById(idDetail);
+        favMovieViewModel.selectById(idDetail);
     }
 
     @Override

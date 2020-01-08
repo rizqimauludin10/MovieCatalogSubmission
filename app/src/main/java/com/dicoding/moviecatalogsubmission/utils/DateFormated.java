@@ -1,5 +1,6 @@
 package com.dicoding.moviecatalogsubmission.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import java.text.DateFormat;
@@ -16,6 +17,7 @@ public class DateFormated {
         this.context = context;
     }
 
+    @SuppressLint("SimpleDateFormat")
     public String setDateFormat(String dateM) {
         DateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
