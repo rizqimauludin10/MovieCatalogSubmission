@@ -2,15 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_menu"
-        android:title="Home"
-        android:icon="@drawable/ic_arrow_back_black_24dp"/>
+        android:title="@string/tab_movie"
+        android:icon="@drawable/ic_film"/>
 
     <item
         android:id="@+id/tv_menu"
-        android:title="TV"/>
+        android:title="@string/tab_tvshows"
+        android:icon="@drawable/ic_tv"/>
 
     <item
         android:id="@+id/favorite_menu"
-        android:title="Favorite"/>
+        android:title="@string/tab_favorite"
+        android:icon="@drawable/ic_favorite"/>
 
 </menu>

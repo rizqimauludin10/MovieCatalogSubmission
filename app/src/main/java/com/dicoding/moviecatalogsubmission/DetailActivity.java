@@ -3,18 +3,22 @@ package com.dicoding.moviecatalogsubmission;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
+import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
@@ -36,8 +40,10 @@ public class DetailActivity extends AppCompatActivity {
     Integer idTvDetail;
     ImageView ivPoster, ivBackdrop, ivBack;
     TextView tvTittle, tvDate, tvGenre, tvRate, tvOverview;
+    Button tvFav;
     RatingBar tvRatingBar;
     String date;
+    FavMovieViewModel favMovieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,8 @@ public class DetailActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
+
         ivPoster = findViewById(R.id.tv_tvPosterDetail);
         ivBackdrop = findViewById(R.id.iv_tvBackdrop);
         tvTittle = findViewById(R.id.tv_tvTittleDetail);
@@ -59,6 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         tvRate = findViewById(R.id.tv_tvRatingScore);
         tvOverview = findViewById(R.id.tv_tvOverviewDecDetail);
         ivBack = findViewById(R.id.backHomeTv);
+        tvFav = findViewById(R.id.btTvFav);
 
         TVShowsItem tvShowsItem = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
@@ -90,6 +99,13 @@ public class DetailActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
+        });
+
+        tvFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favMovieViewModel.insertTv(tvShowsItem);
+            }
         });
     }
 

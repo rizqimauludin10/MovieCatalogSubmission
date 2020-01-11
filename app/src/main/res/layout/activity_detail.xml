@@ -207,6 +207,16 @@
                 app:layout_constraintStart_toEndOf="@+id/ratingBar_tvDetail"
                 app:layout_constraintTop_toTopOf="@+id/ratingBar_tvDetail" />
 
+            <Button
+                android:id="@+id/btTvFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Add Favorite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tvOverviewDecDetail" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

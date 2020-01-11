@@ -49,8 +49,8 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         double voteAverage = ((movie.getVoteAverage()*5) / 10);
         String imagePath = BuildConfig.IMAGE_PATH_API_500;
         Glide.with(context)
-                .load(imagePath + movie.getPosterPath())
-                .transition(DrawableTransitionOptions.withCrossFade(800))
+                .load(imagePath+movie.getPosterPath())
+                .transition(DrawableTransitionOptions.withCrossFade(600))
                 .into(holder.ivPoster);
         holder.tvTittle.setText(movie.getTitle());
         holder.tvDesc.setText(movie.getOverview());

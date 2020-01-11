@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class LocaleHelperUtils {
 
-    Context context;
+    private Context context;
 
     public LocaleHelperUtils(Context context) {
         this.context = context;

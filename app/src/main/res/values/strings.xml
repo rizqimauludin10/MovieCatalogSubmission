@@ -13,6 +13,7 @@
     <string name="language_in">Bahasa Indonesia</string>
     <string name="tab_movie">Movies</string>
     <string name="tab_tvshows">Tv Show</string>
+    <string name="tab_favorite">Favorite</string>
     <string name="toolbar_tittle">Movie Catalogs</string>
     <string name="SettingToolbar">Setting</string>
     <string name="Setting_lang">Language</string>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,24 +18,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.FavMovieAdapater;
+import com.dicoding.moviecatalogsubmission.adapter.FavTvAdapter;
 import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.google.android.material.snackbar.Snackbar;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavMovieFragment extends Fragment {
+public class FavTvFragment extends Fragment {
 
-    private FavMovieAdapater favMovieAdapater;
-    private RecyclerView rvFavMovie;
-    private List<MoviesItem> moviesItemArrayList = new ArrayList<>();
+    private FavTvAdapter favTvAdapter;
+    private RecyclerView rvFavTv;
+    private List<TVShowsItem> tvShowsItemArrayList = new ArrayList<>();
     private Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.movie_fav_fragment, container, false);
+        return inflater.inflate(R.layout.tv_fav_fragment, container, false);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class FavMovieFragment extends Fragment {
 
         context = getActivity();
 
-        rvFavMovie = view.findViewById(R.id.rvFavMovies);
+        rvFavTv = view.findViewById(R.id.rvFavTv);
 
         getFavData();
         setupRecycleView();
@@ -51,29 +52,22 @@ public class FavMovieFragment extends Fragment {
 
     private void getFavData() {
         FavMovieViewModel favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
-        favMovieViewModel.getListLiveData().observe(this, moviesItems ->
-                favMovieAdapater.setListMovies(moviesItems)
-        );
+        favMovieViewModel.getListTvLiveData().observe(this, tvShowsItems ->
+                favTvAdapter.setTvShowList(tvShowsItems));
     }
 
     private void setupRecycleView() {
-        if (favMovieAdapater == null) {
+        if (favTvAdapter == null) {
             Log.e("Masuk Fav", "Movies Recycle View");
-            favMovieAdapater = new FavMovieAdapater(context, moviesItemArrayList);
+            favTvAdapter = new FavTvAdapter(tvShowsItemArrayList, context);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            rvFavMovie.setLayoutManager(layoutManager);
+            rvFavTv.setLayoutManager(layoutManager);
 
-            rvFavMovie.setAdapter(favMovieAdapater);
-            rvFavMovie.setItemAnimator(new DefaultItemAnimator());
-            rvFavMovie.setNestedScrollingEnabled(true);
+            rvFavTv.setAdapter(favTvAdapter);
+            rvFavTv.setItemAnimator(new DefaultItemAnimator());
+            rvFavTv.setNestedScrollingEnabled(true);
         } else {
-            favMovieAdapater.notifyDataSetChanged();
-            showSnackbarMessage();
+            favTvAdapter.notifyDataSetChanged();
         }
     }
-
-    private void showSnackbarMessage() {
-        Snackbar.make(rvFavMovie, "Data Kosong", Snackbar.LENGTH_SHORT).show();
-    }
-
 }

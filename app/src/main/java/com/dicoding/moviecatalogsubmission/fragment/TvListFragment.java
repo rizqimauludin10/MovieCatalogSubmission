@@ -48,7 +48,6 @@ public class TvListFragment extends Fragment {
         context = getActivity();
 
         getResultTVShowViewModel();
-
         setupRecycleView();
     }
 
@@ -82,5 +81,13 @@ public class TvListFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getResultTVShowViewModel();
+        setupRecycleView();
     }
 }

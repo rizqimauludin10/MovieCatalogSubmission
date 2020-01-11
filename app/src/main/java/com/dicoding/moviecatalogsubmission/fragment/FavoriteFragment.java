@@ -38,7 +38,7 @@ public class FavoriteFragment extends Fragment {
 
 
         adapter.AddFragment(new FavMovieFragment(), getResources().getString(R.string.tab_movie));
-        //adapter.AddFragment(new TvListFragment(), getResources().getString(R.string.tab_tvshows));
+        adapter.AddFragment(new FavTvFragment(), getResources().getString(R.string.tab_tvshows));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

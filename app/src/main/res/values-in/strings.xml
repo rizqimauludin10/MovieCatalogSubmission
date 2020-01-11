@@ -14,6 +14,7 @@
     <string name="language_in">Bahasa Indonesia</string>
     <string name="tab_movie">Film</string>
     <string name="tab_tvshows">Acara Tv</string>
+    <string name="tab_favorite">Favorit</string>
     <string name="toolbar_tittle">Katalog Film</string>
     <string name="SettingToolbar">Pengaturan</string>
     <string name="Setting_lang">Bahasa</string>

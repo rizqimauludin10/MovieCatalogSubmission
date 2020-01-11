@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefManager {
-    public static final String SP_Catalog = "spCatalog";
+    private static final String SP_Catalog = "spCatalog";
     public static final String SP_Locale = "spLocale";
-    public static final String SP_RadioLang = "spRadioLang";
-    public static final String SP_MovieIdDetail = "spIdMovie";
+    private static final String SP_RadioLang = "spRadioLang";
+    private static final String SP_MovieIdDetail = "spIdMovie";
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor spEditor;

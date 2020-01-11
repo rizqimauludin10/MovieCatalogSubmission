@@ -7,20 +7,24 @@ import androidx.lifecycle.LiveData;
 
 import com.dicoding.moviecatalogsubmission.database.FavDatabase;
 import com.dicoding.moviecatalogsubmission.database.FavMovieDao;
+import com.dicoding.moviecatalogsubmission.fragment.TvListFragment;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
 import java.util.List;
 
 public class FavoriteRepository {
     private FavMovieDao favMovieDao;
     private LiveData<List<MoviesItem>> listLiveData;
+    private LiveData<List<TVShowsItem>> listTvLiveData;
     private FavDatabase database;
 
     public FavoriteRepository(Application application) {
         FavDatabase favDatabase = FavDatabase.getInstance(application);
         favMovieDao = favDatabase.favMovieDao();
         listLiveData = favMovieDao.getAllMovieFav();
+        listTvLiveData = favMovieDao.getAllTvFav();
     }
 
     public LiveData<List<MoviesItem>> getListLiveData(){
@@ -29,6 +33,14 @@ public class FavoriteRepository {
 
     public void insert(MoviesItem moviesItem){
         new InsertMovieAsycTask(favMovieDao).execute(moviesItem);
+    }
+
+    public void insertTv(TVShowsItem tvShowsItem){
+        new InsertTVAsycTask(favMovieDao).execute(tvShowsItem);
+    }
+
+    public LiveData<List<TVShowsItem>> getListTvLiveData(){
+        return listTvLiveData;
     }
 
  /*   public void selectbyId(Integer id){
@@ -49,6 +61,20 @@ public class FavoriteRepository {
         @Override
         protected Void doInBackground(MoviesItem... detailMovieResponses) {
             favMovieDao.insert(detailMovieResponses[0]);
+            return null;
+        }
+    }
+
+    private static class InsertTVAsycTask extends AsyncTask<TVShowsItem, Void, Void>{
+        private FavMovieDao favMovieDao;
+
+        private InsertTVAsycTask(FavMovieDao favMovieDao){
+            this.favMovieDao = favMovieDao;
+        }
+
+        @Override
+        protected Void doInBackground(TVShowsItem... tvShowsItems) {
+            favMovieDao.insertTv(tvShowsItems[0]);
             return null;
         }
     }

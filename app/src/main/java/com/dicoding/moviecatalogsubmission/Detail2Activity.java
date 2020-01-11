@@ -1,9 +1,7 @@
 package com.dicoding.moviecatalogsubmission;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -15,14 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
-import com.dicoding.moviecatalogsubmission.database.DatabaseContract;
-import com.dicoding.moviecatalogsubmission.database.FavoriteHelper;
 import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
@@ -43,18 +40,13 @@ public class Detail2Activity extends AppCompatActivity {
     private BaseAPIService baseAPIService;
     private TextView tvRuntime;
     private TextView tvGenres;
-    private Integer idDetail;
     private Button btFav;
-    private ImageView ivPosterDetail, ivBacdropDetail;
-    private TextView tvMovieTittle, tvOverview, tvDateDetail, tvRatingBarDetail;
+    private Integer idDetail;
     RatingBar ratingBar;
-    private Cursor cursor;
-    private FavoriteHelper favoriteHelper;
-    private boolean favorite;
+    private boolean favorite = false;
     private DetailMovieResponse detailMovieResponse;
     DateFormated dateFormated;
     FavMovieViewModel favMovieViewModel;
-    Context context;
 
 
     @Override
@@ -66,12 +58,12 @@ public class Detail2Activity extends AppCompatActivity {
 
         baseAPIService = UtilsAPI.getApiService();
 
-        ivPosterDetail = findViewById(R.id.tv_mvPosterDetail);
-        ivBacdropDetail = findViewById(R.id.iv_movieBackdrop);
-        tvMovieTittle = findViewById(R.id.tv_mvTittleDetail);
-        tvOverview = findViewById(R.id.tv_mvOverviewDecDetail);
-        tvDateDetail = findViewById(R.id.tv_mvDateDetail);
-        tvRatingBarDetail = findViewById(R.id.tv_mvRatingScore);
+        ImageView ivPosterDetail = findViewById(R.id.tv_mvPosterDetail);
+        ImageView ivBacdropDetail = findViewById(R.id.iv_movieBackdrop);
+        TextView tvMovieTittle = findViewById(R.id.tv_mvTittleDetail);
+        TextView tvOverview = findViewById(R.id.tv_mvOverviewDecDetail);
+        TextView tvDateDetail = findViewById(R.id.tv_mvDateDetail);
+        TextView tvRatingBarDetail = findViewById(R.id.tv_mvRatingScore);
         ratingBar = findViewById(R.id.ratingBar_mvDetail);
         tvRuntime = findViewById(R.id.tv_mvRuntimeDetail);
         tvGenres = findViewById(R.id.tv_mvGenreDetail);
@@ -83,9 +75,6 @@ public class Detail2Activity extends AppCompatActivity {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
-        /*favoriteHelper = FavoriteHelper.getInstance(this);
-        favoriteHelper.open();*/
-
 
         MoviesItem moviesItem = getIntent().getParcelableExtra(EXTRA_MOVIE2);
 
@@ -120,23 +109,15 @@ public class Detail2Activity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
         btFav.setOnClickListener(v -> {
             favorite = true;
+            //check();
             favMovieViewModel.insert(moviesItem);
-
-
-           /* ContentValues contentValues = new ContentValues();
-            contentValues.put(DatabaseContract.MovieColumns.MOVIE_ID, detailMovieResponse.getId());
-            contentValues.put(DatabaseContract.MovieColumns.TITTLE, detailMovieResponse.getTitle());
-            contentValues.put(DatabaseContract.MovieColumns.POSTER_PATH, detailMovieResponse.getPosterPath());
-            contentValues.put(DatabaseContract.MovieColumns.OVERVIEW, detailMovieResponse.getOverview());
-            contentValues.put(DatabaseContract.MovieColumns.VOTE_AVERAGE, detailMovieResponse.getVoteAverage());
-            contentValues.put(DatabaseContract.MovieColumns.RELEASE_DATE, detailMovieResponse.getReleaseDate());
-
-            favoriteHelper.insert(detailMovieResponse);*/
-
             Toast.makeText(this, "Masuk Ke Database", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Id" + idDetail, Toast.LENGTH_SHORT).show();
         });
+
     }
 
     public void getDetailMovies() {
@@ -162,32 +143,12 @@ public class Detail2Activity extends AppCompatActivity {
 
                             List<GenresItem> genresItemList = detailMovieResponse.getGenres();
 
-
                             for (int i = 0; i < genresItemList.size(); i++) {
                                 String getGenres = detailMovieResponse.getGenres().get(i).getName();
                                 tvGenres.append(getGenres + " | ");
                                 Log.e("Genres", "Movie Genres =>  " + detailMovieResponse.getGenres().get(i).getName());
 
                             }
-
-                            /*String imagePath = BuildConfig.IMAGE_PATH_API;
-                            Glide.with(getApplicationContext())
-                                    .load(imagePath + detailMovieResponse.getBackdropPath())
-                                    .transition(DrawableTransitionOptions.withCrossFade(200))
-                                    .into(ivBacdropDetail);
-
-                            Glide.with(getApplicationContext())
-                                    .load(imagePath + detailMovieResponse.getPosterPath())
-                                    .transition(DrawableTransitionOptions.withCrossFade(200))
-                                    .into(ivPosterDetail);
-
-                            tvMovieTittle.setText(detailMovieResponse.getTitle());
-                            tvOverview.setText(detailMovieResponse.getOverview());
-                            String date = detailMovieResponse.getReleaseDate();
-                            tvDateDetail.setText(dateFormated.setDateFormat(date));
-                            tvRatingBarDetail.setText(String.valueOf(detailMovieResponse.getVoteAverage()));
-                            double voteAverage = ((detailMovieResponse.getVoteAverage() * 5) / 10);
-                            ratingBar.setRating((float) voteAverage);*/
                         }
 
                     }
@@ -202,12 +163,18 @@ public class Detail2Activity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //favoriteHelper.close();
     }
 
-    public void check(){
-        //favMovieViewModel.selectById(idDetail);
-        favMovieViewModel.selectById(idDetail);
+    public void check() {
+        /*favMovieViewModel.selectById(idDetail).observe(this, new Observer<MoviesItem>() {
+            @Override
+            public void onChanged(MoviesItem moviesItem) {
+                Log.e("Check Id", "Check Id Fav Movie =>" + moviesItem.getId());
+            }
+        });*/
+        String test =  String.valueOf(favMovieViewModel.selectById(idDetail));
+        Log.e("Check Id", "Check Id Fav Movie =>" + test);
+        //btFav.setEnabled(false);
     }
 
     @Override

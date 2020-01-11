@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/favmovieClick"
+    android:id="@+id/favtvClick"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackgroundBorderless"
@@ -17,7 +17,7 @@
         app:cardUseCompatPadding="true">
 
         <ImageView
-            android:id="@+id/iv_movieFavPoster"
+            android:id="@+id/iv_tvFavPoster"
             android:layout_width="75dp"
             android:layout_height="110dp"
             android:contentDescription="@string/movie_tittle"
@@ -34,7 +34,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_movieFavTittle"
+            android:id="@+id/tv_tvFavTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="2"
@@ -43,7 +43,7 @@
             android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/tv_movieFavDate"
+            android:id="@+id/tv_tvFavDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -59,7 +59,7 @@
             android:orientation="horizontal">
 
             <RatingBar
-                android:id="@+id/rbFavMv"
+                android:id="@+id/rbFavTv"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:theme="@style/RatingBar" />
 
             <TextView
-                android:id="@+id/tv_movieRateFav"
+                android:id="@+id/tv_tvRateFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"

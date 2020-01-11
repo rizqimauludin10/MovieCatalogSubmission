@@ -31,7 +31,7 @@ public class MovieListFragment extends Fragment {
     private RecyclerView.Adapter moviesAdapter;
     private List<MoviesItem> movieArrayList = new ArrayList<>();
     private ShimmerFrameLayout mShimmerViewContainer;
-    private int resId;
+    //private int resId;
 
 
     @Override
@@ -50,7 +50,7 @@ public class MovieListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvMovie = view.findViewById(R.id.rvMovies);
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
-        resId = R.anim.layout_animation_falldown;
+        //resId = R.anim.layout_animation_falldown;
 
         context = getActivity();
 
@@ -92,4 +92,11 @@ public class MovieListFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getResultMoviesViewModel();
+        setupRecycleView();
+    }
 }
