@@ -91,12 +91,4 @@ public class MovieListFragment extends Fragment {
 
         });
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getResultMoviesViewModel();
-        setupRecycleView();
-    }
 }

@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
@@ -40,19 +39,22 @@ public class Detail2Activity extends AppCompatActivity {
     private BaseAPIService baseAPIService;
     private TextView tvRuntime;
     private TextView tvGenres;
-    private Button btFav;
+    private ImageButton favIcon;
     private Integer idDetail;
     RatingBar ratingBar;
     private boolean favorite = false;
     private DetailMovieResponse detailMovieResponse;
     DateFormated dateFormated;
     FavMovieViewModel favMovieViewModel;
+    MoviesItem moviesItem;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail2);
+
+        fullWindow();
 
         dateFormated = new DateFormated(this);
 
@@ -67,19 +69,16 @@ public class Detail2Activity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar_mvDetail);
         tvRuntime = findViewById(R.id.tv_mvRuntimeDetail);
         tvGenres = findViewById(R.id.tv_mvGenreDetail);
-        btFav = findViewById(R.id.bt_addMvFav);
+        favIcon = findViewById(R.id.favIcon);
         ImageView ivBackHome = findViewById(R.id.backmv);
 
 
-        Window window = getWindow();
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
-
-        MoviesItem moviesItem = getIntent().getParcelableExtra(EXTRA_MOVIE2);
+        moviesItem = getIntent().getParcelableExtra(EXTRA_MOVIE2);
 
         assert moviesItem != null;
         idDetail = moviesItem.getId();
+
+        favMovieViewModel = ViewModelProviders.of(this).get(FavMovieViewModel.class);
 
         String imagePath = BuildConfig.IMAGE_PATH_API;
         Glide.with(getApplicationContext())
@@ -101,23 +100,28 @@ public class Detail2Activity extends AppCompatActivity {
         ratingBar.setRating((float) voteAverage);
 
 
+        //get data dari API
         getDetailMovies();
 
+        check();
 
         ivBackHome.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         });
 
-
-        btFav.setOnClickListener(v -> {
-            favorite = true;
-            //check();
-            favMovieViewModel.insert(moviesItem);
-            Toast.makeText(this, "Masuk Ke Database", Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, "Id" + idDetail, Toast.LENGTH_SHORT).show();
+        //insert ke database
+        favIcon.setOnClickListener(v -> {
+            if (!favorite) {
+                favMovieViewModel.insert(moviesItem);
+                favIcon.setImageResource(R.drawable.ic_favorite);
+                Toast.makeText(this, "Menambahkan data ke favorit", Toast.LENGTH_SHORT).show();
+            } else {
+                favMovieViewModel.deleteId(idDetail);
+                favIcon.setImageResource(R.drawable.ic_favorite_border);
+                Toast.makeText(this, "Menghapus data favorit", Toast.LENGTH_SHORT).show();
+            }
         });
-
     }
 
     public void getDetailMovies() {
@@ -160,25 +164,30 @@ public class Detail2Activity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     public void check() {
-        /*favMovieViewModel.selectById(idDetail).observe(this, new Observer<MoviesItem>() {
-            @Override
-            public void onChanged(MoviesItem moviesItem) {
-                Log.e("Check Id", "Check Id Fav Movie =>" + moviesItem.getId());
+        favMovieViewModel.selectById(idDetail).observe(this, moviesItem -> {
+            if (moviesItem != null && moviesItem.getId().equals(idDetail)) {
+                Log.e("Fav", "Movie Fav Check => Berhasil");
+                favIcon.setImageResource(R.drawable.ic_favorite);
+                favorite = true;
+            } else {
+                Log.e("Fav", "Movie Fav Check => Gagal");
             }
-        });*/
-        String test =  String.valueOf(favMovieViewModel.selectById(idDetail));
-        Log.e("Check Id", "Check Id Fav Movie =>" + test);
-        //btFav.setEnabled(false);
+        });
+    }
+
+    public void fullWindow() {
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+     /*favoriteRepository.selectedByid(idDetail);
+        favorite = true;*/
+    //Log.e("Fav", "Movie Fav Check =>  " + favorite);
 }

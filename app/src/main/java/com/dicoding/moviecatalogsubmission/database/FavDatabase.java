@@ -9,17 +9,22 @@ import androidx.room.RoomDatabase;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
-@Database(entities = {MoviesItem.class,TVShowsItem.class},  version = 1, exportSchema = false)
+@Database(
+        entities = {MoviesItem.class, TVShowsItem.class},
+        version = 1,
+        exportSchema = false)
 
 public abstract class FavDatabase extends RoomDatabase {
 
     private static FavDatabase instance;
 
     public abstract FavMovieDao favMovieDao();
-    public static synchronized FavDatabase getInstance(Context context){
-        if (instance == null){
+
+    public static synchronized FavDatabase getInstance(Context context) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     FavDatabase.class, "moviecatalog_database")
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
         }

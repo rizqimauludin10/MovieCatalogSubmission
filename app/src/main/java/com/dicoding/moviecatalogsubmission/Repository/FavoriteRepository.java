@@ -2,13 +2,12 @@ package com.dicoding.moviecatalogsubmission.Repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.dicoding.moviecatalogsubmission.database.FavDatabase;
 import com.dicoding.moviecatalogsubmission.database.FavMovieDao;
-import com.dicoding.moviecatalogsubmission.fragment.TvListFragment;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
@@ -18,43 +17,53 @@ public class FavoriteRepository {
     private FavMovieDao favMovieDao;
     private LiveData<List<MoviesItem>> listLiveData;
     private LiveData<List<TVShowsItem>> listTvLiveData;
-    private FavDatabase database;
+    private FavDatabase favDatabase;
 
     public FavoriteRepository(Application application) {
-        FavDatabase favDatabase = FavDatabase.getInstance(application);
+        favDatabase = FavDatabase.getInstance(application);
         favMovieDao = favDatabase.favMovieDao();
         listLiveData = favMovieDao.getAllMovieFav();
         listTvLiveData = favMovieDao.getAllTvFav();
     }
 
-    public LiveData<List<MoviesItem>> getListLiveData(){
+    public LiveData<List<MoviesItem>> getListLiveData() {
         return listLiveData;
     }
 
-    public void insert(MoviesItem moviesItem){
+    public void insert(MoviesItem moviesItem) {
         new InsertMovieAsycTask(favMovieDao).execute(moviesItem);
     }
 
-    public void insertTv(TVShowsItem tvShowsItem){
+    public void insertTv(TVShowsItem tvShowsItem) {
         new InsertTVAsycTask(favMovieDao).execute(tvShowsItem);
     }
 
-    public LiveData<List<TVShowsItem>> getListTvLiveData(){
+    public LiveData<List<TVShowsItem>> getListTvLiveData() {
         return listTvLiveData;
     }
 
- /*   public void selectbyId(Integer id){
-        new SelectByIdAsycTask(favMovieDao).execute(id);
-    }
-*/
-    public LiveData<MoviesItem> selectedByid(int id){
-        return database.favMovieDao().selectedById(id);
+    public void deleteById(int id){
+        new DeleteMovieAsycTask(favMovieDao).execute(id);
     }
 
-    private static class InsertMovieAsycTask extends AsyncTask<MoviesItem, Void, Void>{
+    public void deleteTvById(int id){
+        new DeleteTvAsycTask(favMovieDao).execute(id);
+    }
+
+    public LiveData<MoviesItem> selectedByid(int id) {
+        Log.e("Fav", "Movie Fav Repository" + " " + id);
+        return favDatabase.favMovieDao().selectedById(id);
+    }
+
+    public LiveData<TVShowsItem> selectedTvById(int id){
+        Log.e("Fav", "TV Fav Repository" + " " + id);
+        return favDatabase.favMovieDao().selectedTvById(id);
+    }
+
+    private static class InsertMovieAsycTask extends AsyncTask<MoviesItem, Void, Void> {
         private FavMovieDao favMovieDao;
 
-        private InsertMovieAsycTask(FavMovieDao favMovieDao){
+        private InsertMovieAsycTask(FavMovieDao favMovieDao) {
             this.favMovieDao = favMovieDao;
         }
 
@@ -65,10 +74,10 @@ public class FavoriteRepository {
         }
     }
 
-    private static class InsertTVAsycTask extends AsyncTask<TVShowsItem, Void, Void>{
+    private static class InsertTVAsycTask extends AsyncTask<TVShowsItem, Void, Void> {
         private FavMovieDao favMovieDao;
 
-        private InsertTVAsycTask(FavMovieDao favMovieDao){
+        private InsertTVAsycTask(FavMovieDao favMovieDao) {
             this.favMovieDao = favMovieDao;
         }
 
@@ -79,21 +88,8 @@ public class FavoriteRepository {
         }
     }
 
-/*    private static class SelectByIdAsycTask extends AsyncTask<Integer, Void, Void>{
-        private FavMovieDao favMovieDao;
 
-        private SelectByIdAsycTask(FavMovieDao favMovieDao){
-            this.favMovieDao = favMovieDao;
-        }
-
-        @Override
-        protected Void doInBackground(Integer... integers) {
-            favMovieDao.selectedById(integers[0]);
-            return null;
-        }
-    }*/
-
- /*   private static class DeleteMovieAsycTask extends AsyncTask<Void, Void, Void>{
+    private static class DeleteMovieAsycTask extends AsyncTask<Integer, Void, Void>{
         private FavMovieDao favMovieDao;
 
         private DeleteMovieAsycTask(FavMovieDao favMovieDao){
@@ -101,9 +97,23 @@ public class FavoriteRepository {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            favMovieDao.deleteByid(0);
+        protected Void doInBackground(Integer... integers) {
+            favMovieDao.deleteByid(integers[0]);
             return null;
         }
-    }*/
+    }
+
+    private static class DeleteTvAsycTask extends AsyncTask<Integer, Void, Void>{
+        private FavMovieDao favMovieDao;
+
+        private DeleteTvAsycTask(FavMovieDao favMovieDao){
+            this.favMovieDao = favMovieDao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            favMovieDao.deleteTvByid(integers[0]);
+            return null;
+        }
+    }
 }

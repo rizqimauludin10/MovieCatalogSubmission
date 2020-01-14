@@ -82,12 +82,4 @@ public class TvListFragment extends Fragment {
         });
 
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getResultTVShowViewModel();
-        setupRecycleView();
-    }
 }

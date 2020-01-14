@@ -3,15 +3,17 @@ package com.dicoding.moviecatalogsubmission;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
@@ -40,9 +42,10 @@ public class DetailActivity extends AppCompatActivity {
     Integer idTvDetail;
     ImageView ivPoster, ivBackdrop, ivBack;
     TextView tvTittle, tvDate, tvGenre, tvRate, tvOverview;
-    Button tvFav;
+    ImageButton tvFav;
     RatingBar tvRatingBar;
     String date;
+    private boolean favorite = false;
     FavMovieViewModel favMovieViewModel;
 
     @Override
@@ -67,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
         tvRate = findViewById(R.id.tv_tvRatingScore);
         tvOverview = findViewById(R.id.tv_tvOverviewDecDetail);
         ivBack = findViewById(R.id.backHomeTv);
-        tvFav = findViewById(R.id.btTvFav);
+        tvFav = findViewById(R.id.tvFavIcon);
 
         TVShowsItem tvShowsItem = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
@@ -94,6 +97,7 @@ public class DetailActivity extends AppCompatActivity {
         tvOverview.setText(tvShowsItem.getOverview());
 
         getTvDetail();
+        check();
 
         ivBack.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
@@ -101,10 +105,15 @@ public class DetailActivity extends AppCompatActivity {
             finish();
         });
 
-        tvFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        tvFav.setOnClickListener(v -> {
+            if (!favorite) {
                 favMovieViewModel.insertTv(tvShowsItem);
+                tvFav.setImageResource(R.drawable.ic_favorite);
+                Toast.makeText(this, "Menambahkan data ke favorit", Toast.LENGTH_SHORT).show();
+            } else {
+                favMovieViewModel.deleteTvId(idTvDetail);
+                tvFav.setImageResource(R.drawable.ic_favorite_border);
+                Toast.makeText(this, "Menghapus data favorit", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -136,6 +145,21 @@ public class DetailActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    public void check() {
+        favMovieViewModel.selectTvById(idTvDetail).observe(this, new Observer<TVShowsItem>() {
+            @Override
+            public void onChanged(TVShowsItem tvShowsItem) {
+                if (tvShowsItem != null && tvShowsItem.getId().equals(idTvDetail)) {
+                    Log.e("Fav", "TV Fav Check => Berhasil");
+                    tvFav.setImageResource(R.drawable.ic_favorite);
+                    favorite = true;
+                } else {
+                    Log.e("Fav", "TV Fav Check => Gagal");
+                }
+            }
+        });
     }
 
     @Override

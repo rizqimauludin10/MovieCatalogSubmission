@@ -1,6 +1,7 @@
 package com.dicoding.moviecatalogsubmission.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -16,6 +17,8 @@ public class FavMovieViewModel extends AndroidViewModel {
     private FavoriteRepository favoriteRepository;
     private LiveData<List<MoviesItem>> listLiveData;
     private LiveData<List<TVShowsItem>> listTvLiveData;
+    private LiveData<MoviesItem> moviesItemLiveData;
+    private Integer id;
 
     public FavMovieViewModel(@NonNull Application application) {
         super(application);
@@ -24,29 +27,36 @@ public class FavMovieViewModel extends AndroidViewModel {
         listTvLiveData = favoriteRepository.getListTvLiveData();
     }
 
-    public void insert(MoviesItem moviesItem){
+    public void insert(MoviesItem moviesItem) {
         favoriteRepository.insert(moviesItem);
     }
 
-    public void insertTv(TVShowsItem tvShowsItem){
+    public void insertTv(TVShowsItem tvShowsItem) {
         favoriteRepository.insertTv(tvShowsItem);
     }
 
-   /* public void selectById(Integer id){
-        //favoriteRepository.selectbyId(id);
-        favoriteRepository.selectedByid(id);
-    }*/
+    public void deleteId(int id){
+        favoriteRepository.deleteById(id);
+    }
 
-   public LiveData<MoviesItem> selectById(int id){
-       return favoriteRepository.selectedByid(id);
-   }
+    public void deleteTvId(int id){
+        favoriteRepository.deleteTvById(id);
+    }
 
+    public LiveData<MoviesItem> selectById(int id) {
+        Log.e("Fav", "Movie Fav View Model" + " " + id);
+        return favoriteRepository.selectedByid(id);
+    }
+
+    public LiveData<TVShowsItem> selectTvById(int id){
+        return favoriteRepository.selectedTvById(id);
+    }
 
     public LiveData<List<MoviesItem>> getListLiveData() {
         return listLiveData;
     }
 
-    public LiveData<List<TVShowsItem>> getListTvLiveData(){
-       return listTvLiveData;
+    public LiveData<List<TVShowsItem>> getListTvLiveData() {
+        return listTvLiveData;
     }
 }

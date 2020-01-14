@@ -17,6 +17,10 @@ import java.util.List;
 public class MoviesItem implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "uid")
+    @SerializedName("uid")
+    private Integer uid;
+
     @ColumnInfo(name = "id")
     @SerializedName("id")
     private Integer id;
@@ -141,6 +145,15 @@ public class MoviesItem implements Parcelable {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
 
     /*public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;

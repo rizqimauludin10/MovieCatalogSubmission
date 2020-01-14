@@ -1,16 +1,10 @@
 package com.dicoding.moviecatalogsubmission.database;
-
-import android.database.Cursor;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
-import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
@@ -25,20 +19,23 @@ public interface FavMovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTv(TVShowsItem... tvShowsItems);
 
-    @Query("SELECT * FROM favmovie WHERE id =:uid")
-    LiveData<MoviesItem> selectedById(int uid);
+    @Query("SELECT * FROM favmovie WHERE id =:aid")
+    LiveData<MoviesItem> selectedById(int aid);
 
-    @Query("SELECT * FROM favmovie")
+    @Query("SELECT * FROM favtv WHERE id =:aid")
+    LiveData<TVShowsItem> selectedTvById(int aid);
+
+    @Query("SELECT * FROM favmovie ORDER BY uid DESC")
     LiveData<List<MoviesItem>> getAllMovieFav();
 
-    @Query("SELECT * FROM favtv")
+    @Query("SELECT * FROM favtv ORDER BY uid DESC")
     LiveData<List<TVShowsItem>> getAllTvFav();
 
-    @Query("DELETE FROM favmovie WHERE id = :uid")
-    void deleteByid(long uid);
+    @Query("DELETE FROM favmovie WHERE id =:uid")
+    void deleteByid(int uid);
 
-    @Query("DELETE FROM favmovie")
-    void deleteAllMovieFav();
+    @Query("DELETE FROM favtv WHERE id =:uid")
+    void deleteTvByid(int uid);
 
 
 }
