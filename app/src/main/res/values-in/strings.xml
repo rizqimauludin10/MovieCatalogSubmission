@@ -18,6 +18,8 @@
     <string name="toolbar_tittle">Katalog Film</string>
     <string name="SettingToolbar">Pengaturan</string>
     <string name="Setting_lang">Bahasa</string>
+    <string name="favsnackadd">Tambahkan ke favorit</string>
+    <string name="favsnackdelete">Hapus dari favorit</string>
 
 
 </resources>

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.FavMovieAdapater;
 import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

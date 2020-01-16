@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.MovieResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowResponse;
 
 import org.jetbrains.annotations.NotNull;
 

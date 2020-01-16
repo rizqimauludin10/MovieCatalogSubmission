@@ -1,7 +1,6 @@
 package com.dicoding.moviecatalogsubmission;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -10,10 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +19,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
 import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.GenresItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVDetailResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 import com.dicoding.moviecatalogsubmission.utils.DateFormated;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +43,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvTittle, tvDate, tvGenre, tvRate, tvOverview;
     ImageButton tvFav;
     RatingBar tvRatingBar;
+    CoordinatorLayout coordinatorLayout;
     String date;
     private boolean favorite = false;
     FavMovieViewModel favMovieViewModel;
@@ -71,6 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         tvOverview = findViewById(R.id.tv_tvOverviewDecDetail);
         ivBack = findViewById(R.id.backHomeTv);
         tvFav = findViewById(R.id.tvFavIcon);
+        coordinatorLayout = findViewById(R.id.coordinatdetailtv);
 
         TVShowsItem tvShowsItem = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
@@ -99,19 +100,21 @@ public class DetailActivity extends AppCompatActivity {
         getTvDetail();
         check();
 
-        ivBack.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        ivBack.setOnClickListener(v -> onBackPressed());
 
         tvFav.setOnClickListener(v -> {
             if (!favorite) {
                 favMovieViewModel.insertTv(tvShowsItem);
                 tvFav.setImageResource(R.drawable.ic_favorite);
-                Toast.makeText(this, "Menambahkan data ke favorit", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, R.string.favsnackadd, Snackbar.LENGTH_SHORT);
+                snackbar.show();
             } else {
                 favMovieViewModel.deleteTvId(idTvDetail);
                 tvFav.setImageResource(R.drawable.ic_favorite_border);
-                Toast.makeText(this, "Menghapus data favorit", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, R.string.favsnackdelete, Snackbar.LENGTH_SHORT);
+                snackbar.show();
             }
         });
     }
@@ -146,16 +149,14 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void check() {
-        favMovieViewModel.selectTvById(idTvDetail).observe(this, new Observer<TVShowsItem>() {
-            @Override
-            public void onChanged(TVShowsItem tvShowsItem) {
-                if (tvShowsItem != null && tvShowsItem.getId().equals(idTvDetail)) {
-                    Log.e("Fav", "TV Fav Check => Berhasil");
-                    tvFav.setImageResource(R.drawable.ic_favorite);
-                    favorite = true;
-                } else {
-                    Log.e("Fav", "TV Fav Check => Gagal");
-                }
+        favMovieViewModel.selectTvById(idTvDetail).observe(this, tvShowsItem -> {
+            if (tvShowsItem != null && tvShowsItem.getId().equals(idTvDetail)) {
+                Log.e("Fav", "TV Fav Check => Berhasil");
+                tvFav.setImageResource(R.drawable.ic_favorite);
+                favorite = true;
+            } else {
+                favorite = false;
+                Log.e("Fav", "TV Fav Check => Gagal");
             }
         });
     }

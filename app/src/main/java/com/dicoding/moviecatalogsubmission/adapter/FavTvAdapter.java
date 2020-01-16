@@ -19,7 +19,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.DetailActivity;
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 import java.util.List;
 
@@ -82,7 +82,7 @@ public class FavTvAdapter extends RecyclerView.Adapter<FavTvAdapter.FavTvHolder>
         private RatingBar ratingBar;
         private LinearLayout itemClick2;
 
-        public FavTvHolder(@NonNull View itemView){
+        FavTvHolder(@NonNull View itemView){
             super(itemView);
             Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");
             Typeface latoBold = Typeface.createFromAsset(context.getAssets(), "font/latobold.ttf");

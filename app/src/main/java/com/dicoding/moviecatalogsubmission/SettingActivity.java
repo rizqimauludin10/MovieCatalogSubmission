@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,13 +18,9 @@ import java.util.Objects;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static android.view.View.OnClickListener;
-import static android.widget.RadioGroup.OnCheckedChangeListener;
-
 public class SettingActivity extends AppCompatActivity {
     private String mLanguageCode;
     SharedPrefManager sharedPrefManager;
-
 
 
     @Override
@@ -62,29 +57,25 @@ public class SettingActivity extends AppCompatActivity {
                 break;
         }
 
-        back.setOnClickListener(v -> {
-            /*Intent i = new Intent(SettingActivity.this, MainActivity.class);
-            startActivity(i);*/
-            onBackPressed();
-        });
+        back.setOnClickListener(v -> onBackPressed());
 
         radioGroupLg.setOnCheckedChangeListener((group, checkedId) -> {
             int id = group.getCheckedRadioButtonId();
 
             switch (id) {
-                case R.id.lg_eg :
+                case R.id.lg_eg:
                     mLanguageCode = "en";
                     sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
                     intentRefresh();
                     break;
-                case R.id.lg_es :
+                case R.id.lg_es:
                     mLanguageCode = "es";
                     sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
                     intentRefresh();
                     break;
-                case R.id.lg_in :
+                case R.id.lg_in:
                     mLanguageCode = "in";
-                    sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale,mLanguageCode);
+                    sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
                     intentRefresh();
                 default:
 
@@ -116,7 +107,6 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-        //super.attachBaseContext(LocaleHelperUtils.setAppLocale(newBase, mLanguageCode));
     }
 
 }

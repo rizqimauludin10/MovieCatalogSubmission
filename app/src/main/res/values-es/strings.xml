@@ -17,5 +17,7 @@
     <string name="toolbar_tittle">Catálogo de películas</string>
     <string name="SettingToolbar">Ajuste</string>
     <string name="Setting_lang">Idioma</string>
+    <string name="favsnackadd">Añadir  favoritos</string>
+    <string name="favsnackdelete">Eliminar favorito</string>
 
 </resources>

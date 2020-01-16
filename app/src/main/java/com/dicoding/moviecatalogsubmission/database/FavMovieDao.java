@@ -5,8 +5,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 import java.util.List;
 

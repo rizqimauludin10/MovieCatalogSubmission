@@ -20,10 +20,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.utils.CustomOnItemClickListener;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavMovieAdapater extends RecyclerView.Adapter<FavMovieAdapater.FavMovieHolder> {
@@ -88,7 +86,7 @@ public class FavMovieAdapater extends RecyclerView.Adapter<FavMovieAdapater.FavM
         private LinearLayout itemClick;
         private RatingBar ratingBar;
 
-        public FavMovieHolder(@NonNull View itemView) {
+        FavMovieHolder(@NonNull View itemView) {
             super(itemView);
 
             Typeface latoBlack = Typeface.createFromAsset(context.getAssets(), "font/latoblack.ttf");

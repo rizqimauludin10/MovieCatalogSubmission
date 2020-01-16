@@ -19,7 +19,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.DetailActivity;
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 import java.util.List;
 

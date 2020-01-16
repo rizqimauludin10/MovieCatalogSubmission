@@ -6,8 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 @Database(
         entities = {MoviesItem.class, TVShowsItem.class},

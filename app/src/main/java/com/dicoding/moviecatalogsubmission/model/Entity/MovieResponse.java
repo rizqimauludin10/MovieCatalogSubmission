@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogsubmission.model.modelAPI;
+package com.dicoding.moviecatalogsubmission.model.Entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.Repository.MoviesRepository;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.MovieResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowResponse;
 
 public class ViewModelMovie extends ViewModel {
     private MutableLiveData<MovieResponse> valueMoviesMutableLiveData;

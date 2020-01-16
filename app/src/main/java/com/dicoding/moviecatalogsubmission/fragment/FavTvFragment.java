@@ -10,17 +10,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
-import com.dicoding.moviecatalogsubmission.adapter.FavMovieAdapater;
 import com.dicoding.moviecatalogsubmission.adapter.FavTvAdapter;
 import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 import java.util.ArrayList;
 import java.util.List;

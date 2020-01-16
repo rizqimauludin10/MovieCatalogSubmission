@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 
 import com.dicoding.moviecatalogsubmission.database.FavDatabase;
 import com.dicoding.moviecatalogsubmission.database.FavMovieDao;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 import java.util.List;
 

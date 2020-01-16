@@ -8,8 +8,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.dicoding.moviecatalogsubmission.Repository.FavoriteRepository;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
 
 import java.util.List;
 
@@ -17,8 +17,6 @@ public class FavMovieViewModel extends AndroidViewModel {
     private FavoriteRepository favoriteRepository;
     private LiveData<List<MoviesItem>> listLiveData;
     private LiveData<List<TVShowsItem>> listTvLiveData;
-    private LiveData<MoviesItem> moviesItemLiveData;
-    private Integer id;
 
     public FavMovieViewModel(@NonNull Application application) {
         super(application);

@@ -1,7 +1,6 @@
 package com.dicoding.moviecatalogsubmission;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -10,9 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
@@ -20,10 +19,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.apihelper.BaseAPIService;
 import com.dicoding.moviecatalogsubmission.apihelper.UtilsAPI;
 import com.dicoding.moviecatalogsubmission.model.FavMovieViewModel;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.GenresItem;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.DetailMovieResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.GenresItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
 import com.dicoding.moviecatalogsubmission.utils.DateFormated;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +40,7 @@ public class Detail2Activity extends AppCompatActivity {
     private TextView tvRuntime;
     private TextView tvGenres;
     private ImageButton favIcon;
+    private CoordinatorLayout coordinatorLayout;
     private Integer idDetail;
     RatingBar ratingBar;
     private boolean favorite = false;
@@ -66,6 +67,7 @@ public class Detail2Activity extends AppCompatActivity {
         TextView tvOverview = findViewById(R.id.tv_mvOverviewDecDetail);
         TextView tvDateDetail = findViewById(R.id.tv_mvDateDetail);
         TextView tvRatingBarDetail = findViewById(R.id.tv_mvRatingScore);
+        coordinatorLayout = findViewById(R.id.coordinatdetail2);
         ratingBar = findViewById(R.id.ratingBar_mvDetail);
         tvRuntime = findViewById(R.id.tv_mvRuntimeDetail);
         tvGenres = findViewById(R.id.tv_mvGenreDetail);
@@ -105,20 +107,22 @@ public class Detail2Activity extends AppCompatActivity {
 
         check();
 
-        ivBackHome.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        ivBackHome.setOnClickListener(v -> onBackPressed());
 
         //insert ke database
         favIcon.setOnClickListener(v -> {
             if (!favorite) {
                 favMovieViewModel.insert(moviesItem);
                 favIcon.setImageResource(R.drawable.ic_favorite);
-                Toast.makeText(this, "Menambahkan data ke favorit", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, R.string.favsnackadd, Snackbar.LENGTH_SHORT);
+                snackbar.show();
             } else {
                 favMovieViewModel.deleteId(idDetail);
                 favIcon.setImageResource(R.drawable.ic_favorite_border);
-                Toast.makeText(this, "Menghapus data favorit", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, R.string.favsnackdelete, Snackbar.LENGTH_SHORT);
+                snackbar.show();
             }
         });
     }
@@ -175,6 +179,7 @@ public class Detail2Activity extends AppCompatActivity {
                 favIcon.setImageResource(R.drawable.ic_favorite);
                 favorite = true;
             } else {
+                favorite = false;
                 Log.e("Fav", "Movie Fav Check => Gagal");
             }
         });

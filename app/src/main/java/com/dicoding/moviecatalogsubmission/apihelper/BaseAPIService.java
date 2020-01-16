@@ -1,9 +1,9 @@
 package com.dicoding.moviecatalogsubmission.apihelper;
 
-import com.dicoding.moviecatalogsubmission.model.modelAPI.DetailMovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MovieResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVDetailResponse;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.DetailMovieResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.MovieResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVDetailResponse;
+import com.dicoding.moviecatalogsubmission.model.Entity.TVShowResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

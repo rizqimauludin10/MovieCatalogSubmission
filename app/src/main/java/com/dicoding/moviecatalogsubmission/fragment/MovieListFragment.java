@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
 import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
-import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;

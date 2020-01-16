@@ -17,5 +17,7 @@
     <string name="toolbar_tittle">Movie Catalogs</string>
     <string name="SettingToolbar">Setting</string>
     <string name="Setting_lang">Language</string>
+    <string name="favsnackadd">Add to favorite</string>
+    <string name="favsnackdelete">Delete from favorite</string>
 
 </resources>

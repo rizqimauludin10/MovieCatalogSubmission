@@ -22,8 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment1 = new MovieListFragment();
@@ -31,9 +29,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     final Fragment fragment3 = new FavoriteFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
-    LocaleHelperUtils localeHelperUtils;
+    private BottomNavigationView bottomNavigationView;
     private String mLanguageCode;
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +48,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.toolbar_tittle));
         toolbar.setTitleTextColor((ContextCompat.getColor(this, R.color.black2)));
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.btmNav);
+        bottomNavigationView = findViewById(R.id.btmNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.getMenu().clear();
+
 
         if (savedInstanceState == null) {
             fm.beginTransaction().add(R.id.mainacv, fragment3, "3").hide(fragment3).commit();
@@ -63,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        bottomNavigationView.inflateMenu(R.menu.bottomnavigation_menu);
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
