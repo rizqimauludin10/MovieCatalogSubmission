@@ -1,7 +1,9 @@
 package com.dicoding.moviecatalogsubmission.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.BuildConfig;
+import com.dicoding.moviecatalogsubmission.Detail2Activity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.MoviesItem;
 import com.dicoding.moviecatalogsubmission.utils.CustomOnItemClickListener;
@@ -55,15 +58,13 @@ public class FavMovieAdapater extends RecyclerView.Adapter<FavMovieAdapater.FavM
         holder.date.setText(moviesItem.getReleaseDate());
         holder.rate.setText(String.valueOf(moviesItem.getVoteAverage()));
         holder.ratingBar.setRating((float) voteAverage);
-        holder.itemClick.setOnClickListener(new CustomOnItemClickListener(position, (view, position1) -> {
+        holder.itemClick.setOnClickListener(v -> {
             int id = moviesItem.getId();
-            /*Intent intent = new Intent(context, Detail2Activity.class);
-            intent.putExtra(Detail2Activity.EXTRA_MOVIE2, position1);
+            Intent intent = new Intent(context, Detail2Activity.class);
+            intent.putExtra(Detail2Activity.EXTRA_MOVIE2, movieList.get(position));
             Log.e("Detail Movie Fav", "Movie Detail Id= " + id);
-            context.startActivity(intent);*/
-        }));
-
-
+            context.startActivity(intent);
+        });
     }
 
     @Override

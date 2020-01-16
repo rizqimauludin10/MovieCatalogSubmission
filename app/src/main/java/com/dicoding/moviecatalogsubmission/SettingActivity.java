@@ -27,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,8 @@ public class SettingActivity extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(SettingActivity.this.getApplicationContext());
         String saveLang = sharedPrefManager.getSP_Locale();
+
+        LocaleHelperUtils.setAppLocale(this, mLanguageCode);
 
         Toolbar toolbar = findViewById(R.id.setting_toolbar);
         ImageView back = findViewById(R.id.back_setting);
@@ -60,8 +63,9 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         back.setOnClickListener(v -> {
-            Intent i = new Intent(SettingActivity.this, MainActivity.class);
-            startActivity(i);
+            /*Intent i = new Intent(SettingActivity.this, MainActivity.class);
+            startActivity(i);*/
+            onBackPressed();
         });
 
         radioGroupLg.setOnCheckedChangeListener((group, checkedId) -> {
@@ -70,7 +74,6 @@ public class SettingActivity extends AppCompatActivity {
             switch (id) {
                 case R.id.lg_eg :
                     mLanguageCode = "en";
-                    //Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_SHORT).show();
                     sharedPrefManager.saveSPString(SharedPrefManager.SP_Locale, mLanguageCode);
                     intentRefresh();
                     break;
@@ -96,6 +99,7 @@ public class SettingActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
         overridePendingTransition(R.anim.backanimin,
                 R.anim.backanim);
+        //super.onBackPressed();
     }
 
     public void intentRefresh() {
@@ -104,14 +108,15 @@ public class SettingActivity extends AppCompatActivity {
         startActivity(i);
         overridePendingTransition(0, 0);
 
-        LocaleHelperUtils localeHelperUtils = new LocaleHelperUtils(this);
-        localeHelperUtils.setAppLocale(mLanguageCode);
+        LocaleHelperUtils.setAppLocale(this, mLanguageCode);
+
 
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        //super.attachBaseContext(LocaleHelperUtils.setAppLocale(newBase, mLanguageCode));
     }
 
 }

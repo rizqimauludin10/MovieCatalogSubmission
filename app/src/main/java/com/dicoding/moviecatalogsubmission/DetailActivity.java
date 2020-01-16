@@ -100,9 +100,7 @@ public class DetailActivity extends AppCompatActivity {
         check();
 
         ivBack.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            onBackPressed();
         });
 
         tvFav.setOnClickListener(v -> {
@@ -160,6 +158,11 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

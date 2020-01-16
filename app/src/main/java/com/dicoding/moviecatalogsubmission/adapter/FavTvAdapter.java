@@ -1,6 +1,7 @@
 package com.dicoding.moviecatalogsubmission.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.dicoding.moviecatalogsubmission.BuildConfig;
+import com.dicoding.moviecatalogsubmission.DetailActivity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.model.modelAPI.TVShowsItem;
 
@@ -51,6 +53,11 @@ public class FavTvAdapter extends RecyclerView.Adapter<FavTvAdapter.FavTvHolder>
         holder.tvDate.setText(tvShow.getFirstAirDate());
         holder.tvRate.setText(String.valueOf(tvShow.getVoteAverage()));
         holder.ratingBar.setRating(voteAverage);
+        holder.itemClick2.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_MOVIE, tvShowList.get(position));
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -86,7 +93,7 @@ public class FavTvAdapter extends RecyclerView.Adapter<FavTvAdapter.FavTvHolder>
             tvDate = itemView.findViewById(R.id.tv_tvFavDate);
             tvRate = itemView.findViewById(R.id.tv_tvRateFav);
             ratingBar = itemView.findViewById(R.id.rbFavTv);
-            //itemClick2 = itemView.findViewById(R.id.itemClick4);
+            itemClick2 = itemView.findViewById(R.id.favtvClick);
 
             tvTittle.setTypeface(latoBlack);
             tvDate.setTypeface(latoRegular);

@@ -57,8 +57,6 @@ public class RecycleMovieAdapter extends RecyclerView.Adapter<RecycleMovieAdapte
         holder.tvDate.setText(movie.getReleaseDate());
         holder.tvRate.setText(String.valueOf(movie.getVoteAverage()));
         holder.ratingBar.setRating((float) voteAverage);
-
-
         holder.itemClick.setOnClickListener(v -> {
             id = movie.getId();
             Intent intent = new Intent(context, Detail2Activity.class);

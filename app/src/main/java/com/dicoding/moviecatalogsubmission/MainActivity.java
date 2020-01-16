@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     final Fragment fragment3 = new FavoriteFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
+    LocaleHelperUtils localeHelperUtils;
+    private String mLanguageCode;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         SharedPrefManager sharedPrefManager = new SharedPrefManager(MainActivity.this.getApplicationContext());
 
-        String mLanguageCode = sharedPrefManager.getSP_Locale();
-        LocaleHelperUtils localeHelperUtils = new LocaleHelperUtils(this);
-        localeHelperUtils.setAppLocale(mLanguageCode);
+        mLanguageCode = sharedPrefManager.getSP_Locale();
+        LocaleHelperUtils.setAppLocale(this, mLanguageCode);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(LocaleHelperUtils.setAppLocale(newBase, mLanguageCode));
     }
+
+
 }

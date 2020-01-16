@@ -106,8 +106,7 @@ public class Detail2Activity extends AppCompatActivity {
         check();
 
         ivBackHome.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            onBackPressed();
         });
 
         //insert ke database
@@ -164,6 +163,10 @@ public class Detail2Activity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     public void check() {
         favMovieViewModel.selectById(idDetail).observe(this, moviesItem -> {
