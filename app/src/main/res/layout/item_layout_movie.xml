@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemClick"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:focusable="true">
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -20,9 +20,9 @@
             android:id="@+id/iv_moviePoster"
             android:layout_width="110dp"
             android:layout_height="165dp"
+            android:contentDescription="@string/movie_tittle"
             android:scaleType="fitXY"
-            android:src="@drawable/poster_venom"
-            android:contentDescription="@string/movie_tittle" />
+            android:src="@drawable/poster_venom" />
 
     </androidx.cardview.widget.CardView>
 
@@ -46,11 +46,11 @@
             android:id="@+id/tv_movieDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/date"
-            android:textSize="16sp"
+            android:layout_marginTop="10dp"
             android:maxLength="4"
+            android:text="@string/date"
             android:textColor="#8B8B8B"
-            android:layout_marginTop="10dp"/>
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,10 +63,10 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:isIndicator="true"
                 android:numStars="5"
                 android:rating="4.7"
                 android:stepSize="0.1"
-                android:isIndicator="true"
                 android:theme="@style/RatingBar" />
 
             <TextView
@@ -77,8 +77,6 @@
                 android:text="@string/movie_rate"
                 android:textColor="@color/ratingBar"
                 android:textSize="16sp" />
-
-
         </LinearLayout>
 
         <TextView

@@ -2,11 +2,9 @@
     <string name="app_name">MovieCatalogSubmission</string>
     <string name="movie_tittle">How to Train Your Dragon: The Hidden World</string>
     <string name="movie_rate">4.7</string>
-    <string name="movie_ratediv">/ 10</string>
     <string name="movie_desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="menu_setting">Settings</string>
-    <string name="menu_detail">Detail</string>
     <string name="date">2019</string>
     <string name="language_eg">English</string>
     <string name="language_es">Spain</string>
@@ -14,10 +12,13 @@
     <string name="tab_movie">Movies</string>
     <string name="tab_tvshows">Tv Show</string>
     <string name="tab_favorite">Favorite</string>
+    <string name="menu_search">Search</string>
     <string name="toolbar_tittle">Movie Catalogs</string>
-    <string name="SettingToolbar">Setting</string>
     <string name="Setting_lang">Language</string>
     <string name="favsnackadd">Add to favorite</string>
     <string name="favsnackdelete">Delete from favorite</string>
+    <string name="todo">todo</string>
+    <string name="overview">Overview</string>
+    <string name="exitapp">Please click back again to exit</string>
 
 </resources>

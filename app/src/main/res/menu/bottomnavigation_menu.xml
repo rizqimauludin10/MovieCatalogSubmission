@@ -5,21 +5,24 @@
         android:id="@+id/home_menu"
         android:title="@string/tab_movie"
         android:icon="@drawable/ic_film"
-        android:enabled="true"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/tv_menu"
         android:title="@string/tab_tvshows"
         android:icon="@drawable/ic_tv"
-        android:enabled="true"
         app:showAsAction="ifRoom"/>
+<!--
+    <item
+        android:id="@+id/search_menu"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom"/>-->
 
     <item
         android:id="@+id/favorite_menu"
         android:title="@string/tab_favorite"
         android:icon="@drawable/ic_favorite"
-        android:enabled="true"
         app:showAsAction="ifRoom"/>
 
 </menu>

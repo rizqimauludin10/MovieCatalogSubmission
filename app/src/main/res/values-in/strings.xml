@@ -3,11 +3,9 @@
     <string name="app_name">MovieCatalogSubmission</string>
     <string name="movie_tittle">How to Train Your Dragon: The Hidden World</string>
     <string name="movie_rate">4.7</string>
-    <string name="movie_ratediv">/ 10</string>
     <string name="movie_desc">Lorem</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="menu_setting">Pengaturan</string>
-    <string name="menu_detail">Detail</string>
     <string name="date">2019</string>
     <string name="language_eg">English</string>
     <string name="language_es">Spain</string>
@@ -15,11 +13,14 @@
     <string name="tab_movie">Film</string>
     <string name="tab_tvshows">Acara Tv</string>
     <string name="tab_favorite">Favorit</string>
+    <string name="menu_search">Pencarian</string>
     <string name="toolbar_tittle">Katalog Film</string>
-    <string name="SettingToolbar">Pengaturan</string>
     <string name="Setting_lang">Bahasa</string>
     <string name="favsnackadd">Tambahkan ke favorit</string>
     <string name="favsnackdelete">Hapus dari favorit</string>
+    <string name="todo">todo</string>
+    <string name="overview">Sinopsis</string>
+    <string name="exitapp">Tekan sekali lagi untuk keluar</string>
 
 
 </resources>

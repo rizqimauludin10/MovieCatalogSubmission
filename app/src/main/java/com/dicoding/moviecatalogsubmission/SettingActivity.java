@@ -87,14 +87,15 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        overridePendingTransition(R.anim.backanimin,
-                R.anim.backanim);
-        //super.onBackPressed();
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
     }
 
     public void intentRefresh() {
-        Intent i = new Intent(SettingActivity.this, SettingActivity.class);
+        Intent i = new Intent(this, SettingActivity.class);
         overridePendingTransition(0, 0);
         startActivity(i);
         overridePendingTransition(0, 0);

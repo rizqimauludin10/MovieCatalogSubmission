@@ -1,15 +1,24 @@
 package com.dicoding.moviecatalogsubmission.fragment;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -17,13 +26,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.R;
+import com.dicoding.moviecatalogsubmission.SettingActivity;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
-import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
+import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MovieListFragment extends Fragment {
     private RecyclerView rvMovie;
@@ -31,13 +44,9 @@ public class MovieListFragment extends Fragment {
     private RecyclerView.Adapter moviesAdapter;
     private List<MoviesItem> movieArrayList = new ArrayList<>();
     private ShimmerFrameLayout mShimmerViewContainer;
-    //private int resId;
-
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+    private Toolbar toolbar;
+    private androidx.appcompat.widget.SearchView searchView = null;
+    private androidx.appcompat.widget.SearchView.OnQueryTextListener queryTextListener;
 
     @Nullable
     @Override
@@ -48,9 +57,13 @@ public class MovieListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         rvMovie = view.findViewById(R.id.rvMovies);
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
-        //resId = R.anim.layout_animation_falldown;
+        toolbar = view.findViewById(R.id.toolbarr);
+
+
+        setToolbarTitle(getResources().getString(R.string.toolbar_tittle));
 
         context = getActivity();
 
@@ -58,6 +71,75 @@ public class MovieListFragment extends Fragment {
 
         setupRecycleView();
     }
+
+    private void setToolbarTitle(String title) {
+        toolbar.setTitle(title);
+        toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        //menu.clear();
+
+        inflater.inflate(R.menu.main, menu);
+        MenuItem mSearch = menu.findItem(R.id.searchView);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
+        });
+
+        if (mSearch != null){
+            searchView = (androidx.appcompat.widget.SearchView) mSearch.getActionView();
+        }
+        if (searchView != null){
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+                    return true;
+                }
+            };
+
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.e("Menu", "Toolbar");
+        int id = item.getItemId();
+
+        if (id == R.id.setting) {
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            startActivity(intent);
+            Objects.requireNonNull(getActivity()).finish();
+        }
+
+        searchView.setOnQueryTextListener(queryTextListener);
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setupRecycleView() {
         if (moviesAdapter == null) {

@@ -38,15 +38,15 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
     private BaseAPIService baseAPIService;
-    Integer idTvDetail;
-    ImageView ivPoster, ivBackdrop, ivBack;
-    TextView tvTittle, tvDate, tvGenre, tvRate, tvOverview;
-    ImageButton tvFav;
-    RatingBar tvRatingBar;
-    CoordinatorLayout coordinatorLayout;
-    String date;
+    private Integer idTvDetail;
+    public ImageView ivPoster, ivBackdrop, ivBack;
+    public TextView tvTittle, tvDate, tvGenre, tvRate, tvOverview;
+    private ImageButton tvFav;
+    public RatingBar tvRatingBar;
+    private CoordinatorLayout coordinatorLayout;
+    public String date;
     private boolean favorite = false;
-    FavMovieViewModel favMovieViewModel;
+    private FavMovieViewModel favMovieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

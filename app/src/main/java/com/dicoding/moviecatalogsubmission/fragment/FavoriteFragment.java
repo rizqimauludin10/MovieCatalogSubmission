@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -40,6 +39,7 @@ public class FavoriteFragment extends Fragment {
         adapter.AddFragment(new FavMovieFragment(), getResources().getString(R.string.tab_movie));
         adapter.AddFragment(new FavTvFragment(), getResources().getString(R.string.tab_tvshows));
 
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -49,7 +49,6 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //((MainActivity)getActivity()).setActionBarTitle("SSSSS");
     }
 
     private void setCustomFont() {

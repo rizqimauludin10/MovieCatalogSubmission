@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,16 +14,7 @@
         android:fitsSystemWindows="true"
         app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:layout_collapseMode="pin"
-            app:layout_scrollFlags="enterAlways">
 
-
-        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,7 +22,8 @@
         android:id="@+id/mainacv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
     </FrameLayout>
 
     <View
@@ -40,7 +31,7 @@
         android:layout_height="5dp"
         android:background="@drawable/shadow"
         app:layout_anchor="@+id/btmNav"
-        app:layout_anchorGravity="top"/>
+        app:layout_anchorGravity="top" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btmNav"
@@ -49,7 +40,11 @@
         android:layout_gravity="bottom"
         android:background="@color/white"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:menu="@menu/bottomnavigation_menu">
+        app:menu="@menu/bottomnavigation_menu"
+        android:fitsSystemWindows="true"
+        android:animateLayoutChanges="true"
+        android:splitMotionEvents="true">
+
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
