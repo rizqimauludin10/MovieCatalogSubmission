@@ -1,17 +1,13 @@
 package com.dicoding.moviecatalogsubmission;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -22,8 +18,6 @@ import com.dicoding.moviecatalogsubmission.utils.LocaleHelperUtils;
 import com.dicoding.moviecatalogsubmission.utils.SharedPrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment1 = new MovieListFragment();
@@ -31,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     final Fragment fragment3 = new FavoriteFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
-    private BottomNavigationView bottomNavigationView;
     private String mLanguageCode;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -45,46 +38,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mLanguageCode = sharedPrefManager.getSP_Locale();
         LocaleHelperUtils.setAppLocale(this, mLanguageCode);
 
-
-        /*Toolbar toolbar = findViewById(R.id.toolbarr);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.toolbar_tittle));
-        toolbar.setTitleTextColor((ContextCompat.getColor(this, R.color.black2)));*/
-
-
-
         fm.beginTransaction().add(R.id.mainacv, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.mainacv, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.mainacv, fragment1, "1").commit();
 
-        bottomNavigationView = findViewById(R.id.btmNav);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.btmNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        //bottomNavigationView.getMenu().clear();
 
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //bottomNavigationView.inflateMenu(R.menu.bottomnavigation_menu);
-        /*getMenuInflater().inflate(R.menu.main, menu);*/
-        return true;
-    }
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.setting) {
-            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-            startActivity(intent);
-            this.finish();
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-*/
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -99,10 +61,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fm.beginTransaction().hide(active).show(fragment2).commit();
                 active = fragment2;
                 return true;
-           /* case R.id.search_menu:
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
-                return true;*/
             case R.id.favorite_menu:
                 fm.beginTransaction().hide(active).show(fragment3).commit();
                 active = fragment3;

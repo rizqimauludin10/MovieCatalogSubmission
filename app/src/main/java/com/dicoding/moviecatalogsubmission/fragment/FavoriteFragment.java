@@ -2,13 +2,20 @@ package com.dicoding.moviecatalogsubmission.fragment;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -20,6 +27,13 @@ import java.util.Objects;
 
 public class FavoriteFragment extends Fragment {
     private TabLayout tabLayout;
+    private Toolbar toolbar;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Nullable
     @Override
@@ -27,14 +41,19 @@ public class FavoriteFragment extends Fragment {
         return inflater.inflate(R.layout.favorite_fragment, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        toolbar = view.findViewById(R.id.favToolbar);
 
         tabLayout = view.findViewById(R.id.tablayout_id);
         ViewPager viewPager = view.findViewById(R.id.viewpager_id);
         TabPagerAdapter adapter = new TabPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), 0);
 
+
+        setToolbarTitle(getResources().getString(R.string.tab_favorite));
 
         adapter.AddFragment(new FavMovieFragment(), getResources().getString(R.string.tab_movie));
         adapter.AddFragment(new FavTvFragment(), getResources().getString(R.string.tab_tvshows));
@@ -46,9 +65,22 @@ public class FavoriteFragment extends Fragment {
         setCustomFont();
     }
 
+    private void setToolbarTitle(String title) {
+        toolbar.setTitle(title);
+        toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+    }
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     private void setCustomFont() {

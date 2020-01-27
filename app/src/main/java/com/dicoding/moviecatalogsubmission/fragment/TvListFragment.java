@@ -56,6 +56,12 @@ public class TvListFragment extends Fragment implements SearchView.OnQueryTextLi
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -76,12 +82,11 @@ public class TvListFragment extends Fragment implements SearchView.OnQueryTextLi
         toolbar.setTitle(title);
         toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
     }
-
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        Log.e("SEARCH", "TESSS");
         inflater.inflate(R.menu.main, menu);
         MenuItem mSearch = menu.findItem(R.id.searchView);
         SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
@@ -119,14 +124,13 @@ public class TvListFragment extends Fragment implements SearchView.OnQueryTextLi
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.setting) {
             Intent intent = new Intent(getActivity(), SettingActivity.class);
             startActivity(intent);
             Objects.requireNonNull(getActivity()).finish();
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     private void setupRecycleView() {
@@ -160,7 +164,7 @@ public class TvListFragment extends Fragment implements SearchView.OnQueryTextLi
 
     }
 
-    private void getTvSearchRsult(String key, String query){
+    private void getTvSearchResult(String key, String query){
         viewModelMovie.getTvSearch(key, query).observe(this, tvShowResponse -> {
             if (tvShowResponse != null){
                 List<TVShowsItem> tvShowsItems = tvShowResponse.getResults();
@@ -181,7 +185,7 @@ public class TvListFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        getTvSearchRsult(api_key, newText);
+        getTvSearchResult(api_key, newText);
         return true;
     }
 }
