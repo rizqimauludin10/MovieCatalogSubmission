@@ -12,12 +12,6 @@
         android:title="@string/tab_tvshows"
         android:icon="@drawable/ic_tv"
         app:showAsAction="ifRoom"/>
-<!--
-    <item
-        android:id="@+id/search_menu"
-        android:title="@string/menu_search"
-        android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"/>-->
 
     <item
         android:id="@+id/favorite_menu"

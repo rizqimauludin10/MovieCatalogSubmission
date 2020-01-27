@@ -20,5 +20,6 @@
     <string name="todo">todo</string>
     <string name="overview">Visión general</string>
     <string name="exitapp">Haga clic de nuevo para salir</string>
+    <string name="search">Buscar...</string>
 
 </resources>

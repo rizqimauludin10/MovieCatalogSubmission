@@ -3,7 +3,9 @@ package com.dicoding.moviecatalogsubmission.fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,20 +13,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicoding.moviecatalogsubmission.BuildConfig;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.SettingActivity;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
@@ -38,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MovieListFragment extends Fragment {
+public class MovieListFragment extends Fragment implements SearchView.OnQueryTextListener {
     private RecyclerView rvMovie;
     private Context context;
     private RecyclerView.Adapter moviesAdapter;
@@ -46,7 +52,8 @@ public class MovieListFragment extends Fragment {
     private ShimmerFrameLayout mShimmerViewContainer;
     private Toolbar toolbar;
     private androidx.appcompat.widget.SearchView searchView = null;
-    private androidx.appcompat.widget.SearchView.OnQueryTextListener queryTextListener;
+    private String api_key = BuildConfig.TMDB_API_KEY;
+    private ViewModelMovie viewModelMovie;
 
     @Nullable
     @Override
@@ -61,14 +68,14 @@ public class MovieListFragment extends Fragment {
         rvMovie = view.findViewById(R.id.rvMovies);
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         toolbar = view.findViewById(R.id.toolbarr);
+        context = getActivity();
 
+        viewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
 
         setToolbarTitle(getResources().getString(R.string.toolbar_tittle));
 
-        context = getActivity();
 
         getResultMoviesViewModel();
-
         setupRecycleView();
     }
 
@@ -81,48 +88,40 @@ public class MovieListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        //menu.clear();
-
         inflater.inflate(R.menu.main, menu);
         MenuItem mSearch = menu.findItem(R.id.searchView);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                return true;
-            }
-        });
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
 
         if (mSearch != null){
             searchView = (androidx.appcompat.widget.SearchView) mSearch.getActionView();
         }
         if (searchView != null){
+            assert searchManager != null;
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-            queryTextListener = new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    Log.i("onQueryTextSubmit", query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    Log.i("onQueryTextChange", newText);
-                    return true;
-                }
-            };
-
-            searchView.setOnQueryTextListener(queryTextListener);
+            searchView.setQueryHint(getResources().getString(R.string.search));
+            searchView.setIconified(false);
+            searchView.setSubmitButtonEnabled(true);
+            searchView.setOnQueryTextListener(this);
         }
-        super.onCreateOptionsMenu(menu, inflater);
 
+
+        assert mSearch != null;
+        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                Log.i("MenuItemAction", "Expand");
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Log.i("MenuItemAction", "Collapse");
+                movieArrayList.clear();
+                getResultMoviesViewModel();
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -134,9 +133,11 @@ public class MovieListFragment extends Fragment {
             Intent intent = new Intent(getActivity(), SettingActivity.class);
             startActivity(intent);
             Objects.requireNonNull(getActivity()).finish();
-        }
+        } /*if(id == R.id.searchView){
+            *//*TransitionManager.beginDelayedTransition(Objects.requireNonNull(getActivity()).findViewById(R.id.toolbarr));
+            MenuItemCompat.expandActionView(item);*//*
+        }*/
 
-        searchView.setOnQueryTextListener(queryTextListener);
         return super.onOptionsItemSelected(item);
     }
 
@@ -147,19 +148,29 @@ public class MovieListFragment extends Fragment {
             moviesAdapter = new RecycleMovieAdapter(context, movieArrayList);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             rvMovie.setLayoutManager(layoutManager);
-
-            rvMovie.setAdapter(new RecycleMovieAdapter(context, movieArrayList));
             rvMovie.setItemAnimator(new DefaultItemAnimator());
-            rvMovie.setNestedScrollingEnabled(true);
+            rvMovie.setHasFixedSize(true);
+            rvMovie.setAdapter(moviesAdapter);
         } else {
             moviesAdapter.notifyDataSetChanged();
         }
     }
 
+    private void getResultSearch(String key, String query){
+        viewModelMovie.getSearch(key, query).observe(this, movieResponse -> {
+            if (movieResponse != null){
+                Log.e("Masuk Search", "Number of movie with  = " + movieResponse.getTotalResults());
+                List<MoviesItem> moviesItems = movieResponse.getResults();
+                movieArrayList.clear();
+                movieArrayList.addAll(moviesItems);
+                moviesAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     private void getResultMoviesViewModel() {
-        ViewModelMovie movieViewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
-        movieViewModelMovie.init();
-        movieViewModelMovie.getMoviesRepository().observe(this, movieResponse -> {
+        viewModelMovie.init();
+        viewModelMovie.getMoviesRepository().observe(this, movieResponse -> {
             if (movieResponse != null) {
                 Log.e("Masuk", "Number of movie with  = " + movieResponse.getTotalResults());
                 List<MoviesItem> moviesItemList = movieResponse.getResults();
@@ -172,5 +183,16 @@ public class MovieListFragment extends Fragment {
             }
 
         });
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        getResultSearch(api_key, newText);
+        return true;
     }
 }

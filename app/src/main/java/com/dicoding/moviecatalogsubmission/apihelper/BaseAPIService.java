@@ -34,5 +34,17 @@ public interface BaseAPIService {
             @Query("api_key") String api_key
     );
 
+    @GET("search/movie")
+    Call<MovieResponse> getmovieSearch(
+            @Query("api_key") String api_key,
+            @Query("query") String search
+    );
+
+    @GET("search/tv")
+    Call<TVShowResponse> gettvSearch(
+            @Query("api_key") String api_key,
+            @Query("query") String search
+    );
+
 
 }

@@ -93,4 +93,64 @@ public class MoviesRepository {
                 });
         return tvShowResponseMutableLiveData;
     }
+
+    public MutableLiveData<MovieResponse> getMovieSearchRepo(String key, String query) {
+        final MutableLiveData<MovieResponse> movieSearchLiveData = new MutableLiveData<>();
+        baseApiService.getmovieSearch(key, query)
+                .enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(@NotNull Call<MovieResponse> call, @NotNull Response<MovieResponse> response) {
+                        if (response.isSuccessful()) {
+                            movieSearchLiveData.setValue(response.body());
+                        } else {
+                            movieSearchLiveData.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieResponse> call, Throwable t) {
+                        if (t instanceof IOException) {
+                            String b = t.getMessage();
+                            assert b != null;
+                            Log.e("Error Message => ", b);
+                        } else {
+                            String a = t.getMessage();
+                            assert a != null;
+                            Log.e("Error Message => ", a);
+                        }
+                    }
+                });
+
+        return movieSearchLiveData;
+    }
+
+    public MutableLiveData<TVShowResponse> getTvSearchRepo(String key, String query) {
+        final MutableLiveData<TVShowResponse> tvSearchLiveData = new MutableLiveData<>();
+        baseApiService.gettvSearch(key, query)
+                .enqueue(new Callback<TVShowResponse>() {
+                    @Override
+                    public void onResponse(@NotNull Call<TVShowResponse> call, @NotNull Response<TVShowResponse> response) {
+                        if (response.isSuccessful()){
+                            tvSearchLiveData.setValue(response.body());
+                        } else {
+                            tvSearchLiveData.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<TVShowResponse> call, @NotNull Throwable t) {
+                        if (t instanceof IOException) {
+                            String b = t.getMessage();
+                            assert b != null;
+                            Log.e("Error Message => ", b);
+                        } else {
+                            String a = t.getMessage();
+                            assert a != null;
+                            Log.e("Error Message => ", a);
+                        }
+                    }
+                });
+
+        return tvSearchLiveData;
+    }
 }

@@ -21,6 +21,7 @@
     <string name="todo">todo</string>
     <string name="overview">Sinopsis</string>
     <string name="exitapp">Tekan sekali lagi untuk keluar</string>
+    <string name="search">Pencarian...</string>
 
 
 </resources>
