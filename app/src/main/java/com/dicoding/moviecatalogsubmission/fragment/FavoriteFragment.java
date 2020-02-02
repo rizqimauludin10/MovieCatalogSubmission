@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.dicoding.moviecatalogsubmission.MainActivity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.adapter.TabPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -31,8 +32,8 @@ public class FavoriteFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -53,7 +54,8 @@ public class FavoriteFragment extends Fragment {
         TabPagerAdapter adapter = new TabPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), 0);
 
 
-        setToolbarTitle(getResources().getString(R.string.tab_favorite));
+        //setToolbarTitle(getResources().getString(R.string.tab_favorite));
+
 
         adapter.AddFragment(new FavMovieFragment(), getResources().getString(R.string.tab_movie));
         adapter.AddFragment(new FavTvFragment(), getResources().getString(R.string.tab_tvshows));
@@ -68,8 +70,8 @@ public class FavoriteFragment extends Fragment {
     private void setToolbarTitle(String title) {
         toolbar.setTitle(title);
         toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
+        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
     }
 
     @Override

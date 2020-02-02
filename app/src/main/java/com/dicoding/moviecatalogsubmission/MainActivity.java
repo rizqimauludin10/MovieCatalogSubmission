@@ -3,6 +3,7 @@ package com.dicoding.moviecatalogsubmission;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView bottomNavigationView = findViewById(R.id.btmNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-
     }
 
     @Override
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+
 
     @Override
     public void onBackPressed() {

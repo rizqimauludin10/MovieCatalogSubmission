@@ -3,9 +3,7 @@ package com.dicoding.moviecatalogsubmission.fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,32 +11,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.BuildConfig;
+import com.dicoding.moviecatalogsubmission.MainActivity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.SettingActivity;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleMovieAdapter;
 import com.dicoding.moviecatalogsubmission.model.Entity.MoviesItem;
 import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +43,7 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
     private RecyclerView.Adapter moviesAdapter;
     private List<MoviesItem> movieArrayList = new ArrayList<>();
     private ShimmerFrameLayout mShimmerViewContainer;
-    private Toolbar toolbar;
+    private Toolbar toolbarMv;
     private androidx.appcompat.widget.SearchView searchView = null;
     private String api_key = BuildConfig.TMDB_API_KEY;
     private ViewModelMovie viewModelMovie;
@@ -63,6 +56,7 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
 
@@ -70,42 +64,46 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        toolbarMv = view.findViewById(R.id.toolbarr);
         rvMovie = view.findViewById(R.id.rvMovies);
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
-        toolbar = view.findViewById(R.id.toolbarr);
         context = getActivity();
 
         viewModelMovie = ViewModelProviders.of(this).get(ViewModelMovie.class);
 
         setToolbarTitle(getResources().getString(R.string.toolbar_tittle));
 
-
         getResultMoviesViewModel();
         setupRecycleView();
     }
 
     private void setToolbarTitle(String title) {
-        toolbar.setTitle(title);
-        toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
+        toolbarMv.setTitle(title);
+        toolbarMv.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
+        ((MainActivity) getActivity()).setSupportActionBar(toolbarMv);
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        Log.e("SEARCH Movies", "TEST");
         inflater.inflate(R.menu.main, menu);
         MenuItem mSearch = menu.findItem(R.id.searchView);
         SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
 
-        if (mSearch != null){
+        if (mSearch != null) {
             searchView = (androidx.appcompat.widget.SearchView) mSearch.getActionView();
         }
-        if (searchView != null){
+        if (searchView != null) {
             assert searchManager != null;
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search));
-            searchView.setIconified(false);
-            searchView.setSubmitButtonEnabled(true);
+            searchView.setIconified(true);
+            searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    movieArrayList.clear();
+                    getResultMoviesViewModel();
+                }
+            });
             searchView.setOnQueryTextListener(this);
         }
 
@@ -138,10 +136,7 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
             Intent intent = new Intent(getActivity(), SettingActivity.class);
             startActivity(intent);
             Objects.requireNonNull(getActivity()).finish();
-        } /*if(id == R.id.searchView){
-            *//*TransitionManager.beginDelayedTransition(Objects.requireNonNull(getActivity()).findViewById(R.id.toolbarr));
-            MenuItemCompat.expandActionView(item);*//*
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -161,9 +156,9 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
         }
     }
 
-    private void getResultSearch(String key, String query){
+    private void getResultSearch(String key, String query) {
         viewModelMovie.getSearch(key, query).observe(this, movieResponse -> {
-            if (movieResponse != null){
+            if (movieResponse != null) {
                 Log.e("Masuk Search", "Number of movie with  = " + movieResponse.getTotalResults());
                 List<MoviesItem> moviesItems = movieResponse.getResults();
                 movieArrayList.clear();
@@ -192,7 +187,8 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return true;
+        getResultSearch(api_key, query);
+        return false;
     }
 
     @Override

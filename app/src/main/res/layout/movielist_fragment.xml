@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        android:layout_marginTop="24dp"
-        app:layout_collapseMode="pin"
-        app:layout_scrollFlags="enterAlways"/>
+        android:layout_marginTop="24dp"/>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
