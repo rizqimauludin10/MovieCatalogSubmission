@@ -87,7 +87,7 @@ public class MovieListFragment extends Fragment implements SearchView.OnQueryTex
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         Log.e("SEARCH Movies", "TEST");
         inflater.inflate(R.menu.main, menu);
-        MenuItem mSearch = menu.findItem(R.id.searchView);
+        MenuItem mSearch = menu.findItem(R.id.searchView).setVisible(true);
         SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
 
         if (mSearch != null) {

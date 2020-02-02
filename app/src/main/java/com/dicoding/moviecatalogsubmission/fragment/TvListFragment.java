@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,27 +14,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.moviecatalogsubmission.BuildConfig;
-import com.dicoding.moviecatalogsubmission.MainActivity;
 import com.dicoding.moviecatalogsubmission.R;
 import com.dicoding.moviecatalogsubmission.SettingActivity;
 import com.dicoding.moviecatalogsubmission.adapter.RecycleViewTvAdapter;
-import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.dicoding.moviecatalogsubmission.model.Entity.TVShowsItem;
+import com.dicoding.moviecatalogsubmission.model.ViewModelMovie;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +42,10 @@ public class TvListFragment extends Fragment {
     private RecyclerView.Adapter tvAdapter;
     private List<TVShowsItem> tvShowArrayList = new ArrayList<>();
     private Toolbar toolbar;
-    private androidx.appcompat.widget.SearchView searchView = null;
     private ShimmerFrameLayout mShimmerViewContainer;
     private String api_key = BuildConfig.TMDB_API_KEY;
     private ViewModelMovie viewModelMovie;
+
 
     @Nullable
     @Override
@@ -87,17 +80,17 @@ public class TvListFragment extends Fragment {
     private void setToolbarTitle(String title) {
         toolbar.setTitle(title);
         toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         searchMenuHandle();
     }
 
-    private void searchMenuHandle(){
+    private void searchMenuHandle() {
         toolbar.inflateMenu(R.menu.main);
+        toolbar.getMenu().findItem(R.id.searchView).setVisible(true);
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.searchView) {
-
                 SearchView searchView = (androidx.appcompat.widget.SearchView) item.getActionView();
-                //searchView.onActionViewCollapsed();
+                SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
+                searchView.setSearchableInfo(Objects.requireNonNull(searchManager).getSearchableInfo(getActivity().getComponentName()));
                 searchView.setQueryHint(getResources().getString(R.string.search));
                 searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
                 searchView.setIconified(true);
@@ -130,12 +123,12 @@ public class TvListFragment extends Fragment {
                     }
                 });
                 searchView.setOnQueryTextFocusChangeListener(((v, hasFocus) -> {
-                    if (!hasFocus){
+                    if (!hasFocus) {
                         tvShowArrayList.clear();
                         getResultTVShowViewModel();
                     }
                 }));
-            } else if(item.getItemId() == R.id.setting) {
+            } else if (item.getItemId() == R.id.setting) {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
                 Objects.requireNonNull(getActivity()).finish();
@@ -144,84 +137,6 @@ public class TvListFragment extends Fragment {
             return false;
         });
     }
-
- /*   @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        Log.e("SEARCH TV", "TEST");
-        //inflater.inflate(R.menu.main, menu);
-
-        *//*if (toolbar.getMenu().size() > 0){
-            SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
-            MenuItem menuItem = toolbar.getMenu().getItem(toolbar.getMenu().size()-1);
-            searchView = (SearchView) menuItem.getActionView();
-
-
-            if (searchView != null){
-                assert searchManager != null;
-                searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-                searchView.setQueryHint(getResources().getString(R.string.search));
-                searchView.setOnQueryTextListener(this);
-
-            }
-
-            MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
-                @Override
-                public boolean onMenuItemActionExpand(MenuItem item) {
-                    return false;
-                }
-
-                @Override
-                public boolean onMenuItemActionCollapse(MenuItem item) {
-                    tvShowArrayList.clear();
-                    getResultTVShowViewModel();
-                    return true;
-                }
-            });
-
-        }
-        MenuItem mSearch = menu.findItem(R.id.searchView);
-        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
-
-        if (mSearch != null){
-            searchView = (androidx.appcompat.widget.SearchView) mSearch.getActionView();
-        }
-        if (searchView != null){
-            assert searchManager != null;
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-            searchView.setQueryHint(getResources().getString(R.string.search));
-            searchView.setIconified(false);
-            searchView.setOnQueryTextListener(this);
-        }
-
-        assert mSearch != null;
-        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                tvShowArrayList.clear();
-                getResultTVShowViewModel();
-                return true;
-            }
-        });*//*
-
-        //super.onCreateOptionsMenu(menu, inflater);
-    }*/
-
-/*    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.setting) {
-            Intent intent = new Intent(getActivity(), SettingActivity.class);
-            startActivity(intent);
-            Objects.requireNonNull(getActivity()).finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
     private void setupRecycleView() {
         if (tvAdapter == null) {
@@ -254,31 +169,15 @@ public class TvListFragment extends Fragment {
 
     }
 
-    private void getTvSearchResult(String key, String query){
+    private void getTvSearchResult(String key, String query) {
         viewModelMovie.getTvSearch(key, query).observe(this, tvShowResponse -> {
-            if (tvShowResponse != null){
+            if (tvShowResponse != null) {
                 List<TVShowsItem> tvShowsItems = tvShowResponse.getResults();
                 tvShowArrayList.clear();
                 tvShowArrayList.addAll(tvShowsItems);
                 tvAdapter.notifyDataSetChanged();
             }
         });
-
     }
 
-
-
-/*    @Override
-    public boolean onQueryTextSubmit(String query) {
-        Log.i("onQueryTextSubmitTv", query);
-        getTvSearchResult(api_key, query);
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        Log.i("onQueryTextChangeTv", newText);
-        getTvSearchResult(api_key, newText);
-        return true;
-    }*/
 }

@@ -1,26 +1,22 @@
 package com.dicoding.moviecatalogsubmission.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.dicoding.moviecatalogsubmission.MainActivity;
 import com.dicoding.moviecatalogsubmission.R;
+import com.dicoding.moviecatalogsubmission.SettingActivity;
 import com.dicoding.moviecatalogsubmission.adapter.TabPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -54,7 +50,7 @@ public class FavoriteFragment extends Fragment {
         TabPagerAdapter adapter = new TabPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), 0);
 
 
-        //setToolbarTitle(getResources().getString(R.string.tab_favorite));
+        setToolbarTitle(getResources().getString(R.string.tab_favorite));
 
 
         adapter.AddFragment(new FavMovieFragment(), getResources().getString(R.string.tab_movie));
@@ -70,20 +66,22 @@ public class FavoriteFragment extends Fragment {
     private void setToolbarTitle(String title) {
         toolbar.setTitle(title);
         toolbar.setTitleTextColor((ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black2)));
-        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
+        customMenu();
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    private void customMenu() {
+        toolbar.inflateMenu(R.menu.main);
+
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.setting) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+                Objects.requireNonNull(getActivity()).finish();
+            }
+            return false;
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
 
     private void setCustomFont() {
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
